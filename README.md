@@ -1,3 +1,0 @@
-# FoodGram
-recipe poster
-test
