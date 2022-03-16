@@ -6,6 +6,20 @@ function Login()
     var loginPassword;
     const [message,setMessage] = useState('');
 
+    const app_name = 'cop4331-4'
+
+    function buildPath(route)
+    {
+     if (process.env.NODE_ENV === 'production') 
+        {
+           return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+     else
+     {        
+        return 'http://localhost:5000/' + route;
+     }
+    }
+
     const doLogin = async event => 
     {
         event.preventDefault();
@@ -13,7 +27,7 @@ function Login()
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch('http://localhost:5000/api/login',
+            const response = await fetch(buildPath('api/login'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = JSON.parse(await response.text());
             if( res.id <= 0 )
