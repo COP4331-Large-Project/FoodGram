@@ -29,10 +29,6 @@ if (process.env.NODE_ENV === 'production')
   });
 }
 
-app.get('/', function (req, res) {
-  res.render('index', {});
-});
-
 app.post('/api/addcard', async (req, res, next) =>
 {
   // incoming: userId, color
