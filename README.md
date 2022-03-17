@@ -42,6 +42,7 @@ sudo npm install express --save
 sudo npm install body-parser
 sudo npm install mongodb
 sudo npm install cors
+sudo npm install react-scripts
 ```
 move into frontend directory and make sure the install is working
 ```
@@ -94,6 +95,7 @@ sudo npm install express --save
 sudo npm install body-parser
 sudo npm install mongodb
 sudo npm install cors
+sudo npm install react-scripts
 ```
 move into frontend directory and make sure the install is working
 ```
