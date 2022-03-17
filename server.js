@@ -19,6 +19,10 @@ const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(url);
 client.connect();
 
+app.get('/', function (req, res) {
+  res.render('index', {});
+});
+
 app.post('/api/addcard', async (req, res, next) =>
 {
   // incoming: userId, color
