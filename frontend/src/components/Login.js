@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
 
 function Login()
 {
@@ -60,7 +59,6 @@ function Login()
         <input type="submit" id="loginButton" class="buttons" value = "Do It"
           onClick={doLogin} />
         </form>
-        <Link to="/register" className="btn btn-primary">Sign up</Link>
         <span id="loginResult">{message}</span>
      </div>
     );
