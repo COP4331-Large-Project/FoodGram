@@ -50,27 +50,6 @@ app.post('/api/addcard', async (req, res, next) =>
   res.status(200).json(ret);
 });
 
-app.post('/api/addcard', async (req, res, next) =>
-{
-  // incoming: userId, color
-  // outgoing: error
-  const { userId, card } = req.body;
-  const newCard = {Card:card,UserId:userId};
-  var error = '';
-  try
-  {
-    const db = client.db('foodgram');
-    const result = db.collection('cards').insertOne(newCard);
-  }
-  catch(e)
-  {
-    error = e.toString();
-  }
-  cardList.push( card );
-  var ret = { error: error };
-  res.status(200).json(ret);
-});
-
 app.post('/api/register/', async (req, res, next) =>
 {
   // incoming: firstName, lastName, login, password
