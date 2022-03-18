@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 function Login()
 {
@@ -48,6 +49,7 @@ function Login()
             return;
         }    
     };
+
     return(
       <div id="loginDiv">
         <form onSubmit={doLogin}>
@@ -59,6 +61,9 @@ function Login()
         <input type="submit" id="loginButton" class="buttons" value = "Do It"
           onClick={doLogin} />
         </form>
+        <input type="button" id="register" class="buttons" value = "Sign up!"
+          onClick={event =>  window.location.href='/register'} />
+
         <span id="loginResult">{message}</span>
      </div>
     );
