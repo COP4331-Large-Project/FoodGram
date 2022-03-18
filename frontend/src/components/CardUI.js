@@ -8,6 +8,17 @@ function CardUI()
     const [searchResults,setResults] = useState('');
     const [cardList,setCardList] = useState('');
 
+    const app_name = 'foodgram-demo'
+    function buildPath(route) {
+        if (process.env.NODE_ENV === 'production') {
+            return 'https://' + app_name + '.herokuapp.com/' + route;
+        }
+        else {
+            return 'http://localhost:5000/' + route;
+        }
+    }
+
+
     var _ud = localStorage.getItem('user_data');
     var ud = JSON.parse(_ud);
     var userId = ud.id;

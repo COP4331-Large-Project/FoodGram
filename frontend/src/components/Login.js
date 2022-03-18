@@ -6,7 +6,7 @@ function Login()
     var loginPassword;
     const [message,setMessage] = useState('');
 
-    const app_name = 'cop4331-4'
+    const app_name = 'foodgram-demo'
 
     function buildPath(route)
     {
