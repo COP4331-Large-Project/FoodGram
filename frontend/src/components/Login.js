@@ -58,8 +58,8 @@ function Login()
             ref={(c) => loginPassword = c} />
         <input type="submit" id="loginButton" class="buttons" value = "Do It"
           onClick={doLogin} />
-        <Link to="/register" className="btn btn-primary">Sign up</Link>
         </form>
+        <Link to="/register" className="btn btn-primary">Sign up</Link>
         <span id="loginResult">{message}</span>
      </div>
     );
