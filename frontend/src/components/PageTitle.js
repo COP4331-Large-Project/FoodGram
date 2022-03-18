@@ -2,7 +2,7 @@ import React from 'react';
 function PageTitle()
 {
    return(
-     <h1 id="title">Fooddgram</h1>
+     <h1 id="title">FoodGram</h1>
    );
 };
 
