@@ -4,8 +4,8 @@ require('mongodb');
 exports.setApp = function (app, client) {
 
     app.post('/api/register/', async (req, res, next) => {
-        const { FirstName, LastName, Login, Password } = req.body;
-        const newUser = { FirstName: FirstName, LastName: LastName, Login: Login, Password: Password };
+        const { FirstName, LastName, Login, Password , Email} = req.body;
+        const newUser = { FirstName: FirstName, LastName: LastName, Login: Login, Password: Password, Email: Email};
         var error = '';
         try {
             const db = client.db('foodgram');
