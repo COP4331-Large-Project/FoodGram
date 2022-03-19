@@ -85,15 +85,15 @@ const Form = styled.form`
   }
 `;
 const ButtonInput = styled.input`
-  border: 1px solid #7620ff;
-  background-color: #7620ff;
+  border: 1px solid #ff203a;
+  background-color: #ff203a;
   width: 100%;
   padding: 15px;
   outline: none;
   color: #fff;
   :hover {
-    background-color: #580cd2;
-    border: 1px solid #7620ff;
+    background-color: #d20c0c;
+    border: 1px solid #ff203a;
     color: #fff;
   }
   @media (max-width: 991px) {

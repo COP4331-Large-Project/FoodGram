@@ -22,7 +22,7 @@ export default function Contact() {
               </h1>
             </Link>
             <StyleP className="whiteColor font13">
-              © {getCurrentYear()} - <span className="purpleColor font13">FoodGram</span> All Rights Reserved
+              © {getCurrentYear()} - <span className="redColor font13">FoodGram</span> All Rights Reserved
             </StyleP>
 
             <Link className="whiteColor animate pointer font13" to="home" smooth={true} offset={-80}>

@@ -25,17 +25,17 @@ export default function Header() {
       <RightSide>
         <ImageWrapper>
           <Img className="radius8" src={HeaderImage} alt="office" style={{zIndex: 9}} />
-          <QuoteWrapper className="flexCenter darkBg radius8">
+          {/* <QuoteWrapper className="flexCenter redBg radius8">
             <QuotesWrapper>
               <QuotesIcon />
             </QuotesWrapper>
             <div>
-              <p className="font15 whiteColor">
-                <em>Friends, such as we desire, are dreams and fables. Friendship demands the ability to do without it.</em>
+              <p className="font16 whiteColor">
+                <em>A recipe has no soul. You, as the cook, must bring soul to the recipe.</em>
               </p>
-              <p className="font13 orangeColor textRight" style={{marginTop: '10px'}}>Ralph Waldo Emerson</p>
+              <p className="font14 darkColor textRight" style={{marginTop: '12px'}}>Thomas Keller</p>
             </div>
-          </QuoteWrapper>
+          </QuoteWrapper> */}
           <DotsWrapper>
             <Dots />
           </DotsWrapper>
