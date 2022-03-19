@@ -54,17 +54,17 @@ function Register()
     return(
       <div id="registerDiv">
         <form onSubmit={doRegister}>
-        <span id="inner-title">Register</span><br />
+        <span id="inner-title">Register</span><br /><br />
         <input type="text" id="registerfName" placeholder="First Name" 
-            ref={(c) => registerfName = c} />
+            ref={(c) => registerfName = c} /><br/>
         <input type="text" id="registerlName" placeholder="Last Name" 
-            ref={(c) => registerlName = c} />
+            ref={(c) => registerlName = c} /><br/>
         <input type="text" id="registerEmail" placeholder="Email" 
-            ref={(c) => registerEmail = c} />
+            ref={(c) => registerEmail = c} /><br/>
         <input type="text" id="registerLogin" placeholder="Username" 
-            ref={(c) => registerLogin = c} />
+            ref={(c) => registerLogin = c} /><br/>
         <input type="password" id="registerPassword" placeholder="Password" 
-            ref={(c) => registerPassword = c} />
+            ref={(c) => registerPassword = c} /><br/>
         <input type="submit" id="registerButton" class="buttons" value = "Register"
           onClick={doRegister} />
         </form>

@@ -55,9 +55,9 @@ function Login()
         <form onSubmit={doLogin}>
         <span id="inner-title">Please Log In</span><br />
         <input type="text" id="loginName" placeholder="Username" 
-            ref={(c) => loginName = c} />
+            ref={(c) => loginName = c} /><br />
         <input type="password" id="loginPassword" placeholder="Password" 
-            ref={(c) => loginPassword = c} />
+            ref={(c) => loginPassword = c} /><br />
         <input type="submit" id="loginButton" class="buttons" value = "Do It"
           onClick={doLogin} />
         </form>
