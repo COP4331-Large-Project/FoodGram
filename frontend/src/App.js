@@ -4,11 +4,15 @@ import './App.css';
 import LoginPage from './pages/LoginPage';
 import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
+import LandingPage from './pages/LandingPage';
 function App() {
   return (
     <Router >
       <Switch>
         <Route path="/" exact>
+          <LandingPage />
+        </Route>
+        <Route path="/login" exact>
           <LoginPage />
         </Route>
         <Route path="/cards" exact>
@@ -18,7 +22,7 @@ function App() {
           <RegisterPage />
         </Route>
         <Redirect to="/" />
-      </Switch>  
+      </Switch>
     </Router>
   );
 }
