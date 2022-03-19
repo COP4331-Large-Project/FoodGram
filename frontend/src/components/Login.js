@@ -53,7 +53,7 @@ function Login()
     return(
       <div id="loginDiv">
         <form onSubmit={doLogin}>
-        <span id="inner-title">PLEASE LOG IN</span><br />
+        <span id="inner-title">Hey!</span><br />
         <input type="text" id="loginName" placeholder="Username" 
             ref={(c) => loginName = c} />
         <input type="password" id="loginPassword" placeholder="Password" 
