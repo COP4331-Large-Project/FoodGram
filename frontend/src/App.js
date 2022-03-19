@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage';
-import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage.jsx';
+import HomePage from './pages/HomePage';
 function App() {
   return (
     <Router >
@@ -21,8 +21,8 @@ function App() {
         <Route path="/login" exact>
           <LoginPage />
         </Route>
-        <Route path="/cards" exact>
-          <CardPage />
+        <Route path="/home" exact>
+          <HomePage />
         </Route>
         <Route path="/register" exact>
           <RegisterPage />
