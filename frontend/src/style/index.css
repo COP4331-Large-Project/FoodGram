@@ -356,3 +356,7 @@ body {
 .redBg {
   background-color: #ff203a;
 }
+.pictureSize {
+  width: 750px;
+  height: 750px;
+}
