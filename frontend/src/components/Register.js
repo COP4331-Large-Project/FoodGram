@@ -26,8 +26,17 @@ function Register()
     const doRegister = async event => 
     {
         event.preventDefault();
-        var obj = {FirstName:registerfName.value ,LastName:registerlName.value ,Login:registerLogin.value ,Password:registerPassword.value,Email:registerEmail};
+       
+        var obj = 
+        {FirstName:registerfName.value,
+        LastName:registerlName.value,
+        Login:registerLogin.value,
+        Password:registerPassword.value, 
+        Email:registerEmail.value
+        };
+
         var js = JSON.stringify(obj);
+
         try
         {    
             const response = await fetch(buildPath('api/register'),
@@ -42,7 +51,7 @@ function Register()
                 var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
-                window.location.href = '/foodgram';
+                window.location.href = '/';
             }
         }
         catch(e)
