@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage.jsx';
 import HomePage from './pages/HomePage';
+import Testing from './pages/Testing';
 function App() {
   return (
     <Router >
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/register" exact>
           <RegisterPage />
+        </Route>
+        <Route path="/testing" exact>
+          <Testing />
         </Route>
         <Redirect to="/" />
       </Switch>

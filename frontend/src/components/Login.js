@@ -56,7 +56,7 @@ function Login()
     return(
       <div id="loginDiv">
         <ImageWrapper>
-            <Img className="radius8 loginPictureSize" src={LoginImage} alt="office" style={{zIndex: 9}} />
+            <Img className="radius8" src={LoginImage} alt="chef" style={{zIndex: 9}} />
         </ImageWrapper>
         <div class="LoginText">
           <h1 id="title" class="LoginTitle">FoodGram</h1>
