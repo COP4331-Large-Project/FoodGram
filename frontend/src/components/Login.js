@@ -11,20 +11,7 @@ function Login()
     const [message,setMessage] = useState('');
     let url = "https://foodgram-demo.herokuapp.com/register";
     let element = <a style={{color:'#ff203a'}} href={url}>Sign up!</a>;
-
-    const app_name = 'foodgram-demo'
-
-    function buildPath(route)
-    {
-     if (process.env.NODE_ENV === 'production') 
-        {
-           return 'https://' + app_name +  '.herokuapp.com/' + route;
-        }
-     else
-     {        
-        return 'http://localhost:5000/' + route;
-     }
-    }
+    var bp = require('./Path.js');
 
     const doLogin = async event => 
     {
@@ -33,8 +20,8 @@ function Login()
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch(buildPath('api/login'),
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          const response = await fetch(bp.buildPath('api/login'),
+          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = JSON.parse(await response.text());
             if( res.id <= 0 )
             {

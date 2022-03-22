@@ -8,20 +8,8 @@ function Register()
     var registerPassword;
     var registerEmail;
     const [message,setMessage] = useState('');
+    var bp = require('./Path.js');
 
-    const app_name = 'foodgram-demo'
-
-    function buildPath(route)
-    {
-     if (process.env.NODE_ENV === 'production') 
-        {
-           return 'https://' + app_name +  '.herokuapp.com/' + route;
-        }
-     else
-     {        
-        return 'http://localhost:5000/' + route;
-     }
-    }
 
     const doRegister = async event => 
     {
@@ -39,7 +27,7 @@ function Register()
 
         try
         {    
-            const response = await fetch(buildPath('api/register'),
+            const response = await fetch(bp.buildPath('api/register'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = JSON.parse(await response.text());
             if( res.id <= 0 )

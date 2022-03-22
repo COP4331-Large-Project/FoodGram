@@ -19,6 +19,9 @@ const MongoClient = require('mongodb').MongoClient;
 const client = new MongoClient(url);
 client.connect();
 
+var api = require('./api.js');
+api.setApp( app, client );
+
 if (process.env.NODE_ENV === 'production') 
 {
   // Set static folder
