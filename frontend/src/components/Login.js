@@ -9,6 +9,8 @@ function Login()
     var loginName;
     var loginPassword;
     const [message,setMessage] = useState('');
+    let url = "https://foodgram-demo.herokuapp.com/register";
+    let element = <a style={{color:'#ff203a'}} href={url}>Sign up!</a>;
 
     const app_name = 'foodgram-demo'
 
@@ -54,41 +56,30 @@ function Login()
     };
 
     return(
-      <div id="loginDiv">
-        <ImageWrapper>
-            <Img className="radius8" src={LoginImage} alt="chef" style={{zIndex: 9}} />
-        </ImageWrapper>
+      <div id="loginDiv" class="containerL">
+        <div class="leftPanel">
+            <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="chef"/>
+        </div>
         <div class="LoginText">
-          <h1 id="title" class="LoginTitle">FoodGram</h1>
           <form onSubmit={doLogin}>
-          <span id="inner-title">Please Log In</span><br />
-          <input type="text" id="loginName" placeholder="Username" 
-              ref={(c) => loginName = c} /><br />
-          <input type="password" id="loginPassword" placeholder="Password" 
-              ref={(c) => loginPassword = c} /><br />
-          <input type="submit" id="loginButton" class="buttons" value = "Do It"
-            onClick={doLogin} />
+            <span id="inner-title" class="loginTitle">FoodGram</span><br />
+            <div class="form-group">
+              <input type="text" class="form-control" id="loginName" placeholder="Username"
+              ref={(c) => loginName = c} />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="loginPassword" placeholder="Password"
+              ref={(c) => loginPassword = c} />
+            </div>
+              <input type="submit" id="loginButton" class="form-controlL btn-danger submit" value = "Login"
+              onClick={doLogin}/>
           </form>
-          <input type="button" id="register" class="buttons" value = "Sign up!"
-            onClick={event =>  window.location.href='/register'} />
+            <div class="form group"> <br/>
+              <p class="w-100 text-center"> Don't have an account? {element} </p>
+            </div>
         </div>
         <span id="loginResult">{message}</span>
-     </div>
+      </div>
     );
 };
-const ImageWrapper = styled.div`
-position: absolute;
-width: 800px;
-height: 700px;
-left: calc(50% - 700px/2 - 50px);
-top: calc(50% - 700px/2 + 120px);
-`;
-const Img = styled.img`
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  left: calc(50% - 960px/2 - 304px);
-  top: calc(50% - 960px/2 + 1.5px);
-`;
-
 export default Login;
