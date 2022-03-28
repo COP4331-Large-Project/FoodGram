@@ -4,7 +4,6 @@ require('mongodb');
 exports.setApp = function (app, client) {
 
     app.post('/api/register/', async (req, res, next) => {
-        
         const { FirstName, LastName, Login, Password , Email} = req.body;
         const newUser = { FirstName: FirstName, LastName: LastName, Login: Login, Password: Password, Email: Email};
         var error = '';
@@ -33,29 +32,13 @@ exports.setApp = function (app, client) {
         var fn = '';
         var ln = '';
 
-        var ret;
-
-        if (results.length > 0) 
-        {
+        if (results.length > 0) {
             id = results[0].UserId;
             fn = results[0].FirstName;
             ln = results[0].LastName;
-
-            try
-            {
-                const token = require("./createJWT.js");
-                ret = token.createToken( fn, ln, id );
-            }
-            catch(e)
-            {
-                ret = {error:e.message};
-            }
-        }
-        else
-        {
-            ret = {error:"Login/Password incorrect"};
         }
 
+        var ret = { id: id, firstName: fn, lastName: ln, error: '' };
         res.status(200).json(ret);
     });
 }
