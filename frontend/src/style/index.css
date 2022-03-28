@@ -579,7 +579,7 @@ body {
 .pictureSizeLogin {
   max-height: 100%;
   width: calc(100% - 100px);
-  max-width: 600px;
+  max-width: 750px;
   align-items: left;
 }
 .form-control {
@@ -959,8 +959,8 @@ textarea.form-control.is-invalid {
 
 .btn-danger {
   color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #e34234;
+  border-color: #e34234;
 }
 .btn-danger:hover,
 .btn-danger:focus {
