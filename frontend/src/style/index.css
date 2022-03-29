@@ -85,6 +85,14 @@ video {
   vertical-align: baseline;
   box-sizing: border-box;
 }
+h1 {
+  text-align: center;
+  color: #3f3d56;
+}
+h2 {
+  text-align: center;
+  color: #3f3d56;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -125,10 +133,21 @@ a {
 a:hover {
   color: #ff203a;
 }
+a.right {
+  position: absolute;
+  right: 0;
+}
+.changingTextColor {
+  color: #ff203a;
+}
+.changingTextColor:hover {
+  color: #a02f3c;
+}
+
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 50px #fff inset; /* Change the color to your own background color */
+  -webkit-box-shadow: 0 0 0 50px black inset; /* Change the color to your own background color */
   box-shadow: transparent;
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: black;
 }
 body {
   background: #fff;
@@ -159,7 +178,7 @@ body {
   font-weight: 800 !important;
 }
 
-/* HELLPERS */
+/* HELPERS */
 .textCenter {
   text-align: center;
 }
@@ -382,6 +401,18 @@ body {
   left: 55%;
   top: 250px;
 }
+.RegisterText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  width: auto;
+  max-width: 100%;
+  left: 55%;
+  top: 50px;
+}
 .col-1,
 .col-2,
 .col-3,
@@ -422,6 +453,9 @@ body {
 .col-md-10,
 .col-md-11,
 .col-md-12,
+.col-md-14,
+.col-md-16,
+.col-md-18,
 .col-md,
 .col-md-auto,
 .col-lg-1,
@@ -579,7 +613,7 @@ body {
 .pictureSizeLogin {
   max-height: 100%;
   width: calc(100% - 100px);
-  max-width: 600px;
+  max-width: 750px;
   align-items: left;
 }
 .form-control {
@@ -959,8 +993,8 @@ textarea.form-control.is-invalid {
 
 .btn-danger {
   color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #e34234;
+  border-color: #e34234;
 }
 .btn-danger:hover,
 .btn-danger:focus {
@@ -1063,4 +1097,13 @@ input[type="button"].btn-block {
 .pl-3,
 .px-3 {
   padding-left: 1rem !important;
+}
+.field-icon {
+  position: absolute;
+  top: 52%;
+  right: 20px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: black;
 }

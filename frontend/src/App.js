@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage.jsx';
 import HomePage from './pages/HomePage';
 import Testing from './pages/Testing';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 function App() {
   return (
     <Router >
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route path="/testing" exact>
           <Testing />
+        </Route>
+        <Route path="/forgot-password" exact>
+          <ForgotPasswordPage />
         </Route>
         <Redirect to="/" />
       </Switch>

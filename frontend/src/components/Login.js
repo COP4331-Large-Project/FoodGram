@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import LoginImage from "../assets/img/chef_image.png";
-import { Redirect } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 function Login()
 {
@@ -10,8 +10,17 @@ function Login()
     var loginPassword;
     const [message,setMessage] = useState('');
     let url = "https://foodgram-demo.herokuapp.com/register";
-    let element = <a style={{color:'#ff203a'}} href={url}>Sign up!</a>;
+    let urlpass = "https://foodgram-demo.herokuapp.com/forgot-password";
+    let element = <a class="changingTextColor" href={url}>Sign up!</a>;
     let bp = require('./Path.js');
+
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePassword = () => {
+      // When the handler is invoked
+      // inverse the boolean state of passwordShown
+      setPasswordShown(!passwordShown);
+    };
 
     const doLogin = async event => 
     {
@@ -43,29 +52,37 @@ function Login()
     };
 
     return(
-      <div id="loginDiv" class="containerL">
+      <div id="loginDiv">
         <div class="leftPanel">
             <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="chef"/>
         </div>
         <div class="LoginText">
           <form onSubmit={doLogin}>
-            <span id="inner-title" class="loginTitle">FoodGram</span><br />
+          <h1 id="title">FoodGram - Sign Up Page</h1>
             <div class="form-group">
-              <input type="text" class="form-control" id="loginName" placeholder="Username"
+              <input type="text" class="form-control col-md-12" id="loginName" placeholder="Username"
               ref={(c) => loginName = c} />
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="loginPassword" placeholder="Password"
+              <input type={passwordShown ? "text" : "password"} class="form-control col-md-12" id="loginPassword" placeholder="Password" 
               ref={(c) => loginPassword = c} />
+              <span onClick={togglePassword} class="field-icon"><FontAwesomeIcon icon={faEye} size="lg"/></span>
             </div>
-              <input type="submit" id="loginButton" class="form-controlL btn-danger submit" value = "Login"
+              <input type="submit" id="loginButton" class="form-controlL btn-danger submit col-md-12" value = "Login"
               onClick={doLogin}/>
+              <div class="form-group">
+                <input type="checkbox" />
+								<span class="checkmark"></span>
+                <label class="checkbox-wrap checkbox-primary">Remember Me 
+								</label>
+                  <a class="changingTextColor right" href={urlpass}> Forgot your password?</a>
+              </div>
+              <div class="form-group">
+                <p class="w-100 text-center">Don't have an account? {element}</p>
+              </div>
           </form>
-            <div class="form group"> <br/>
-              <p class="w-100 text-center"> Don't have an account? {element} </p>
-            </div>
+          <a id="loginResult" class="textCenter">{message}</a>
         </div>
-        <span id="loginResult">{message}</span>
       </div>
     );
 };
