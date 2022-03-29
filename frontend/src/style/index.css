@@ -133,6 +133,10 @@ a {
 a:hover {
   color: #ff203a;
 }
+a.right {
+  position: absolute;
+  right: 0;
+}
 .changingTextColor {
   color: #ff203a;
 }

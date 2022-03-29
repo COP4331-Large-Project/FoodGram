@@ -50,7 +50,7 @@ function Login()
         </div>
         <div class="LoginText">
           <form onSubmit={doLogin}>
-          <h1 id="title">FoodGram - Sign up account</h1>
+          <h1 id="title">FoodGram - Sign Up Page</h1>
             <div class="form-group">
               <input type="text" class="form-control col-md-12" id="loginName" placeholder="Username"
               ref={(c) => loginName = c} />
@@ -66,7 +66,7 @@ function Login()
 								<span class="checkmark"></span>
                 <label class="checkbox-wrap checkbox-primary">Remember Me 
 								</label>
-                <a class="changingTextColor" href={urlpass}>  Forgot your password?</a>
+                  <a class="changingTextColor right" href={urlpass}> Forgot your password?</a>
               </div>
               <div class="form-group">
                 <p class="w-100 text-center">Don't have an account? {element}</p>
