@@ -8,7 +8,7 @@ function Register()
     var registerPassword;
     var registerEmail;
     const [message,setMessage] = useState('');
-    var bp = require('./Path.js');
+    let bp = require('./Path.js');
 
 
     const doRegister = async event => 

@@ -1,21 +1,15 @@
 require('express');
 require('mongodb');
 
-const User = require("./models/user.js");
-
 exports.setApp = function (app, client) {
 
     app.post('/api/register/', async (req, res, next) => {
-
         const { FirstName, LastName, Login, Password , Email} = req.body;
         const newUser = { FirstName: FirstName, LastName: LastName, Login: Login, Password: Password, Email: Email};
         var error = '';
         try {
-            //const db = client.db('foodgram');
-            //const result = db.collection('users').insertOne(newUser);
-
-            const { login, password } = req.body;
-            const results = await User.find({ Login: login, Password: password });
+            const db = client.db('foodgram');
+            const result = db.collection('users').insertOne(newUser);
         }
         catch (e) {
             error = e.toString();
@@ -29,39 +23,22 @@ exports.setApp = function (app, client) {
         // outgoing: id, firstName, lastName, error
         var error = '';
 
-        //const db = client.db('foodgram');
-        //onst results = await db.collection('users').find({ Login: login, Password: password }).toArray();
-
         const { login, password } = req.body;
-        const results = await User.find({ Login: login, Password: password });
+
+        const db = client.db('foodgram');
+        const results = await db.collection('users').find({ Login: login, Password: password }).toArray();
 
         var id = -1;
         var fn = '';
         var ln = '';
 
-        var ret;
-
-        if (results.length > 0) 
-        {
+        if (results.length > 0) {
             id = results[0].UserId;
             fn = results[0].FirstName;
             ln = results[0].LastName;
-
-            try
-            {
-                const token = require("./createJWT.js");
-                ret = token.createToken( fn, ln, id );
-            }
-            catch(e)
-            {
-                ret = {error:e.message};
-            }
-        }
-        else
-        {
-            ret = {error:"Login/Password incorrect"};
         }
 
+        var ret = { id: id, firstName: fn, lastName: ln, error: '' };
         res.status(200).json(ret);
     });
 }
