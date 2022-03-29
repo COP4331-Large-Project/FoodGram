@@ -49,23 +49,23 @@ function Login()
         </div>
         <div class="LoginText">
           <form onSubmit={doLogin}>
-            <span id="inner-title" class="loginTitle">FoodGram</span><br />
+          <h1 id="title">FoodGram</h1>
             <div class="form-group">
-              <input type="text" class="form-control" id="loginName" placeholder="Username"
+              <input type="text" class="form-control col-md-12" id="loginName" placeholder="Username"
               ref={(c) => loginName = c} />
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="loginPassword" placeholder="Password"
+              <input type="password" class="form-control col-md-12" id="loginPassword" placeholder="Password"
               ref={(c) => loginPassword = c} />
             </div>
-              <input type="submit" id="loginButton" class="form-controlL btn-danger submit" value = "Login"
+              <input type="submit" id="loginButton" class="form-controlL btn-danger submit col-md-12" value = "Login"
               onClick={doLogin}/>
-          </form>
-            <div class="form group"> <br/>
+              <div class="form group"> <br/>
               <p class="w-100 text-center"> Don't have an account? {element} </p>
             </div>
+          </form>
+          <span id="loginResult">{message}</span>
         </div>
-        <span id="loginResult">{message}</span>
       </div>
     );
 };
