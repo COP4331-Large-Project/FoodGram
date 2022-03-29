@@ -1098,3 +1098,12 @@ input[type="button"].btn-block {
 .px-3 {
   padding-left: 1rem !important;
 }
+.field-icon {
+  position: absolute;
+  top: 52%;
+  right: 20px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: black;
+}
