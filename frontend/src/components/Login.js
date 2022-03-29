@@ -81,7 +81,7 @@ function Login()
                 <p class="w-100 text-center">Don't have an account? {element}</p>
               </div>
           </form>
-          <span id="loginResult" class="text-center">{message}</span>
+          <span id="loginResult" class="textCenter">{message}</span>
         </div>
       </div>
     );
