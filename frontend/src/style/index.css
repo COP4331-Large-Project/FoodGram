@@ -85,6 +85,9 @@ video {
   vertical-align: baseline;
   box-sizing: border-box;
 }
+h1 {
+  text-align: center;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -382,6 +385,18 @@ body {
   left: 55%;
   top: 250px;
 }
+.RegisterText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  width: auto;
+  max-width: 100%;
+  left: 55%;
+  top: 50px;
+}
 .col-1,
 .col-2,
 .col-3,
@@ -422,6 +437,9 @@ body {
 .col-md-10,
 .col-md-11,
 .col-md-12,
+.col-md-14,
+.col-md-16,
+.col-md-18,
 .col-md,
 .col-md-auto,
 .col-lg-1,
