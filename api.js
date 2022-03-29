@@ -7,13 +7,20 @@ exports.setApp = function (app, client) {
         const { FirstName, LastName, Login, Password , Email} = req.body;
         const newUser = { FirstName: FirstName, LastName: LastName, Login: Login, Password: Password, Email: Email};
         var error = '';
-        try {
-            const db = client.db('foodgram');
+
+        const db = client.db('foodgram');
+        const results = await db.collection('users').find({ Login: Login, Password: Password }).toArray();
+        
+        if(results.length > 0)
+        {
+            error = 'User already exists';
+        }
+        else
+        {
             const result = db.collection('users').insertOne(newUser);
+            error = '';
         }
-        catch (e) {
-            error = e.toString();
-        }
+
         var ret = { error: error };
         res.status(200).json(ret);
     });
