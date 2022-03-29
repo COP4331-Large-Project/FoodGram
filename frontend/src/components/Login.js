@@ -10,7 +10,8 @@ function Login()
     var loginPassword;
     const [message,setMessage] = useState('');
     let url = "https://foodgram-demo.herokuapp.com/register";
-    let element = <a style={{color:'#ff203a'}} href={url}>Sign up!</a>;
+    let urlpass = "https://foodgram-demo.herokuapp.com/forgot-password";
+    let element = <a href={url}>Sign up!</a>;
     let bp = require('./Path.js');
 
     const doLogin = async event => 
@@ -43,13 +44,13 @@ function Login()
     };
 
     return(
-      <div id="loginDiv" class="containerL">
+      <div id="loginDiv">
         <div class="leftPanel">
             <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="chef"/>
         </div>
         <div class="LoginText">
           <form onSubmit={doLogin}>
-          <h1 id="title">FoodGram</h1>
+          <h1 id="title">FoodGram - Sign up account</h1>
             <div class="form-group">
               <input type="text" class="form-control col-md-12" id="loginName" placeholder="Username"
               ref={(c) => loginName = c} />
@@ -60,9 +61,16 @@ function Login()
             </div>
               <input type="submit" id="loginButton" class="form-controlL btn-danger submit col-md-12" value = "Login"
               onClick={doLogin}/>
-              <div class="form group"> <br/>
-              <p class="w-100 text-center"> Don't have an account? {element} </p>
-            </div>
+              <div class="form-group">
+                <input type="checkbox" />
+								<span class="checkmark"></span>
+                <label class="checkbox-wrap checkbox-primary">Remember Me 
+								</label>
+                <a href={urlpass}> Forgot your password?</a>
+              </div>
+              <div class="form-group">
+                <p class="w-100 text-center">Don't have an account? {element}</p>
+              </div>
           </form>
           <span id="loginResult">{message}</span>
         </div>
