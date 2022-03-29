@@ -128,11 +128,18 @@ table {
 }
 a {
   text-decoration: none !important;
-  color: #ff203a;
+  color: #0b093b;
 }
 a:hover {
+  color: #ff203a;
+}
+.changingTextColor {
+  color: #ff203a;
+}
+.changingTextColor:hover {
   color: #a02f3c;
 }
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50px black inset; /* Change the color to your own background color */
   box-shadow: transparent;
@@ -1086,15 +1093,4 @@ input[type="button"].btn-block {
 .pl-3,
 .px-3 {
   padding-left: 1rem !important;
-}
-@media (min-width: 768px) {
-  .text-md-left {
-    text-align: left !important;
-  }
-  .text-md-right {
-    text-align: right !important;
-  }
-  .text-md-center {
-    text-align: center !important;
-  }
 }

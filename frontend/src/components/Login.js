@@ -11,7 +11,7 @@ function Login()
     const [message,setMessage] = useState('');
     let url = "https://foodgram-demo.herokuapp.com/register";
     let urlpass = "https://foodgram-demo.herokuapp.com/forgot-password";
-    let element = <a href={url}>Sign up!</a>;
+    let element = <a class="changingTextColor" href={url}>Sign up!</a>;
     let bp = require('./Path.js');
 
     const doLogin = async event => 
@@ -66,7 +66,7 @@ function Login()
 								<span class="checkmark"></span>
                 <label class="checkbox-wrap checkbox-primary">Remember Me 
 								</label>
-                <a href={urlpass}> Forgot your password?</a>
+                <a class="changingTextColor" href={urlpass}>  Forgot your password?</a>
               </div>
               <div class="form-group">
                 <p class="w-100 text-center">Don't have an account? {element}</p>
