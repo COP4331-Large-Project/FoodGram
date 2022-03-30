@@ -1,3 +1,13 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/foodgram');//process.env.MONGODB_URI;
+mongoose.set('debug', true);
+var User=require('./models/User');
+const { Redirect } = require('react-router-dom');
+
 passport.use(new LocalStrategy({
     usernameField: 'login',
     passwordField: 'password'
@@ -12,7 +22,7 @@ passport.use(new LocalStrategy({
     }).catch(done);
   }));
 
-
+exports.setApp = function (app ) {
 
 app.post('/api/register/', async (req, res, next) =>
 {
@@ -20,30 +30,19 @@ app.post('/api/register/', async (req, res, next) =>
   // outgoing: error
   console.log(req.body);
   const { FirstName, LastName , Login , Password , Email} = req.body;
+  console.log(FirstName,LastName);
+  var user = new User();
+  user.FirstName=FirstName;
+  user.LastName=LastName;
+  user.Login=Login;
+  user.Email=Email;
+  console.log("kkk",user);
 
-  const results = User.findOne({ Login: Login, Password: Password }).toArray();
-  if(results.length > 0)
-    {
-            error = 'User already exists';
-    }
-  else
-    {
-      console.log(FirstName,LastName);
-      var user = new User();
-      user.FirstName=FirstName;
-      user.LastName=LastName;
-      user.Login=Login;
-      user.Email=Email;
-      console.log("kkk",user);
-    
-      user.setPassword(Password);
-      console.log("lll",user);
-      user.save().then(function(){
-        return res.json({user: user.toAuthJSON()});
-      }).catch(next);
-    }
-    var ret = { error: error };
-    res.status(200).json(ret);
+  user.setPassword(Password);
+  console.log("lll",user);
+  user.save().then(function(){
+    return res.json({user: user.toAuthJSON()});
+  }).catch(next);
 });
 
 
@@ -51,6 +50,13 @@ app.post('/api/login/', async (req, res, next) =>
 {
   const { login, password } = req.body;
   console.log(login,password);
+  if(!login){
+    return res.status(422).json({errors: {Login: "can't be blank"}});
+  }
+
+  if(!password){
+    return res.status(422).json({errors: {password: "can't be blank"}});
+  }
 
   passport.authenticate('local', {session: false}, function(err, user, info){
     if(err){ return next(err); }
@@ -82,4 +88,7 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
   else {
     return res.status(422).json({errors: {password: "Email not exist"}});
   }
+
 });  
+
+}
