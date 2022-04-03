@@ -3,7 +3,8 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/foodgram');//process.env.MONGODB_URI;
+const url = process.env.MONGODB_URI;
+mongoose.connect(url);//process.env.MONGODB_URI;
 mongoose.set('debug', true);
 var User=require('./models/User');
 const { Redirect } = require('react-router-dom');
@@ -28,18 +29,18 @@ app.post('/api/register/', async (req, res, next) =>
 {
   // incoming: firstName, lastName, login, password
   // outgoing: error
-  console.log(req.body);
   const { FirstName, LastName , Login , Password , Email} = req.body;
   console.log(FirstName,LastName);
+  User.findOne({Login: Login}).then(function(user){
+    console.log("rrrrrr",user);
+  })
   var user = new User();
-  user.FirstName=FirstName;
-  user.LastName=LastName;
+  user.Firstname=FirstName;
+  user.Lastname=LastName;
   user.Login=Login;
   user.Email=Email;
-  console.log("kkk",user);
-
-  user.setPassword(Password);
   console.log("lll",user);
+  user.setPassword(Password);
   user.save().then(function(){
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
@@ -86,7 +87,7 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
   res.redirect('/api/login');
   }
   else {
-    return res.status(422).json({errors: {password: "Email not exist"}});
+    return res.status(422).json({errors: {password: "Email does not exist"}});
   }
 
 });  
