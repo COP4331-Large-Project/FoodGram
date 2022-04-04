@@ -5,7 +5,7 @@ import LoginImage from "../assets/img/chef_image.png";
 
 function Testing()
 {
-  let url="https://foodgram-demo.herokuapp.com/register";
+  let url="https://foodgram-demo-test.herokuapp.com/register";
   let element=<a style={{color:'#ff203a'}} href={url}>Sign up!</a>;
 
    return(
