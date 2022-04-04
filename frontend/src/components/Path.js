@@ -1,4 +1,4 @@
-const app_name = 'foodgram-demo'
+const app_name = 'foodgram-demo-test'
 exports.buildPath = 
 function buildPath(route)
 {
