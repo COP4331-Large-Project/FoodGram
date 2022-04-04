@@ -87,7 +87,7 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
   res.redirect('/api/login');
   }
   else {
-    return res.status(422).json({errors: {password: "Email does not exist"}});
+    return res.status(422).json({errors: {password: "Email not exist"}});
   }
 
 });  
