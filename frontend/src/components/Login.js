@@ -9,8 +9,8 @@ function Login()
     var loginName;
     var loginPassword;
     const [message,setMessage] = useState('');
-    let url = "https://foodgram-demo.herokuapp.com/register";
-    let urlpass = "https://foodgram-demo.herokuapp.com/forgot-password";
+    let url = "https://foodgram-demo-test.herokuapp.com/register";
+    let urlpass = "https://foodgram-demo-test.herokuapp.com/forgot-password";
     let element = <a class="changingTextColor" href={url}>Sign up!</a>;
     let bp = require('./Path.js');
 
