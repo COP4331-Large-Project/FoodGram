@@ -1,5 +1,6 @@
 const app_name = 'foodgram-demo-test'
-export function buildPath(route)
+exports.buildPath = 
+function buildPath(route)
 {
     if (process.env.NODE_ENV === 'production') 
     {
