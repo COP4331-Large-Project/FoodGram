@@ -2,6 +2,7 @@ import React from 'react';
 
 function LoggedInName()
 {
+    localStorage.setItem("user_data", JSON.stringify(res.user));
     var _ud = localStorage.getItem('user_data');
     var ud = JSON.parse(_ud);
     var userId = ud.id;
