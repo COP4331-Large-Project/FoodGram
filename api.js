@@ -32,7 +32,7 @@ app.post('/api/register/', async (req, res, next) =>
   const { FirstName, LastName , Login , Password , Email} = req.body;
   console.log(FirstName,LastName);
   User.findOne({Login: Login}).then(function(user){
-    console.log("rrrrrr",user);
+     return res.json("error");
   })
   var user = new User();
   user.Firstname=FirstName;
@@ -42,7 +42,7 @@ app.post('/api/register/', async (req, res, next) =>
   console.log("lll",user);
   user.setPassword(Password);
   user.save().then(function(){
-    return res.json({user: user.toAuthJSON()});
+   // return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
 
@@ -63,8 +63,9 @@ app.post('/api/login/', async (req, res, next) =>
     if(err){ return next(err); }
     console.log(user);
     if(user){
-      user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
+    //  user.token = user.generateJWT();
+   //   return res.json({user: user.toAuthJSON()});
+        return res.json("ok");
     } else {
      // return res.status(422).json(info);
       res.redirect('/api/login');
@@ -76,7 +77,7 @@ app.post('/api/login/', async (req, res, next) =>
 app.post('/api/forgetpassword/', async (req, res, next) => 
 {
   const { email, new_password,confirm_password } = req.body;
-  if(new_password!=confirm_password) return res.status(422).json({errors: {password: "not match"}});
+  if(new_password!=confirm_password) return res.status(422).json({errors: {password: "the password you entered does not match"}});
 
   var user=await User.findOne({Email: email});
   var new_user=user;
@@ -87,9 +88,10 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
   res.redirect('/api/login');
   }
   else {
-    return res.status(422).json({errors: {password: "Email not exist"}});
+    return res.status(422).json({errors: {password: "Email does not exist"}});
   }
 
 });  
 
 }
+
