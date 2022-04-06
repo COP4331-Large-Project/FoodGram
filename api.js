@@ -93,4 +93,55 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
 
 });  
 
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+destination: (req, file, cb) => {
+cb(null, './public/images');
+},
+filename: (req, file, cb) => {
+    console.log(file);
+    var filetype = '';
+    if (file.mimetype === 'image/png') {
+        filetype = 'png';
+    }
+    if (file.mimetype === 'image/jpeg') {
+        filetype = 'jpg';
+    }
+    cb(null, 'image-' + Date.now() + '.' + filetype);
+}
+});
+const multerFilter = (req, file, cb) =>{
+    if(file.mimetype.split('/')[1] === 'png' || 'jpg'){
+        cb(null, true)
+    }
+    else
+    {
+        cb(new Error('Must be a jpg or png'), false)
+    }
+}
+
+var upload = multer({ storage: storage });
+
+app.post('/api/upload/', upload.single('file'), function(req, res, next) {
+//console.log(req.file);
+var createAt = Date.now();
+var name = req.file.filename;
+//const newPost = { userid: userid, name: name, recipe: recipe};
+//console.log(name);
+const db = client.db('foodgram');
+const result = db.collection('posts').insertOne({name: name, date: createAt});
+if(!req.file) {
+  res.status(500);
+  //return next(err);
+}
+else
+{
+    res.status(200).json({
+        status: 'success',
+        message: 'Image uploaded successfully'
+    })
+}
+});
+
 }
