@@ -9,6 +9,7 @@ var UserSchema = new mongoose.Schema({
   Email: {type: String},
   Firstname: {type: String},
   Lastname: {type: String},
+  EmailVerified: {type: Boolean},
   hash: String,
   salt: String
 }, {timestamps: true});

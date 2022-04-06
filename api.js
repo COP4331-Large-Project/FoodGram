@@ -1,5 +1,9 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+require('dotenv').config();
+const sgMail = require("@sendgrid/mail");
+const { Console } = require('console');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 var mongoose = require('mongoose');
 
@@ -31,21 +35,56 @@ app.post('/api/register/', async (req, res, next) =>
   // outgoing: error
   const { FirstName, LastName , Login , Password , Email} = req.body;
   console.log(FirstName,LastName);
+  console.log(User.findOne({Login: Login}))
+
+  // BUG: CHECK DOES NOT WORK, ALWAYS GETS HIT
   User.findOne({Login: Login}).then(function(user){
-     return res.json("error");
-  })
+     return res.json("User created");
+  });
+
+
   var user = new User();
   user.Firstname=FirstName;
   user.Lastname=LastName;
   user.Login=Login;
   user.Email=Email;
+  user.EmailVerified=false;
   console.log("lll",user);
   user.setPassword(Password);
   user.save().then(function(){
    // return res.json({user: user.toAuthJSON()});
+
+   // EMAIL VERIFICATION SEND
+   const msg = {
+    from: "charlieanderson2001@gmail.com",
+    to: "charlieanderson2001@gmail.com",
+    subject: "Food gram - Verify your email",
+    text: `
+        Hello, thanks for registering with foodgram!
+        Please click the following link to verify your account.
+        http://localhost:5000/api/verify-email?token=${user.Login}
+    `,
+                html: `
+        Hello, thanks for registering with foodgram!
+        Please click the following link to verify your account.
+        http://localhost:5000/api/verify-email?token=${user.Login}
+    `
+    };
+    try
+    {
+        sgMail.send(msg);
+        //req.flash('Success', 'Thanks for registering!');
+        console.log('Email sent')
+        //res.redirect('/');
+        error = 'Email sent correctly';
+    }catch(error)
+    {
+        console.log(error);
+        req.flash('error', 'Something went wrong. Please contact us at foodgram@gmail.com')
+    }
+    //return res.json("Account creation successful");
   }).catch(next);
 });
-
 
 app.post('/api/login/', async (req, res, next) => 
 {
@@ -65,7 +104,8 @@ app.post('/api/login/', async (req, res, next) =>
     if(user){
     //  user.token = user.generateJWT();
    //   return res.json({user: user.toAuthJSON()});
-        return res.json("ok");
+        var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
+        return res.status(200).json(ret);
     } else {
      // return res.status(422).json(info);
       res.redirect('/api/login');
