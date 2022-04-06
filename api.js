@@ -1,99 +1,96 @@
-require('express');
-require('mongodb');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
-exports.setApp = function (app, client) {
+var mongoose = require('mongoose');
 
-    app.post('/api/register/', async (req, res, next) => {
-        const { FirstName, LastName, Login, Password, Email } = req.body;
-        const newUser = { FirstName: FirstName, LastName: LastName, Login: Login, Password: Password, Email: Email };
-        var error = '';
+const url = process.env.MONGODB_URI;
+mongoose.connect(url);//process.env.MONGODB_URI;
+mongoose.set('debug', true);
+var User=require('./models/User');
+const { Redirect } = require('react-router-dom');
 
-        const db = client.db('foodgram');
-        const results = await db.collection('users').find({ Login: Login, Password: Password }).toArray();
+passport.use(new LocalStrategy({
+    usernameField: 'login',
+    passwordField: 'password'
+  }, function(login, password, done) {
+    User.findOne({Login: login}).then(function(user){
+      console.log(user);
+      if(!user || !user.validPassword(password)){
+        return done(null, false, {errors: {'email or password': 'is invalid'}});
+      }
+  
+      return done(null, user);
+    }).catch(done);
+  }));
 
-        if (results.length > 0) {
-            error = 'User already exists';
-        }
-        else {
-            const result = db.collection('users').insertOne(newUser);
-            error = '';
-        }
+exports.setApp = function (app ) {
 
-        var ret = { error: error };
-        res.status(200).json(ret);
-    });
+app.post('/api/register/', async (req, res, next) =>
+{
+  // incoming: firstName, lastName, login, password
+  // outgoing: error
+  const { FirstName, LastName , Login , Password , Email} = req.body;
+  console.log(FirstName,LastName);
+  User.findOne({Login: Login}).then(function(user){
+     return res.json("error");
+  })
+  var user = new User();
+  user.Firstname=FirstName;
+  user.Lastname=LastName;
+  user.Login=Login;
+  user.Email=Email;
+  console.log("lll",user);
+  user.setPassword(Password);
+  user.save().then(function(){
+   // return res.json({user: user.toAuthJSON()});
+  }).catch(next);
+});
 
-    app.post('/api/login/', async (req, res, next) => {
-        // incoming: login, password
-        // outgoing: id, firstName, lastName, error
-        var error = '';
 
-        const { login, password } = req.body;
+app.post('/api/login/', async (req, res, next) => 
+{
+  const { login, password } = req.body;
+  console.log(login,password);
+  if(!login){
+    return res.status(422).json({errors: {Login: "can't be blank"}});
+  }
 
-        const db = client.db('foodgram');
-        const results = await db.collection('users').find({ Login: login, Password: password }).toArray();
+  if(!password){
+    return res.status(422).json({errors: {password: "can't be blank"}});
+  }
 
-        var id = -1;
-        var fn = '';
-        var ln = '';
+  passport.authenticate('local', {session: false}, function(err, user, info){
+    if(err){ return next(err); }
+    console.log(user);
+    if(user){
+    //  user.token = user.generateJWT();
+   //   return res.json({user: user.toAuthJSON()});
+        return res.json("ok");
+    } else {
+     // return res.status(422).json(info);
+      res.redirect('/api/login');
+    }
+  })(req, res, next);
 
-        if (results.length > 0) {
-            id = results[0].UserId;
-            fn = results[0].FirstName;
-            ln = results[0].LastName;
-        }
+});
 
-        var ret = { id: id, firstName: fn, lastName: ln, error: '' };
-        res.status(200).json(ret);
-    });
+app.post('/api/forgetpassword/', async (req, res, next) => 
+{
+  const { email, new_password,confirm_password } = req.body;
+  if(new_password!=confirm_password) return res.status(422).json({errors: {password: "the password you entered does not match"}});
 
-        var multer = require('multer');
-        var storage = multer.diskStorage({
-        destination: (req, file, cb) => {
-        cb(null, './public/images');
-        },
-        filename: (req, file, cb) => {
-            console.log(file);
-            var filetype = '';
-            if (file.mimetype === 'image/png') {
-                filetype = 'png';
-            }
-            if (file.mimetype === 'image/jpeg') {
-                filetype = 'jpg';
-            }
-            cb(null, 'image-' + Date.now() + '.' + filetype);
-        }
-        });
-        const multerFilter = (req, file, cb) =>{
-            if(file.mimetype.split('/')[1] === 'png' || 'jpg'){
-                cb(null, true)
-            }
-            else
-            {
-                cb(new Error('Must be a jpg or png'), false)
-            }
-        }
+  var user=await User.findOne({Email: email});
+  var new_user=user;
+  if (user) {
+  await user.deleteOne();
+  new_user.setPassword(new_password);
+  new_user.save();
+  res.redirect('/api/login');
+  }
+  else {
+    return res.status(422).json({errors: {password: "Email does not exist"}});
+  }
 
-        var upload = multer({ storage: storage });
+});  
 
-    app.post('/api/upload/', upload.single('file'), function(req, res, next) {
-        //console.log(req.file);
-        var createAt = Date.now();
-        var name = req.file.filename;
-        //const newPost = { userid: userid, name: name, recipe: recipe};
-        //console.log(name);
-        const db = client.db('foodgram');
-        const result = db.collection('posts').insertOne({name: name, date: createAt});
-        if(!req.file) {
-          res.status(500);
-          //return next(err);
-        }
-        else
-        {
-            res.status(200).json({
-                status: 'success',
-                message: 'Image uploaded successfully'
-            })
-        }
-      });
 }
