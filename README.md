@@ -1,4 +1,4 @@
-# foodgram
+# foodgram s
 
 ## setup(macos)
 
