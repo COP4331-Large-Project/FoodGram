@@ -1,13 +1,9 @@
 
 const express = require('express');
-var passport=require('passport');
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const path = require('path');           
-
-
 const PORT = process.env.PORT || 5000;  
 
 const app = express();
@@ -31,8 +27,6 @@ if (process.env.NODE_ENV === 'production')
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
-
-
 
 app.use((req, res, next) => 
 {
