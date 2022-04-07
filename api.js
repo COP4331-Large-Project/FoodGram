@@ -38,17 +38,9 @@ app.post('/api/register/', async (req, res, next) =>
   console.log(User.findOne({Login: Login}))
 
   // BUG: CHECK DOES NOT WORK, ALWAYS GETS HIT
-    
-  var user1=await User.findOne({Login: Login});
-  //var new_user=user;
-  if (user1) {
-  //User.findOne({Login: Login}).then(function(user){
-     return res.json("User Already Exists");
+  User.findOne({Login: Login}).then(function(user){
+     return res.json("User created");
   });
-
-  //User.findOne({Login: Login}).then(function(user){
-     //return res.json("User created");
- // });
 
 
   var user = new User();
