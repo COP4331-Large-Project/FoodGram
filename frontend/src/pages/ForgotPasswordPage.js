@@ -5,7 +5,6 @@ const ForgotPasswordPage = () =>
 {
     return(
         <div>
-            <PageTitle />
             <ForgotPassword />
         </div>
     );
