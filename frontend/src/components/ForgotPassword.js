@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginImage from "../assets/img/chef_forgotpassword.png";
+import ForgotPasswordImage from "../assets/img/chef_forgotpassword.png";
 
 function ForgotPassword(){
         var _ud = localStorage.getItem('user_data');
@@ -16,7 +16,7 @@ function ForgotPassword(){
       return(
         <div id="forgotPasswordDiv">
         <div class="leftPanel">
-            <img className="radius8" class="pictureSizeForgotPassword" src={LoginImage} alt="forgot-password"/>
+            <img className="radius8" class="pictureSizeForgotPassword" src={ForgotPasswordImage} alt="forgot-password"/>
         </div>
         <div class="LoginText">
             {/* <form onSubmit={doRegister}> */}
