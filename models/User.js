@@ -26,6 +26,10 @@ UserSchema.methods.setPassword = function(password){
   this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
+UserSchema.methods.setEmailValidation = function(){
+  this.EmailVerified = true;
+};
+
 UserSchema.methods.generateJWT = function() {
   var today = new Date();
   var exp = new Date(today);

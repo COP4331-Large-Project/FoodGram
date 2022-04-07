@@ -86,6 +86,28 @@ app.post('/api/register/', async (req, res, next) =>
   }).catch(next);
 });
 
+app.get('/api/verify-email', async (req, res, next) =>
+{
+   try{
+       var user = await User.findOne({Login: req.query.token})
+       if (!user)
+       {
+           return res.json("User not found");
+       }
+       console.log(req.query.token);
+       var new_user=user;
+       if (user) {
+        await user.deleteOne();
+        new_user.setEmailValidation();
+        new_user.save();
+        }
+       return res.json("User verified!");
+   }
+   catch(error){
+       console.log(error);
+   }
+});
+
 app.post('/api/login/', async (req, res, next) => 
 {
   const { login, password } = req.body;
@@ -107,8 +129,8 @@ app.post('/api/login/', async (req, res, next) =>
         var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
         return res.status(200).json(ret);
     } else {
-     // return res.status(422).json(info);
-      res.redirect('/api/login');
+        var ret = {id: -1, firstName: '', lastName: '', error: 'Login/Password Invalid'}
+        return res.status(200).json(ret);
     }
   })(req, res, next);
 
