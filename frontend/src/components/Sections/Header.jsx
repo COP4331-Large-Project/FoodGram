@@ -18,7 +18,7 @@ export default function Header() {
             voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
           </HeaderP>
           <BtnWrapper>
-            <FullButton title="Get Started" />
+            <FullButton title="Get Started" action={() => window.location.href = '/login'}/>
           </BtnWrapper>
         </div>
       </LeftSide>

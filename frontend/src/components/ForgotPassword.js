@@ -12,7 +12,7 @@ function ForgotPassword(){
         event.preventDefault();
             localStorage.removeItem("user_data")
             window.location.href = '/';
-        };    
+        };
       return(
         <div id="forgotPasswordDiv">
         <div class="leftPanel">
@@ -26,7 +26,7 @@ function ForgotPassword(){
                 </div>
                 <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit"/>
             {/* </form> */}
-            <span id="registerResult"></span>
+            <span id="forgotPasswordResult"></span>
         </div>
      </div>
       );
