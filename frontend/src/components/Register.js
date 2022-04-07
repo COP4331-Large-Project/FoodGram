@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginImage from "../assets/img/chef2_image.png";
+import RegisterImage from "../assets/img/chef2_image.png";
 
 function Register()
 {
@@ -54,7 +54,7 @@ function Register()
     return(
         <div id="registerDiv">
         <div class="leftPanel">
-            <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="chef2"/>
+            <img className="radius8" class="pictureSizeLogin" src={RegisterImage} alt="chef2"/>
         </div>
         <div class="RegisterText">
             <form onSubmit={doRegister}>
