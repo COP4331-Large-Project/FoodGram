@@ -36,11 +36,11 @@ app.post('/api/register/', async (req, res, next) =>
   const { FirstName, LastName , Login , Password , Email} = req.body;
   console.log(FirstName,LastName);
   console.log(User.findOne({Login: Login}))
-
-  // BUG: CHECK DOES NOT WORK, ALWAYS GETS HIT
-  User.findOne({Login: Login}).then(function(user){
-     return res.json("User created");
-  });
+  var user = await User.findOne({Login: Login})
+  if (user)
+  {
+    return res.json("User already exists");
+  }
 
 
   var user = new User();
@@ -57,17 +57,17 @@ app.post('/api/register/', async (req, res, next) =>
    // EMAIL VERIFICATION SEND
    const msg = {
     from: "charlieanderson2001@gmail.com",
-    to: "charlieanderson2001@gmail.com",
+    to: user.Email,
     subject: "Food gram - Verify your email",
     text: `
         Hello, thanks for registering with foodgram!
         Please click the following link to verify your account.
-        http://localhost:5000/api/verify-email?token=${user.Login}
+        http://foodgram-demo.herokuapp.com/api/verify-email?token=${user.Login}
     `,
                 html: `
         Hello, thanks for registering with foodgram!
         Please click the following link to verify your account.
-        http://localhost:5000/api/verify-email?token=${user.Login}
+        http://foodgram-demo.herokuapp.com/api/verify-email?token=${user.Login}
     `
     };
     try
@@ -77,6 +77,7 @@ app.post('/api/register/', async (req, res, next) =>
         console.log('Email sent')
         //res.redirect('/');
         error = 'Email sent correctly';
+        return res.json("Register successful! Please verify your email.");
     }catch(error)
     {
         console.log(error);
@@ -84,6 +85,26 @@ app.post('/api/register/', async (req, res, next) =>
     }
     //return res.json("Account creation successful");
   }).catch(next);
+});
+
+app.get('/api/verify-email', async (req, res, next) =>
+{
+   try{
+      var user = await User.findOne({Login: req.query.token})
+      if (!user)
+      {
+          return res.json("User not found");
+      }
+      console.log(req.query.token);
+      console.log("Saving user");
+
+      User.findOneAndUpdate({Login: req.query.token}, {EmailVerified: true}, {upsert: true}, function(err, doc){
+        return res.send('User verified!');
+     });
+   }
+   catch(error){
+       console.log(error);
+   }
 });
 
 app.post('/api/login/', async (req, res, next) => 
@@ -105,10 +126,14 @@ app.post('/api/login/', async (req, res, next) =>
     //  user.token = user.generateJWT();
    //   return res.json({user: user.toAuthJSON()});
         var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
+        if (!user.EmailVerified)
+        {
+          var ret = {id: -1, firstName: '', lastName: '', error: 'Please verify your email!'}
+        }
         return res.status(200).json(ret);
     } else {
-     // return res.status(422).json(info);
-      res.redirect('/api/login');
+        var ret = {id: -1, firstName: '', lastName: '', error: 'Login/Password Invalid'}
+        return res.status(200).json(ret);
     }
   })(req, res, next);
 

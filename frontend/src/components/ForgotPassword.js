@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 import ForgotPasswordImage from "../assets/img/chef_forgotpassword.png";
 
 function ForgotPassword(){
+        var _ud = localStorage.getItem('user_data');
+        var ud = JSON.parse(_ud);
+        var userId = ud.id;
+        var firstName = ud.firstName;
+        var lastName = ud.lastName;
+        const doLogout = event => 
+        {
+        event.preventDefault();
+            localStorage.removeItem("user_data")
+            window.location.href = '/';
+        };    
       return(
         <div id="forgotPasswordDiv">
         <div class="leftPanel">
@@ -15,7 +26,7 @@ function ForgotPassword(){
                 </div>
                 <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit"/>
             {/* </form> */}
-            <span id="forgotPasswordResult"></span>
+            <span id="registerResult"></span>
         </div>
      </div>
       );
