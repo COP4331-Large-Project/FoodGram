@@ -39,7 +39,9 @@ app.post('/api/register/', async (req, res, next) =>
   var user = await User.findOne({Login: Login})
   if (user)
   {
-    return res.json("User already exists");
+      var ret = {id: -1, firstName: '', lastName: '', error: 'User already exists'}
+      return res.status(200).json(ret);
+    //return res.json("User already exists");
   }
   
     
