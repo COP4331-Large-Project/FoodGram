@@ -125,6 +125,10 @@ app.post('/api/login/', async (req, res, next) =>
     //  user.token = user.generateJWT();
    //   return res.json({user: user.toAuthJSON()});
         var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
+        if (!user.EmailVerified)
+        {
+          var ret = {id: -1, firstName: '', lastName: '', error: 'Please verify your email!'}
+        }
         return res.status(200).json(ret);
     } else {
         var ret = {id: -1, firstName: '', lastName: '', error: 'Login/Password Invalid'}
