@@ -89,27 +89,17 @@ app.post('/api/register/', async (req, res, next) =>
 app.get('/api/verify-email', async (req, res, next) =>
 {
    try{
-       var user = await User.findOne({Login: req.query.token})
-       if (!user)
-       {
-           return res.json("User not found");
-       }
-       console.log(req.query.token);
-       
-      //  var new_user=user;
-      // console.log(user);
-      // await user.deleteOne();
-      //user.setEmailValidation();
-      
-      // console.log(user);
+      var user = await User.findOne({Login: req.query.token})
+      if (!user)
+      {
+          return res.json("User not found");
+      }
+      console.log(req.query.token);
       console.log("Saving user");
 
-      //user.save();
-      User.findOneAndUpdate({Login: req.query.token}, {EmailVerified: true}, {upsert: true}, function(err, doc) {
-        if (err) return res.send(500, {error: err});
-        return res.send('Succesfully saved.');
-    });
-      return res.json("User verified!");
+      User.findOneAndUpdate({Login: req.query.token}, {EmailVerified: true}, {upsert: true}, function(err, doc){
+        return res.send('User verified!');
+     });
    }
    catch(error){
        console.log(error);
