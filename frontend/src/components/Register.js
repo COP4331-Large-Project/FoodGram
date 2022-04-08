@@ -42,7 +42,7 @@ function Register()
                 var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
-                window.location.href = '/';
+                window.location.href = '/login';
             }
         }
         catch(e)
