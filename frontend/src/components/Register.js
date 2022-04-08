@@ -35,7 +35,7 @@ function Register()
             var res = JSON.parse(await response.text());
             if( res.id <= 0 )
             {
-                setMessage('could not register');
+                setMessage(res.error);
             }
             else
             {
