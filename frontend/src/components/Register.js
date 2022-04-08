@@ -33,7 +33,7 @@ function Register()
             const response = await fetch(bp.buildPath('api/register'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = JSON.parse(await response.text());
-            if( res.id <= 0 )
+            if( res.id > 0 )
             {
                 setMessage(res.error);
             }
