@@ -56,18 +56,18 @@ app.post('/api/register/', async (req, res, next) =>
 
    // EMAIL VERIFICATION SEND
    const msg = {
-    from: "charlieanderson2001@gmail.com",
-    to: "charlieanderson2001@gmail.com",
+    from: "foodgramdemocop4331@gmail.com",
+    to: user.Email,
     subject: "Food gram - Verify your email",
     text: `
         Hello, thanks for registering with foodgram!
         Please click the following link to verify your account.
-        http://localhost:5000/api/verify-email?token=${user.Login}
+        http://foodgram-demo.herokuapp.com/api/verify-email?token=${user.Login}
     `,
                 html: `
         Hello, thanks for registering with foodgram!
         Please click the following link to verify your account.
-        http://localhost:5000/api/verify-email?token=${user.Login}
+        http://foodgram-demo.herokuapp.com/api/verify-email?token=${user.Login}
     `
     };
     try
