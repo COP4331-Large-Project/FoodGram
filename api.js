@@ -36,11 +36,11 @@ app.post('/api/register/', async (req, res, next) =>
   const { FirstName, LastName , Login , Password , Email} = req.body;
   console.log(FirstName,LastName);
   console.log(User.findOne({Login: Login}))
-
-  // BUG: CHECK DOES NOT WORK, ALWAYS GETS HIT
-  User.findOne({Login: Login}).then(function(user){
-     return res.json("User created");
-  });
+  var user = await User.findOne({Login: Login})
+  if (user)
+  {
+    return res.json("User already exists");
+  }
 
 
   var user = new User();
@@ -56,7 +56,7 @@ app.post('/api/register/', async (req, res, next) =>
 
    // EMAIL VERIFICATION SEND
    const msg = {
-    from: "foodgramdemocop4331@gmail.com",
+    from: "charlieanderson2001@gmail.com",
     to: user.Email,
     subject: "Food gram - Verify your email",
     text: `
@@ -77,6 +77,7 @@ app.post('/api/register/', async (req, res, next) =>
         console.log('Email sent')
         //res.redirect('/');
         error = 'Email sent correctly';
+        return res.json("Register successful! Please verify your email.");
     }catch(error)
     {
         console.log(error);
