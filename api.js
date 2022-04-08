@@ -132,7 +132,7 @@ app.post('/api/login/', async (req, res, next) =>
         }
         return res.status(200).json(ret);
     } else {
-        var ret = {id: -1, firstName: '', lastName: '', error: 'Login/Password Invalid'}
+        var ret = {id: -1, firstName: '', lastName: '', error: 'User/Password combination incorrect'}
         return res.status(200).json(ret);
     }
   })(req, res, next);
