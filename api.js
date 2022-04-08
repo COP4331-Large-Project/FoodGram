@@ -56,7 +56,7 @@ app.post('/api/register/', async (req, res, next) =>
 
    // EMAIL VERIFICATION SEND
    const msg = {
-    from: "charlieanderson2001@gmail.com",
+    from: "FoodGramDemoCOP4331@gmail.com",
     to: user.Email,
     subject: "Food gram - Verify your email",
     text: `
