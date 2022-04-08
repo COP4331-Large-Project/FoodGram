@@ -86,7 +86,7 @@ function Register()
                     <p class="w-100 text-center">Already have an account? {element} </p><br/>
                 </div>
             </form>
-            <span id="registerResult">{message}</span>
+            <span id="registerResult" class="w-100 text-center">{message}</span>
         </div>
      </div>
     );
