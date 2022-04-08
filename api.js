@@ -41,6 +41,12 @@ app.post('/api/register/', async (req, res, next) =>
   {
     return res.json("User already exists");
   }
+    
+  var user = await User.findOne({Email: Email})
+  if (user)
+  {
+    return res.json("Email already exists");
+  }
 
 
   var user = new User();
