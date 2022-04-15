@@ -18,7 +18,6 @@ function ForgotPassword(){
         var res = JSON.parse(await response.text());
         if( res.id <= 0 )
         {
-          
           setMessage(res.error);
         }
         else
