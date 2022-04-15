@@ -47,8 +47,8 @@ function ForgotPassword(){
                 </div>
                 <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit" onClick={doForgotPassword}/>
             </form>
-            <span id="registerResult"></span>
-            <span id="loginResult" class="w-100 text-center">{message}</span>
+            <br/>
+            <span id="forgotPasswordResult" class="w-100 text-center">{message}</span>
         </div>
      </div>
       );
