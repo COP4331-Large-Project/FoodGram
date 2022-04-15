@@ -413,6 +413,18 @@ body {
   left: 55%;
   top: 50px;
 }
+.ForgotPasswordText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  position: absolute;
+  width: auto;
+  max-width: 100%;
+  left: 55%;
+  top: 250px;
+}
 .col-1,
 .col-2,
 .col-3,
