@@ -6,6 +6,7 @@ function ForgotPassword(){
   var forgotPasswordEmail;
   const [message,setMessage] = useState('');
   let bp = require('./Path.js');
+  let element = <a class="changingTextColor" href="/">Main Page!</a>;
 
   const doForgotPassword = async event => {
     event.preventDefault();
@@ -47,8 +48,8 @@ function ForgotPassword(){
                 <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit" onClick={doForgotPassword}/>
             </form>
             <br/>
-            <span class="w-100 text-center" style={{marginLeft:"-60px"}}>Hello!</span>
             <span id="forgotPasswordResult" class="w-100 text-center" style={{marginLeft:"-60px"}}>{message}</span>
+            <span class="w-100 text-center" style={{marginLeft:"-60px"}}>Return to {element}</span>
         </div>
 
      </div>
