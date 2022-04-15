@@ -1,9 +1,9 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
-//const sgMail = require("@sendgrid/mail");
+const sgMail = require("@sendgrid/mail");
 const { Console } = require('console');
-//sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 var mongoose = require('mongoose');
 
