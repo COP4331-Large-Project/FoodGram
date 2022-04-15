@@ -98,6 +98,53 @@ app.post('/api/register/', async (req, res, next) =>
   }).catch(next);
 });
 
+
+app.post('/api/forgotpassword/', async (req, res, next) =>
+{
+  var id = -1;
+  const { Email } = req.body;
+  console.log(Email);
+  console.log(User.findOne({Email: Email}))
+  var user = await User.findOne({Email: Email})
+  if (!user)
+  {
+      var ret = {id: -1, firstName: '', lastName: '', error: 'Email does not exist!'}
+      return res.status(200).json(ret);
+  }
+
+  // EMAIL VERIFICATION SEND
+  const msg = {
+  from: "FoodGramDemoCOP4331@gmail.com",
+  to: user.Email,
+  subject: "FoodGram - Follow link to reset password!",
+  text: `
+      Hello!
+      Please click the following link to reset your password.
+      https://foodgram-demo.herokuapp.com/reset-password?token=${user.salt}
+  `,
+              html: `
+              Hello!
+      Please click the following link to reset your password.
+      https://foodgram-demo.herokuapp.com/reset-password?token=${user.salt}
+  `
+  };
+  try
+  {
+      sgMail.send(msg);
+      //req.flash('Success', 'Thanks for registering!');
+      console.log('Email sent')
+      //res.redirect('/');
+      error = 'Email sent correctly';
+      var ret = {id: 1, error: 'Reset email sent!'}
+      return res.json(ret);
+  }catch(error)
+  {
+      console.log(error);
+      var ret = {id: -1, error: 'Something went wrong. Please contact us at foodgram@gmail.com'}
+      return res.json(ret);
+  }
+});
+
 app.get('/api/verify-email', async (req, res, next) =>
 {
    try{
@@ -150,14 +197,14 @@ app.post('/api/login/', async (req, res, next) =>
 
 });
 
-app.post('/api/forgetpassword/', async (req, res, next) => 
+app.post('/api/reset-password', async (req, res, next) => 
 {
-  const { email, new_password,confirm_password } = req.body;
-  if(new_password!=confirm_password) return res.status(422).json({errors: {password: "the password you entered does not match"}});
+  const { new_password,confirm_password } = req.body;
+  if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
 
 
   try{
-    var user = await User.findOne({Email: email})
+    var user = await User.findOne({salt: req.query.token})
     if (!user)
     {
         return res.json("Email not found");
@@ -166,12 +213,13 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
 
     // Creates a temp user to set hash and salt for new password
     var tempUser = new User();
+    console.log(confirm_password);
     tempUser.setPassword(confirm_password);
 
     // Updates hash and salt from tempUser to the User
-    User.findOneAndUpdate({Email: email}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
+    User.findOneAndUpdate({salt: req.query.token}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
       console.log("Updated hash!")});
-    User.findOneAndUpdate({Email: email}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
+    User.findOneAndUpdate({salt: req.query.token}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
       console.log("Updated salt!")
       return res.send('Password updated!');
    });
@@ -231,5 +279,4 @@ else
     })
 }
 });
-
 }
