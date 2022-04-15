@@ -11,8 +11,7 @@ function Register()
     const [message,setMessage] = useState('');
     let bp = require('./Path.js');
 
-    let url = "https://foodgram-demo.herokuapp.com/login";
-    let element = <a class="changingTextColor" href={url}>Log In!</a>;
+    let element = <a class="changingTextColor" href="/login">Log In!</a>;
 
     const doRegister = async event => 
     {
