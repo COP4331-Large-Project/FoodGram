@@ -1,9 +1,9 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
-const sgMail = require("@sendgrid/mail");
+//const sgMail = require("@sendgrid/mail");
 const { Console } = require('console');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+//sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 var mongoose = require('mongoose');
 
@@ -231,12 +231,13 @@ app.post('/api/reset-password', async (req, res, next) =>
 
 
 var multer = require('multer');
+var imgModel = require('./models/image');
 var storage = multer.diskStorage({
 destination: (req, file, cb) => {
 cb(null, './public/images');
 },
 filename: (req, file, cb) => {
-    console.log(file);
+    //console.log(file);
     var filetype = '';
     if (file.mimetype === 'image/png') {
         filetype = 'png';
@@ -260,23 +261,57 @@ const multerFilter = (req, file, cb) =>{
 var upload = multer({ storage: storage });
 
 app.post('/api/upload/', upload.single('file'), function(req, res, next) {
-//console.log(req.file);
-var createAt = Date.now();
+
 var name = req.file.filename;
-//const newPost = { userid: userid, name: name, recipe: recipe};
-//console.log(name);
-const db = client.db('foodgram');
-const result = db.collection('posts').insertOne({name: name, date: createAt});
-if(!req.file) {
-  res.status(500);
-  //return next(err);
+var obj = {
+  name: req.body.name,
+  userId: req.body.userId,
+  imagePath: name,
+  recipe: req.body.recipe,
+  category: req.body.category
 }
-else
-{
+imgModel.create(obj, (err, item) => {
+  if(err) {
+    res.status(500);
+    console.log(err);
+  }
+  else {
     res.status(200).json({
-        status: 'success',
-        message: 'Image uploaded successfully'
+      status: 'success',
+      message: 'Image uploaded successfully'
     })
+  }
+})
+});
+
+app.get('/api/searchCategory', function(req, res, next) {
+{
+  try {
+    const category  = req.body.category;
+    console.log(category);
+    // var obj = {
+    //   category: req.body.category
+    // }
+    imgModel.find({}, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(result);
+      }
+    });
+    // if (!results) {
+    //   var ret = { error: 'No results found' };
+    //   return res.status(200).json(ret);
+    // }
+    // else {
+    //   var ret = { name: results.name, userId: results.userId, imagePath: results.imagePath, recipe: results.recipe, category: results.category };
+    //   return res.status(200).json(ret);
+    // }
+  }
+  catch(error) {
+    console.log(error);
+  }
 }
 });
+
 }
