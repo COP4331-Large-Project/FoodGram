@@ -39,14 +39,18 @@ app.post('/api/register/', async (req, res, next) =>
   var user = await User.findOne({Login: Login})
   if (user)
   {
-    return res.json("User already exists");
+      var ret = {id: -1, firstName: '', lastName: '', error: 'User already exists'}
+      return res.status(200).json(ret);
+    //return res.json("User already exists");
   }
   
     
   var user = await User.findOne({Email: Email})
   if (user)
   {
-    return res.json("Email already exists");
+    var ret = {id: -1, firstName: '', lastName: '', error: 'Email already exists'}
+    return res.status(200).json(ret);
+    //return res.json("Email already exists");
   }
 
 
@@ -151,18 +155,30 @@ app.post('/api/forgetpassword/', async (req, res, next) =>
   const { email, new_password,confirm_password } = req.body;
   if(new_password!=confirm_password) return res.status(422).json({errors: {password: "the password you entered does not match"}});
 
-  var user=await User.findOne({Email: email});
-  var new_user=user;
-  if (user) {
-  await user.deleteOne();
-  new_user.setPassword(new_password);
-  new_user.save();
-  res.redirect('/api/login');
-  }
-  else {
-    return res.status(422).json({errors: {password: "Email does not exist"}});
-  }
 
+  try{
+    var user = await User.findOne({Email: email})
+    if (!user)
+    {
+        return res.json("Email not found");
+    }
+    console.log(user.Login);
+
+    // Creates a temp user to set hash and salt for new password
+    var tempUser = new User();
+    tempUser.setPassword(confirm_password);
+
+    // Updates hash and salt from tempUser to the User
+    User.findOneAndUpdate({Email: email}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
+      console.log("Updated hash!")});
+    User.findOneAndUpdate({Email: email}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
+      console.log("Updated salt!")
+      return res.send('Password updated!');
+   });
+ }
+ catch(error){
+     console.log(error);
+ }
 });  
 
 
