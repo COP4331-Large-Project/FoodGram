@@ -43,7 +43,7 @@ function ForgotPassword(){
             <form onSubmit={doForgotPassword}>
                 <div class="form-group">
                   <h2 id="text" style={{textAlign: "center"}}>Please input the email address associated with your account.</h2><br/>
-                  <input id="forgotPasswordEmail" type="text" class="form-control col-md-10" placeholder="Email" />
+                  <input id="forgotPasswordEmail" type="text" class="form-control col-md-10" placeholder="Email" ref={(c) => forgotPasswordEmail = c}/>
                 </div>
                 <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit" onClick={doForgotPassword}/>
             </form>
