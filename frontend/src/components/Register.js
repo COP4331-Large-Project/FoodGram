@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import RegisterImage from "../assets/img/chef2_image.png";
+import ProjectBox from "./Elements/ProjectBox";
 
 function Register() {
 
@@ -96,9 +97,9 @@ function Register() {
       </div>
       <div className="RegisterText">
         <form onSubmit={doRegister}>
-          <h1 id="title">FoodGram</h1>
+          <h1 id="title" style={{marginLeft:"-60px"}}>FoodGram</h1>
           <br />
-          <h2 id="text">Sign up to discover meal ideas, save your favorite recipes, and more!</h2>
+          <h2 id="text" style={{marginLeft:"-60px"}}>Sign up to discover meal ideas, save your favorite recipes, and more!</h2>
           <br />
           <div className="form-group">
             <input
@@ -159,16 +160,17 @@ function Register() {
             id="registerButton"
             className="form-controlL btn-danger submit col-md-10"
             value="Register"
-            onClick={doRegister}
+            onClick={() => {
+                doRegister();
+            }}
           />
           <div className="form group">
             {" "}
-            <br />
-            <p className="w-100 text-center">Already have an account? {element} </p>
-            <br />
+            <br/>
+            <p className="w-100 text-center" style={{marginLeft:"-60px"}}>Already have an account? {element} </p>
           </div>
         </form>
-        <span id="registerResult" className="w-100 text-center" class="changingTextColor">
+        <span id="registerResult" class=" w-100 text-center" style={{marginLeft:"-60px", color:"#ff203a"}}>
           {message}
         </span>
       </div>
