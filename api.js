@@ -145,6 +145,8 @@ app.post('/api/forgotpassword/', async (req, res, next) =>
   }
 });
 
+
+
 app.get('/api/verify-email', async (req, res, next) =>
 {
    try{
@@ -313,5 +315,40 @@ app.get('/api/searchCategory', function(req, res, next) {
   }
 }
 });
+
+
+// Search api that returns matches on name, recipe, or category
+// Takes in search string
+// If search is blank, every recipe is returned
+app.post('/api/search/', async function(req, res, next) {
+
+  const { search } = req.body;
+
+  imgModel.find({
+    $or: [
+      {
+        "name": {'$regex': search}
+      },
+      {
+        "recipe": {'$regex': search}
+      }, 
+      {
+        "category": {'$regex': search}
+      }, 
+    ]
+  }
+  
+  , function(err, result) {
+
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+
+  console.log(search);
+
+  });
 
 }
