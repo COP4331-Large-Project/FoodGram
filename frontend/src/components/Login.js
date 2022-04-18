@@ -106,7 +106,9 @@ function Login() {
             <p class="w-100 text-center">Don't have an account? {element}</p>
           </div>
         </form>
-        <span id="loginResult" class="w-100 text-center" style={{color:"#ff203a"}}>{message}</span>
+        <span id="loginResult" class="w-100 text-center" style={{ color: "#ff3333" }}>
+          {message}
+        </span>
       </div>
     </div>
   );
