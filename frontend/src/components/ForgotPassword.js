@@ -17,14 +17,7 @@ function ForgotPassword(){
       const response = await fetch(bp.buildPath('api/forgotpassword'),
       {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
         var res = JSON.parse(await response.text());
-        if( res.id <= 0 )
-        {
-          setMessage(res.error);
-        }
-        else
-        {
-          setMessage(res.error);
-        }
+        setMessage(res.error);
     }
     catch(e)
     {

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import ResetPasswordImage from "../assets/img/chef_resetpassword.png";
 
-
 function ResetPassword(){
 
-    var resetPassword;
     var newPassword;
     var confirmPassword;
     const [message,setMessage] = useState('');
@@ -12,28 +10,14 @@ function ResetPassword(){
 
     const doResetPassword = async event => {
         event.preventDefault();
-        var obj = {Email:resetPassword.value};
+        var obj = { new_password: newPassword.value, confirm_password: confirmPassword.value };
         var js = JSON.stringify(obj);
-
-        // Check if passwords match
-        if (newPassword.value != confirmPassword.value) {
-            setMessage("Passwords do not match.");
-            return;
-        }
-
         try
         {
-          const response = await fetch(bp.buildPath('api/resetpassword'),
+          const response = await fetch(bp.buildPath('api/reset-password'),
           {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = JSON.parse(await response.text());
-            if( res.id <= 0 )
-            {
-              setMessage(res.error);
-            }
-            else
-            {
-              setMessage(res.error);
-            }
+            setMessage(res.error);
         }
         catch(e)
         {
