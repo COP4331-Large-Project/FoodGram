@@ -135,7 +135,7 @@ app.post('/api/forgotpassword/', async (req, res, next) =>
       console.log('Email sent')
       //res.redirect('/');
       error = 'Email sent correctly';
-      var ret = {id: 1, error: 'Reset email sent!'}
+      var ret = {id: 1, error: 'An email was sent to your inbox!'}
       return res.json(ret);
   }catch(error)
   {
