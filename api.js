@@ -351,36 +351,5 @@ app.post('/api/search/', async function(req, res, next) {
 
 });
 
-app.post('/api/search/', async function(req, res, next) {
-
-  const { postID, userID } = req.body;
-
-  imgModel.find({
-    $or: [
-      {
-        "name": {'$regex': search}
-      },
-      {
-        "recipe": {'$regex': search}
-      }, 
-      {
-        "category": {'$regex': search}
-      }, 
-    ]
-  }
-  
-  , function(err, result) {
-
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(result);
-    }
-  });
-
-  console.log(search);
-
-});
-
 
 }
