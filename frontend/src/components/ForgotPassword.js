@@ -43,7 +43,6 @@ function ForgotPassword(){
             <br/>
             <span id="forgotPasswordResult" class="w-100 text-center" style={{marginLeft:"-60px"}}>{message}</span>
             <span class="w-100 text-center" style={{marginLeft:"-60px"}}>Return to {element}</span>
-            <span class="w-100 text-center" style={{marginLeft:"-60px"}}>Return Home!</span>
         </div>
         
      </div>

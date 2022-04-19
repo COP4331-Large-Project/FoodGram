@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import RegisterImage from "../assets/img/chef2_image.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import ProjectBox from "./Elements/ProjectBox";
 
 function Register() {
@@ -14,6 +16,21 @@ function Register() {
   const [message, setMessage] = useState("");
 
   let bp = require("./Path.js");
+
+  const [passwordShown, setPasswordShown] = useState(false);
+    const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+
+    const togglePassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setPasswordShown(!passwordShown);
+    };
+
+    const toggleConfirmPassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setConfirmPasswordShown(!confirmPasswordShown);
+    };
 
   let element = (
     <a className="changingTextColor" href="/login">Log In!</a>
@@ -139,21 +156,27 @@ function Register() {
           </div>
           <div className="form-group">
             <input
-              type="password"
+              type={passwordShown ? "text" : "password"}
               id="registerPassword"
               className="form-control col-md-10"
               placeholder="Password"
               ref={(c) => (registerPassword = c)}
             />
+            <span onClick={togglePassword} class="field-icon-not-centered-register-page">
+                <FontAwesomeIcon icon={faEye} size="lg" />
+            </span>
           </div>
           <div className="form-group">
             <input
-              type="password"
+              type={confirmPasswordShown ? "text" : "password"}
               id="registerPassword"
               className="form-control col-md-10"
               placeholder="Confirm Password"
               ref={(c) => (registerConfirmPassword = c)}
             />
+            <span onClick={toggleConfirmPassword} class="field-icon-not-centered-register-page">
+                <FontAwesomeIcon icon={faEye} size="lg" />
+            </span>
           </div>
           <input
             type="submit"

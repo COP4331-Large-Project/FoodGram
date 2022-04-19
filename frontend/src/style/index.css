@@ -1141,8 +1141,26 @@ input[type="button"].btn-block {
 }
 .field-icon {
   position: absolute;
-  top: 52%;
+  top: 55%;
   right: 20px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: black;
+}
+.field-icon-not-centered {
+  position: absolute;
+  top: 55%;
+  right: 110px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: black;
+}
+.field-icon-not-centered-register-page {
+  position: absolute;
+  top: 55%;
+  right: 125px;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
