@@ -31,7 +31,10 @@ function ResetPassword(){
         var js = JSON.stringify(obj);
         try
         {
-          const response = await fetch(bp.buildPath('api/reset-password'),
+          var url = window.location;
+          var access_token = new URLSearchParams(url.search).get('token');
+
+          const response = await fetch(bp.buildPath('api/reset-password?token=' + access_token),
           {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var res = JSON.parse(await response.text());
             setMessage(res.error);
