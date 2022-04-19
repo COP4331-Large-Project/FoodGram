@@ -269,6 +269,7 @@ var obj = {
   name: req.body.name,
   userId: req.body.userId,
   imagePath: name,
+  ingredients: req.body.ingredients,
   recipe: req.body.recipe,
   category: req.body.category
 }
@@ -284,36 +285,6 @@ imgModel.create(obj, (err, item) => {
     })
   }
 })
-});
-
-app.get('/api/searchCategory', function(req, res, next) {
-{
-  try {
-    const category  = req.body.category;
-    console.log(category);
-    // var obj = {
-    //   category: req.body.category
-    // }
-    imgModel.find({}, function(err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(result);
-      }
-    });
-    // if (!results) {
-    //   var ret = { error: 'No results found' };
-    //   return res.status(200).json(ret);
-    // }
-    // else {
-    //   var ret = { name: results.name, userId: results.userId, imagePath: results.imagePath, recipe: results.recipe, category: results.category };
-    //   return res.status(200).json(ret);
-    // }
-  }
-  catch(error) {
-    console.log(error);
-  }
-}
 });
 
 
