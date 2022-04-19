@@ -269,6 +269,7 @@ var obj = {
   name: req.body.name,
   userId: req.body.userId,
   imagePath: name,
+  ingredients: req.body.ingredients,
   recipe: req.body.recipe,
   category: req.body.category
 }
