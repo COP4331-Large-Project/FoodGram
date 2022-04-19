@@ -1,54 +1,47 @@
 import React, { useState } from 'react';
 import ResetPasswordImage from "../assets/img/chef_resetpassword.png";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 function ResetPassword(){
-//     const [email, setEmail] = useState({ value: '', error: '' })
-//     const [newPassword, setNewPassword] = useState({ value: '', error: '' })
-//     const [confirmPassword, setConfirmPassword] = useState({ value: '', error: '' })
-    
 
-//     const sendResetPasswordEmail = async event => 
-//     {
-//         const emailError = emailValidator(email.value)
-//         const newPasswordError = passwordValidator(newPassword.value)
-//         const confirmPasswordError = passwordValidator(confirmPassword.value)
+    var newPassword;
+    var confirmPassword;
+    const [message,setMessage] = useState('');
+    let bp = require('./Path.js');
 
-//         if (emailError || newPasswordError || confirmPasswordError) 
-//         {
-//             setEmail({ ...email, error: emailError })
-//             setNewPassword({ ...newPassword, error: newPasswordError })
-//             setConfirmPassword({ ...confirmPassword, error: confirmPasswordError })
-//             return
-//         }
+    const [passwordShown, setPasswordShown] = useState(false);
+    const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 
-//         event.preventDefault();
-//         var obj = {email:email.value,new_password:newPassword.value, confirm_password:confirmPassword.value};
-//         //var obj = {email : email.value};
-//         var js = JSON.stringify(obj);
-//         try{    
-//             const response = await fetch('https://foodgram-demo.herokuapp.com/api/forgetpassword',
-//                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-//             var res = JSON.parse(await response.text());
-//             console.log(res.id);
-//             if( res.id <= 0 || res.id == undefined){
-//                 setMessage('Email not found');
-//             }
-//             else{
-//                 console.log(res.id);
-//                 var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
-//                 //localStorage.setItem('user_data', JSON.stringify(user));
-//                 setMessage('SUCCESS');
-//                 console.log(message);
-//                 navigation.navigate(LoginScreen);
-//             }
-//         }
-//         catch(e){
-//             console.log(e.toString());
-//             return;
-//         }    
-//     };
+    const togglePassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setPasswordShown(!passwordShown);
+    };
 
+    const toggleConfirmPassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setConfirmPasswordShown(!confirmPasswordShown);
+    };
+
+    const doResetPassword = async event => {
+        event.preventDefault();
+        var obj = { new_password: newPassword.value, confirm_password: confirmPassword.value };
+        var js = JSON.stringify(obj);
+        try
+        {
+          const response = await fetch(bp.buildPath('api/reset-password'),
+          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var res = JSON.parse(await response.text());
+            setMessage(res.error);
+        }
+        catch(e)
+        {
+            console.log(e.toString());
+            return;
+        }
+    };
 
       return(
         <div id="forgotPasswordDiv">
@@ -56,17 +49,25 @@ function ResetPassword(){
             <img className="radius8" class="pictureSizeForgotPassword" src={ResetPasswordImage} alt="forgot-password"/>
         </div>
         <div class="LoginText">
-            {/* <form onSubmit={doRegister}> */}
+            <form onSubmit={doResetPassword}>
                 <div class="form-group">
                   <h2 id="text" style={{textAlign: "center"}}>Please input a new password for your account.</h2><br/>
                   <div class="form-group">
-                    <input id="newPassword" type="text" class="form-control col-md-10" placeholder="New Password" />
+                    <input id="newPassword" type={passwordShown ? "text" : "password"} class="form-control col-md-10" placeholder="New Password" ref={(c) => newPassword = c}/>
+                    <span onClick={togglePassword} class="field-icon-not-centered">
+                        <FontAwesomeIcon icon={faEye} size="lg" />
+                    </span>
                   </div>
-                    <input id="confirmNewPassword" type="text" class="form-control col-md-10" placeholder="Confirm Password" />
+                  <div class="form-group">
+                    <input id="confirmPassword" type={confirmPasswordShown ? "text" : "password"} class="form-control col-md-10" placeholder="Confirm Password" ref={(c) => confirmPassword = c}/>
+                    <span onClick={toggleConfirmPassword} class="field-icon-not-centered">
+                        <FontAwesomeIcon icon={faEye} size="lg" />
+                    </span>
+                  </div>     
                 </div>
-                <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit"/>
-            {/* </form> */}
-            <span id="forgotPasswordResult"></span>
+                <input type="submit" class="form-controlL btn-danger submit col-md-10" value = "Submit" onClick={doResetPassword}/>
+            </form>
+            <span id="resetPasswordResult" class="w-100 text-center" style={{marginLeft:"-60px"}}>{message}</span>
         </div>
      </div>
       );

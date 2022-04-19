@@ -6,11 +6,24 @@ import Sidebar from "../Nav/Sidebar";
 import Backdrop from "../Elements/Backdrop";
 // Assets
 import BurgerIcon from "../../assets/svg/BurgerIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import LogoIcon from "../../assets/img/logo_chef_hat.png";
 
 export default function TopNavbar() {
   const [y, setY] = useState(window.scrollY);
   const [sidebarOpen, toggleSidebar] = useState(false);
+
+  var _ud = localStorage.getItem('user_data');
+    var ud = JSON.parse(_ud);
+    var userId = ud.id;
+    var firstName = ud.firstName;
+    var lastName = ud.lastName;
+    const doLogout = event => {
+      event.preventDefault();
+      localStorage.removeItem("user_data")
+      window.location.href = '/';
+    };
 
   useEffect(() => {
     window.addEventListener("scroll", () => setY(window.scrollY));
@@ -26,7 +39,7 @@ export default function TopNavbar() {
       {sidebarOpen && <Backdrop toggleSidebar={toggleSidebar} />}
       <Wrapper className="flexCenter animate whiteBg" style={y > 100 ? { height: "60px" } : { height: "80px" }}>
         <NavInner className="container flexSpaceCenter">
-          <Link className="pointer flexNullCenter" to="home" smooth={true}>
+          <Link className="flexNullCenter" to="home" smooth={true}>
             <img className="radius8" class="logoSize" src={LogoIcon} />
             <h1 style={{ marginLeft: "5px" }} className="font20 extraBold">
               Foodgram
@@ -36,43 +49,15 @@ export default function TopNavbar() {
             <BurgerIcon />
           </BurderWrapper>
           <UlWrapper className="flexNullCenter">
-            <li className="semiBold font15 pointer">
-              {/* We can add after spy={true}, smooth={true} to change how it interacts scrolling down */}
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="home" spy={true} smooth={true} offset={-80}>
-                Home
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="services" spy={true} smooth={true} offset={-80}>
-                Services
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="projects" spy={true} smooth={true} offset={-80}>
-                Projects
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              {/* We can add after spy={true}, smooth={true} to change how it interacts scrolling down */}
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy={true} smooth={true} offset={-80}> 
-                Blog
-              </Link>
-            </li>
-            <li className="semiBold font15 pointer">
-              <Link activeClass="active" style={{ padding: "10px 15px" }} to="contact" spy={true} smooth={true} offset={-80}>
-                Contact
-              </Link>
+            <li className="semiBold font16">
+              <span id="userName">Logged In As {firstName} {lastName}</span>
             </li>
           </UlWrapper>
           <UlWrapperRight className="flexNullCenter">
-            <li className="semiBold font15 pointer">
-              <a href="/login" style={{ padding: "10px 30px 10px 0"}}>
-                Log in
-              </a>
-            </li>
             <li className="semiBold font15 pointer flexCenter">
-              <a href="/register" className="radius8 lightBg" style={{ padding: "10px 15px" }}>
-                Sign Up
+              <a onClick={doLogout} Log Out className="radius8 lightBg" style={{ padding: "10px 15px" }}>
+                <FontAwesomeIcon icon={faSignOut} className="fa-fw" />
+                Log Out
               </a>
             </li>
           </UlWrapperRight>

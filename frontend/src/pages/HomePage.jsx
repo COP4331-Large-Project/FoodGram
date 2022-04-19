@@ -1,11 +1,11 @@
 import React from 'react';
-import PageTitle from '../components/PageTitle';
 import LoggedInName from '../components/LoggedInName';
+import TopNavbar from "../components/Nav/TopNavbar_dashboard";
 const HomePage = () =>
 {
     return(
         <div>
-            <PageTitle />
+            <TopNavbar/>
             <LoggedInName />
         </div>
     );

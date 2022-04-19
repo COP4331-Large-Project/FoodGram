@@ -379,6 +379,11 @@ body {
   width: 650px;
   height: 650px;
 }
+.logoSize {
+  margin-bottom: 8%;
+  width: 50px;
+  height: 50px;
+}
 .LoginTitle {
   font-family: "Prompt";
   font-style: normal;
@@ -1141,10 +1146,62 @@ input[type="button"].btn-block {
 }
 .field-icon {
   position: absolute;
-  top: 52%;
+  top: 55%;
   right: 20px;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   color: black;
+}
+.field-icon-not-centered {
+  position: absolute;
+  top: 55%;
+  right: 110px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: black;
+}
+.field-icon-not-centered-register-page {
+  position: absolute;
+  top: 55%;
+  right: 125px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: black;
+}
+.btn-info {
+  color: #fff;
+  background-color: #ff203a;
+  border-color: #ff203a;
+}
+.btn-info:hover {
+  color: #fff;
+  background-color: #a02f3c;
+  border-color: #a02f3c;
+}
+.btn-info:focus,
+.btn-info.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(234, 4, 4, 0.698);
+  box-shadow: 0 0 0 0.2rem rgba(234, 4, 4, 0.698);
+}
+.btn-info.disabled,
+.btn-info:disabled {
+  color: #fff;
+  background-color: #ff203a;
+  border-color: #ff203a;
+}
+.btn-info:not(:disabled):not(.disabled):active,
+.btn-info:not(:disabled):not(.disabled).active,
+.show > .btn-info.dropdown-toggle {
+  color: #fff;
+  background-color: #c7071d;
+  border-color: #c7071d;
+}
+.btn-info:not(:disabled):not(.disabled):active:focus,
+.btn-info:not(:disabled):not(.disabled).active:focus,
+.show > .btn-info.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
 }
