@@ -354,7 +354,7 @@ app.post('/api/search/', async function(req, res, next) {
 // Search api that returns matches on name, recipe, or category
 // Takes in search string
 // If search is blank, every recipe is returned
-app.post('/api/deletePost/', async function(req, res, next) {
+app.post('/api/deleteRecipe/', async function(req, res, next) {
 
   const { postID, userID } = req.body;
   
