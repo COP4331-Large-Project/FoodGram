@@ -351,5 +351,52 @@ app.post('/api/search/', async function(req, res, next) {
 
 });
 
+// Search api that returns matches on name, recipe, or category
+// Takes in search string
+// If search is blank, every recipe is returned
+app.post('/api/deletePost/', async function(req, res, next) {
 
+  const { postID, userID } = req.body;
+  
+  // Checks if id string is valid
+  if(!mongoose.Types.ObjectId.isValid(postID)) {
+    var ret = {id: -1, error: "Can't find recipe"}
+    return res.json(ret);
+  }
+
+  try{
+
+    var recipe = await imgModel.findById(postID);
+
+    // Checks if recipe exists
+    if (!recipe)
+    {
+      var ret = {id: -1, error: "Can't find recipe"}
+      return res.json(ret);
+    }
+
+    else 
+    {
+      console.log(recipe.userId);
+
+      // Deletes if recipe's user id matches taken in user id
+      if (recipe.userId == userID)
+      {
+        imgModel.findById(postID).deleteOne().exec();
+        var ret = {id: 1, error: 'Post deleted!'}
+        return res.json(ret);
+      }
+
+      // Returns error if user ids do not match
+      else
+      {
+        var ret = {id: -1, error: "You cannot delete this post!"}
+        return res.json(ret);
+      }
+    }
+  }
+  catch(error){
+      console.log(error);
+  }
+});
 }
