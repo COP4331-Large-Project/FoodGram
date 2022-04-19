@@ -5,8 +5,8 @@ import { Link } from "react-scroll";
 import Sidebar from "../Nav/Sidebar";
 import Backdrop from "../Elements/Backdrop";
 // Assets
-import LogoIcon from "../../assets/svg/Logo";
 import BurgerIcon from "../../assets/svg/BurgerIcon";
+import LogoIcon from "../../assets/img/logo_chef_hat.png";
 
 export default function TopNavbar() {
   const [y, setY] = useState(window.scrollY);
@@ -27,8 +27,8 @@ export default function TopNavbar() {
       <Wrapper className="flexCenter animate whiteBg" style={y > 100 ? { height: "60px" } : { height: "80px" }}>
         <NavInner className="container flexSpaceCenter">
           <Link className="pointer flexNullCenter" to="home" smooth={true}>
-            <LogoIcon />
-            <h1 style={{ marginLeft: "15px" }} className="font20 extraBold">
+            <img className="radius8" class="logoSize" src={LogoIcon} />
+            <h1 style={{ marginLeft: "5px" }} className="font20 extraBold">
               Foodgram
             </h1>
           </Link>

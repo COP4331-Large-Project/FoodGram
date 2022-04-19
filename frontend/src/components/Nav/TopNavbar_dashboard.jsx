@@ -8,7 +8,7 @@ import Backdrop from "../Elements/Backdrop";
 import BurgerIcon from "../../assets/svg/BurgerIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
-import logoIcon from "../../assets/img/logo_chef_hat.png";
+import LogoIcon from "../../assets/img/logo_chef_hat.png";
 
 export default function TopNavbar() {
   const [y, setY] = useState(window.scrollY);
@@ -40,7 +40,7 @@ export default function TopNavbar() {
       <Wrapper className="flexCenter animate whiteBg" style={y > 100 ? { height: "60px" } : { height: "80px" }}>
         <NavInner className="container flexSpaceCenter">
           <Link className="flexNullCenter" to="home" smooth={true}>
-          <img className="radius8" class="logoSize" src={logoIcon} />
+            <img className="radius8" class="logoSize" src={LogoIcon} />
             <h1 style={{ marginLeft: "5px" }} className="font20 extraBold">
               Foodgram
             </h1>
