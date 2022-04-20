@@ -9,6 +9,11 @@ import BurgerIcon from "../../assets/svg/BurgerIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import LogoIcon from "../../assets/img/logo_chef_hat.png";
+import TextField from "@mui/material/TextField";
+import SearchIcon from '@mui/icons-material/Search';
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import InputAdornment from '@mui/material/InputAdornment';
+
 
 export default function TopNavbar() {
   const [y, setY] = useState(window.scrollY);
@@ -50,7 +55,19 @@ export default function TopNavbar() {
           </BurderWrapper>
           <UlWrapper className="flexNullCenter">
             <li className="semiBold font16">
-              <span id="userName">Logged In As {firstName} {lastName}</span>
+              <span id="userName">Logged In As {firstName} {lastName}</span> <br/> 
+              <TextField
+                className="inputRounded"
+                label="Search"
+                textAlign="centered"
+                id="outlined-size-small"
+                size="small"
+                // margin="dense"
+                style={{ width: "100%", borderWidth: 2, borderRadius: 20,  marginBottom: 12, borderRadius: 40}}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><FontAwesomeIcon icon={faSearch} /></InputAdornment>,
+                }}
+              />
             </li>
           </UlWrapper>
           <UlWrapperRight className="flexNullCenter">
