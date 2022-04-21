@@ -272,7 +272,6 @@ var obj = {
   ingredients: req.body.ingredients,
   recipe: req.body.recipe,
   category: req.body.category,
-  savedBy: "",
   saves: 0
 }
 imgModel.create(obj, (err, item) => {
@@ -301,7 +300,6 @@ app.post('/api/save', async function(req, res, next) {
 
   try{
     var post = await imgModel.findById(postId);
-
     // Checks if recipe exists
     if (!post)
     {
@@ -311,18 +309,29 @@ app.post('/api/save', async function(req, res, next) {
     else
     {
       //if it is your own post then nothing is done
-      if (recipe.userId == userId)
+      if (post.userId == userId)
       {
         var ret = {id: -1, error: "Own post"}
         return res.json(ret);
       }
       //if it is not your own post, then add to saved by and increase saved count
+      //if it is not your own post, then check if post is being saved or unsaved
       else
       {
-        post.savedBy.push(userId);
-        post.saves.push(post.saves + 1);
-        post.save(done);
-        var ret = {id: 1, error: "Favorite success"}
+        imgModel.findOneAndUpdate(
+          { _id: postId},
+          { $push: { savedBy: userId },
+             $inc: { saves: 1 } },
+          //{ $inc: { saves: 1 } },
+          { new: true },
+          function (error, success) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(success);
+            }
+        });
+        var ret = { id: 1, error: "Favorite success" }
         return res.json(ret);
       }
     }
@@ -330,7 +339,6 @@ app.post('/api/save', async function(req, res, next) {
   catch(err){
     console.log(err);
   }
-
 });
 
 

@@ -7,7 +7,7 @@ var imageSchema = new mongoose.Schema({
     ingredients: {type:String, required:true},
     recipe: {type:String, required:true},
     category: {type:String, required:true},
-    savedBy: String,
+    savedBy: Array,
     saves: Number
 });
 
