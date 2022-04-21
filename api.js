@@ -423,6 +423,28 @@ app.post('/api/search/', async function(req, res, next) {
 // Search api that returns matches on name, recipe, or category
 // Takes in search string
 // If search is blank, every recipe is returned
+app.post('/api/savedRecipes', async function(req, res, next) {
+
+  const { userID } = req.body;
+
+  imgModel.find({
+    savedBy: userID
+  }
+  
+  , function(err, result) {
+
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+
+});
+
+// Search api that returns matches on name, recipe, or category
+// Takes in search string
+// If search is blank, every recipe is returned
 app.post('/api/deleteRecipe/', async function(req, res, next) {
 
   const { postID, userID } = req.body;
