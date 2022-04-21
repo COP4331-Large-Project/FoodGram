@@ -206,10 +206,10 @@ app.post('/api/reset-password', async (req, res, next) =>
 
 
   try{
-    var user = await User.findOne({salt: req.query.token})
+    var user = await User.findOne({_id: req.query.token})
     if (!user)
     {
-        return res.json("Email not found");
+        return res.json("User not found");
     }
     console.log(user.Login);
 
@@ -219,11 +219,12 @@ app.post('/api/reset-password', async (req, res, next) =>
     tempUser.setPassword(confirm_password);
 
     // Updates hash and salt from tempUser to the User
-    User.findOneAndUpdate({salt: req.query.token}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
-      console.log("Updated hash!")});
-    User.findOneAndUpdate({salt: req.query.token}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
-      console.log("Updated salt!")
-      return res.send('Password updated!');
+    User.findOneAndUpdate({_id: req.query.token}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
+      console.log("Updated salt!")});
+    User.findOneAndUpdate({_id: req.query.token}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
+      console.log("Updated hash!")
+      var ret = {id: 1, error: "pass is updated"};
+      return res.status(200).json(ret);
    });
  }
  catch(error){
