@@ -271,7 +271,9 @@ var obj = {
   imagePath: name,
   ingredients: req.body.ingredients,
   recipe: req.body.recipe,
-  category: req.body.category
+  category: req.body.category,
+  savedBy: "",
+  saves: 0
 }
 imgModel.create(obj, (err, item) => {
   if(err) {
@@ -285,6 +287,50 @@ imgModel.create(obj, (err, item) => {
     })
   }
 })
+});
+
+app.post('/api/save', async function(req, res, next) {
+
+  const { postId, userId } = req.body;
+
+   // Checks if id string is valid
+   if(!mongoose.Types.ObjectId.isValid(postId)) {
+    var ret = {id: -1, error: "Can't find post"}
+    return res.json(ret);
+  }
+
+  try{
+    var post = await imgModel.findById(postId);
+
+    // Checks if recipe exists
+    if (!post)
+    {
+      var ret = {id: -1, error: "Can't find recipe"}
+      return res.json(ret);
+    }
+    else
+    {
+      //if it is your own post then nothing is done
+      if (recipe.userId == userId)
+      {
+        var ret = {id: -1, error: "Own post"}
+        return res.json(ret);
+      }
+      //if it is not your own post, then add to saved by and increase saved count
+      else
+      {
+        post.savedBy.push(userId);
+        post.saves.push(post.saves + 1);
+        post.save(done);
+        var ret = {id: 1, error: "Favorite success"}
+        return res.json(ret);
+      }
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+
 });
 
 

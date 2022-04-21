@@ -6,7 +6,9 @@ var imageSchema = new mongoose.Schema({
     imagePath: {type:String, required:true},
     ingredients: {type:String, required:true},
     recipe: {type:String, required:true},
-    category: {type:String, required:true}
+    category: {type:String, required:true},
+    savedBy: String,
+    saves: Number
 });
 
 module.exports = mongoose.model('posts', imageSchema);
