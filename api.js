@@ -421,7 +421,7 @@ app.post('/api/search/', async function(req, res, next) {
 });
 
 // Returns saved recipes given a userID
-app.post('/api/savedRecipes', async function(req, res, next) {
+app.post('/api/showBookmarks', async function(req, res, next) {
 
   const { userID } = req.body;
 
@@ -474,7 +474,7 @@ app.post('/api/bookmark', async function(req, res, next) {
   }
 
   
-  imgModel.findOneAndUpdate({_id: recipeID}, {$push: { savedBy: userID }}, {upsert: true}, function(err, doc){
+  imgModel.findOneAndUpdate({_id: recipeID}, {$push: { savedBy: userID }}, {upsert: true}, function(){
     var ret = {id: 1, error: "Recipe saved!"}
     return res.json(ret);});
 });
