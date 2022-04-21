@@ -479,6 +479,45 @@ app.post('/api/bookmark', async function(req, res, next) {
     return res.json(ret);});
 });
 
+app.post('/api/unbookmark', async function(req, res, next) {
+
+  const { userID, recipeID } = req.body;
+
+  // Check on if id is valid
+  if(!mongoose.Types.ObjectId.isValid(userID)) {
+    var ret = {id: -1, error: "Invalid user"}
+    return res.json(ret);
+  }
+  if(!mongoose.Types.ObjectId.isValid(recipeID)) {
+    var ret = {id: -1, error: "Invalid recipe"}
+    return res.json(ret);
+  }
+
+  var curUser = await User.findOne({_id: userID})
+  if (!curUser)
+  {
+    var ret = {id: -1, error: "Invalid user"}
+    return res.json(ret);
+  }
+  var curRecipe = await imgModel.findOne({_id: recipeID})
+  if (!curRecipe)
+  {
+    var ret = {id: -1, error: "Invalid recipe"}
+    return res.json(ret);
+  }
+
+  if (!curRecipe.savedBy.includes(userID))
+  {
+    var ret = {id: -1, error: "Recipe not bookmarked!"}
+    return res.json(ret);
+  }
+
+  
+  imgModel.findOneAndUpdate({_id: recipeID}, {$pull: { savedBy: userID }}, {upsert: true}, function(){
+    var ret = {id: 1, error: "Recipe unbookmarked!"}
+    return res.json(ret);});
+});
+
 // Search api that returns matches on name, recipe, or category
 // Takes in search string
 // If search is blank, every recipe is returned
