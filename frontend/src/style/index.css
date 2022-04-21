@@ -1205,3 +1205,6 @@ input[type="button"].btn-block {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
   box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
 }
+.inputRounded .MuiOutlinedInput-root {
+  border-radius: 20px;
+}
