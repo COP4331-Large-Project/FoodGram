@@ -401,6 +401,9 @@ app.post('/api/search/', async function(req, res, next) {
       {
         "category": {'$regex': search}
       }, 
+      {
+        "ingredients": {'$regex': search}
+      }
     ]
   }
   
