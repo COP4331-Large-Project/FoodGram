@@ -120,12 +120,12 @@ app.post('/api/forgotpassword/', async (req, res, next) =>
   text: `
       Hello!
       Please click the following link to reset your password.
-      https://foodgram-demo.herokuapp.com/reset-password?token=${user.salt}
+      https://foodgram-demo.herokuapp.com/reset-password?token=${user._id}
   `,
               html: `
               Hello!
       Please click the following link to reset your password.
-      https://foodgram-demo.herokuapp.com/reset-password?token=${user.salt}
+      https://foodgram-demo.herokuapp.com/reset-password?token=${user._id}
   `
   };
   try
@@ -206,10 +206,17 @@ app.post('/api/reset-password', async (req, res, next) =>
 
 
   try{
+    // Check on if id is valid
+    if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
+      var ret = {id: -1, error: "User not found"}
+      return res.json(ret);
+    }
+
     var user = await User.findOne({_id: req.query.token})
     if (!user)
     {
-        return res.json("User not found");
+      var ret = {id: -1, error: "User not found"}
+      return res.json(ret);
     }
     console.log(user.Login);
 
@@ -226,6 +233,31 @@ app.post('/api/reset-password', async (req, res, next) =>
       var ret = {id: 1, error: "pass is updated"};
       return res.status(200).json(ret);
    });
+ }
+ catch(error){
+     console.log(error);
+ }
+});  
+
+app.post('/api/edit-recipe', async (req, res, next) => 
+{
+  const { new_password,confirm_password } = req.body;
+  if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
+
+
+  try{
+    // Check on if id is valid
+    if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
+      var ret = {id: -1, error: "User not found"}
+      return res.json(ret);
+    }
+    var user = await User.findOne({_id: req.query.token})
+    if (!user)
+    {
+        return res.json("User not found");
+    }
+    console.log(user.Login);
+    
  }
  catch(error){
      console.log(error);
