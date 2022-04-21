@@ -241,23 +241,31 @@ app.post('/api/reset-password', async (req, res, next) =>
 
 app.post('/api/edit-recipe', async (req, res, next) => 
 {
-  const { new_password,confirm_password } = req.body;
-  if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
-
+  const { id, name, ingredients, recipe, category } = req.body;
 
   try{
     // Check on if id is valid
-    if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
-      var ret = {id: -1, error: "User not found"}
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      var ret = {id: -1, error: "Recipe not found"}
       return res.json(ret);
     }
-    var user = await User.findOne({_id: req.query.token})
-    if (!user)
+    var curRecipe = await imgModel.findOne({_id: id})
+    if (!curRecipe)
     {
-        return res.json("User not found");
+        return res.json("Recipe not found");
     }
-    console.log(user.Login);
     
+    imgModel.findOneAndUpdate({_id: id}, {name: name}, {upsert: true}, function(err, doc){
+      console.log("Updated name!")});
+    imgModel.findOneAndUpdate({_id: id}, {ingredients: ingredients}, {upsert: true}, function(err, doc){
+      console.log("Updated ingredients!")});
+    imgModel.findOneAndUpdate({_id: id}, {recipe: recipe}, {upsert: true}, function(err, doc){
+      console.log("Updated recipe!")});
+    imgModel.findOneAndUpdate({_id: id}, {category: category}, {upsert: true}, function(err, doc){
+      console.log("Updated category!")
+      var ret = {id: 1, error: "Recipe successfully update!"};
+      return res.status(200).json(ret);
+   });
  }
  catch(error){
      console.log(error);
