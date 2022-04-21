@@ -420,9 +420,7 @@ app.post('/api/search/', async function(req, res, next) {
 
 });
 
-// Search api that returns matches on name, recipe, or category
-// Takes in search string
-// If search is blank, every recipe is returned
+// Returns saved recipes given a userID
 app.post('/api/savedRecipes', async function(req, res, next) {
 
   const { userID } = req.body;
@@ -440,6 +438,45 @@ app.post('/api/savedRecipes', async function(req, res, next) {
     }
   });
 
+});
+
+app.post('/api/bookmark', async function(req, res, next) {
+
+  const { userID, recipeID } = req.body;
+
+  // Check on if id is valid
+  if(!mongoose.Types.ObjectId.isValid(userID)) {
+    var ret = {id: -1, error: "Invalid user"}
+    return res.json(ret);
+  }
+  if(!mongoose.Types.ObjectId.isValid(recipeID)) {
+    var ret = {id: -1, error: "Invalid recipe"}
+    return res.json(ret);
+  }
+
+  var curUser = await User.findOne({_id: userID})
+  if (!curUser)
+  {
+    var ret = {id: -1, error: "Invalid user"}
+    return res.json(ret);
+  }
+  var curRecipe = await imgModel.findOne({_id: recipeID})
+  if (!curRecipe)
+  {
+    var ret = {id: -1, error: "Invalid recipe"}
+    return res.json(ret);
+  }
+
+  if (curRecipe.savedBy.includes(userID))
+  {
+    var ret = {id: -1, error: "Recipe already saved!"}
+    return res.json(ret);
+  }
+
+  
+  imgModel.findOneAndUpdate({_id: recipeID}, {$push: { savedBy: userID }}, {upsert: true}, function(err, doc){
+    var ret = {id: 1, error: "Recipe saved!"}
+    return res.json(ret);});
 });
 
 // Search api that returns matches on name, recipe, or category
