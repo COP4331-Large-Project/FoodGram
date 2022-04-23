@@ -7,6 +7,7 @@ import {
   InputBase,
   Menu,
   MenuItem,
+  Stack,
   styled,
   Toolbar,
   Typography,
@@ -54,12 +55,15 @@ const Navbar = () => {
   return (
     <AppBar position="sticky" style={{ background: "#fce4ec" }}>
       <StyledToolbar>
-        <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
-        {/* <Pets/> */}
-        {/* <img src={LogoIcon} alt="logo" /> */}
-        <Typography variant="h6" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
-          FoodGram
-        </Typography>
+        <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
+          <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
+          {/* <Pets/> */}
+          {/* <img src={LogoIcon} alt="logo" /> */}
+          <Typography variant="h6" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
+            FoodGram
+          </Typography>
+        </Stack>
+
         <Search sx={{ border: 1, borderColor: "grey.500" }}>
           <InputBase placeholder="Find a Recipe..." />
         </Search>
