@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import { alpha } from "@mui/material/styles";
 import LogoIcon from "../../assets/img/logo_chef_hat_transparent.png";
 
@@ -22,12 +21,15 @@ var _ud = localStorage.getItem("user_data");
 var ud = JSON.parse(_ud);
 var userId = ud.id;
 var firstName = ud.firstName;
+var lastName = ud.lastName; 
+
 let myusrArray = firstName.split("");
-// console.log(myusrArray[0]);
-// var lastName = ud.lastName; //Not used
+console.log(myusrArray[0]);
+
 
 const doLogout = (event) => {
   event.preventDefault();
+  // localStorage.clear();
   localStorage.removeItem("user_data");
   window.location.href = "/login";
 };
