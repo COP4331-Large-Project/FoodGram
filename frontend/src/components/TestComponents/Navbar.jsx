@@ -22,7 +22,9 @@ var _ud = localStorage.getItem("user_data");
 var ud = JSON.parse(_ud);
 var userId = ud.id;
 var firstName = ud.firstName;
-var lastName = ud.lastName; //Not used
+let myusrArray = firstName.split("");
+// console.log(myusrArray[0]);
+// var lastName = ud.lastName; //Not used
 
 const doLogout = (event) => {
   event.preventDefault();
@@ -73,10 +75,7 @@ const Navbar = () => {
           <InputBase placeholder="Find a Recipe..." />
         </Search>
         <UserBox onClick={(e) => setOpen(true)}>
-          <Avatar
-            sx={{ width: 40, height: 40 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          />
+          <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myusrArray[0]}</Avatar>
           <Typography variant="subtitle1">{firstName}</Typography>
         </UserBox>
       </StyledToolbar>
