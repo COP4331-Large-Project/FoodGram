@@ -17,6 +17,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import { alpha } from "@mui/material/styles";
 import LogoIcon from "../../assets/img/logo_chef_hat_transparent.png";
 
+//From @gianfrancosg code
+var _ud = localStorage.getItem("user_data");
+var ud = JSON.parse(_ud);
+var userId = ud.id;
+var firstName = ud.firstName;
+var lastName = ud.lastName; //Not used
+
+const doLogout = (event) => {
+  event.preventDefault();
+  localStorage.removeItem("user_data");
+  window.location.href = "/login";
+};
+// End
+
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
@@ -60,10 +74,10 @@ const Navbar = () => {
         </Search>
         <UserBox onClick={(e) => setOpen(true)}>
           <Avatar
-            sx={{ width: 30, height: 30 }}
+            sx={{ width: 40, height: 40 }}
             src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           />
-          <Typography variant="span">John</Typography>
+          <Typography variant="subtitle1">{firstName}</Typography>
         </UserBox>
       </StyledToolbar>
       <Menu
