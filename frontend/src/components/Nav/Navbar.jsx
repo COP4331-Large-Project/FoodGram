@@ -12,9 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import { alpha } from "@mui/material/styles";
-import LogoIcon from "../../assets/img/logo_chef_hat_transparent.png";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -23,13 +20,9 @@ const StyledToolbar = styled(Toolbar)({
 
 const Search = styled("div")(({ theme }) => ({
   backgroundColor: "white",
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.8),
-  },
-  padding: "0 20px",
-  border: 1,
-  borderRadius: 35,
-  width: "20%",
+  padding: "0 5px",
+  borderRadius: theme.shape.borderRadius,
+  width: "50%",
 }));
 
 const Icons = styled(Box)(({ theme }) => ({
@@ -52,18 +45,18 @@ const UserBox = styled(Box)(({ theme }) => ({
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <AppBar position="sticky" style={{ background: "#fce4ec" }}>
+    <AppBar position="sticky">
       <StyledToolbar>
-        <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
-        {/* <Pets/> */}
-        {/* <img src={LogoIcon} alt="logo" /> */}
-        <Typography variant="h6" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
-          FoodGram
+        <Pets sx={{ display: { xs: "block", sm: "none" } }} />
+        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
+          LAMA DEV
         </Typography>
-        <Search sx={{ border: 1, borderColor: "grey.500" }}>
-          <InputBase placeholder="Find a Recipe..." />
+
+        <Search>
+          <InputBase placeholder="search..." />
         </Search>
         <Icons>
+
           <Avatar
             sx={{ width: 30, height: 30 }}
             src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"

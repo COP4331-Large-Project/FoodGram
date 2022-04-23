@@ -7,20 +7,34 @@ import Feed from "../components/TestComponents/Feed";
 import RightBar from "../components/TestComponents/Rightbar";
 import Navbar from "../components/TestComponents/Navbar";
 import { Box, Stack } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const font = "'Prompt', sans-serif";
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: font,
+      color: '#3F3D56',
+    },
+  },
+});
 
 const HomePage = () => {
   return (
-    <Box>
-      <TopNavbar />
-      {/* <Navbar/> */}
-      <LoggedInName />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar />
-        <Feed />
-        <RightBar />
-      </Stack>
-      <Navbar/>
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Box>
+        <TopNavbar />
+        {/* <Navbar/> */}
+        <LoggedInName />
+        <Stack direction="row" spacing={2} justifyContent="space-between">
+          <Sidebar />
+          <Feed />
+          <RightBar />
+        </Stack>
+        <Navbar />
+      </Box>
+    </ThemeProvider>
   );
 };
 export default HomePage;
