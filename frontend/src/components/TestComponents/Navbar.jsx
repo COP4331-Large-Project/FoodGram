@@ -25,7 +25,8 @@ const StyledToolbar = styled(Toolbar)({
 const Search = styled("div")(({ theme }) => ({
   backgroundColor: "white",
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.8),
+    backgroundColor: alpha(theme.palette.common.white, 0.7),
+    borderColor: alpha(theme.palette.common.black, 0.7),
   },
   padding: "0 20px",
   border: 1,
@@ -33,23 +34,15 @@ const Search = styled("div")(({ theme }) => ({
   width: "20%",
 }));
 
-const Icons = styled(Box)(({ theme }) => ({
-  display: "none",
-  alignItems: "center",
-  gap: "20px",
-  [theme.breakpoints.up("sm")]: {
-    display: "flex",
-  },
-}));
-
 const UserBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: "10px",
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
-  },
+  // [theme.breakpoints.up("sm")]: {
+  //   display: "none",
+  // },
 }));
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
@@ -57,8 +50,6 @@ const Navbar = () => {
       <StyledToolbar>
         <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
           <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
-          {/* <Pets/> */}
-          {/* <img src={LogoIcon} alt="logo" /> */}
           <Typography variant="h6" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
             FoodGram
           </Typography>
@@ -67,13 +58,6 @@ const Navbar = () => {
         <Search sx={{ border: 1, borderColor: "grey.500" }}>
           <InputBase placeholder="Find a Recipe..." />
         </Search>
-        <Icons>
-          <Avatar
-            sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            onClick={(e) => setOpen(true)}
-          />
-        </Icons>
         <UserBox onClick={(e) => setOpen(true)}>
           <Avatar
             sx={{ width: 30, height: 30 }}
