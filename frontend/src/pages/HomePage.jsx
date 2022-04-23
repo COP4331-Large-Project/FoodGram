@@ -24,15 +24,14 @@ const HomePage = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <TopNavbar />
-        {/* <Navbar/> */}
-        <LoggedInName />
+        {/* <TopNavbar /> */}
+        <Navbar/>
+        {/* <LoggedInName /> */}
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Sidebar />
           <Feed />
           <RightBar />
         </Stack>
-        <Navbar />
       </Box>
     </ThemeProvider>
   );
