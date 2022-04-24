@@ -6,6 +6,7 @@ import Sidebar from "../components/TestComponents/Sidebar";
 import Feed from "../components/TestComponents/Feed";
 import RightBar from "../components/TestComponents/Rightbar";
 import Navbar from "../components/TestComponents/Navbar";
+import Footer from "../components/TestComponents/Footer";
 import { Box, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -24,14 +25,13 @@ const HomePage = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        {/* <TopNavbar /> */}
-        <Navbar/>
-        {/* <LoggedInName /> */}
+        <Navbar />
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Sidebar />
           <Feed />
           <RightBar />
         </Stack>
+        {/* <Footer /> */}
       </Box>
     </ThemeProvider>
   );
