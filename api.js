@@ -239,31 +239,31 @@ app.post('/api/reset-password', async (req, res, next) =>
  }
 });  
 
-app.post('/api/edit-recipe', async (req, res, next) => 
+app.post('/api/edit-instructions', async (req, res, next) => 
 {
-  const { id, name, ingredients, recipe, category } = req.body;
+  const { id, name, ingredients, instructions, category } = req.body;
 
   try{
     // Check on if id is valid
     if(!mongoose.Types.ObjectId.isValid(id)) {
-      var ret = {id: -1, error: "Recipe not found"}
+      var ret = {id: -1, error: "Instructions not found"}
       return res.json(ret);
     }
-    var curRecipe = await imgModel.findOne({_id: id})
-    if (!curRecipe)
+    var curInstructions = await imgModel.findOne({_id: id})
+    if (!curInstructions)
     {
-        return res.json("Recipe not found");
+        return res.json("Instructions not found");
     }
     
     imgModel.findOneAndUpdate({_id: id}, {name: name}, {upsert: true}, function(err, doc){
       console.log("Updated name!")});
     imgModel.findOneAndUpdate({_id: id}, {ingredients: ingredients}, {upsert: true}, function(err, doc){
       console.log("Updated ingredients!")});
-    imgModel.findOneAndUpdate({_id: id}, {recipe: recipe}, {upsert: true}, function(err, doc){
-      console.log("Updated recipe!")});
+    imgModel.findOneAndUpdate({_id: id}, {instructions: instructions}, {upsert: true}, function(err, doc){
+      console.log("Updated instructions!")});
     imgModel.findOneAndUpdate({_id: id}, {category: category}, {upsert: true}, function(err, doc){
       console.log("Updated category!")
-      var ret = {id: 1, error: "Recipe successfully update!"};
+      var ret = {id: 1, error: "Instructions successfully update!"};
       return res.status(200).json(ret);
    });
  }
@@ -311,7 +311,7 @@ var obj = {
   userId: req.body.userId,
   imagePath: name,
   ingredients: req.body.ingredients,
-  recipe: req.body.recipe,
+  instructions: req.body.instructions,
   category: req.body.category,
   saves: 0
 }
@@ -341,10 +341,10 @@ app.post('/api/save', async function(req, res, next) {
 
   try{
     var post = await imgModel.findById(postId);
-    // Checks if recipe exists
+    // Checks if instructions exists
     if (!post)
     {
-      var ret = {id: -1, error: "Can't find recipe"}
+      var ret = {id: -1, error: "Can't find instructions"}
       return res.json(ret);
     }
     else
@@ -383,9 +383,9 @@ app.post('/api/save', async function(req, res, next) {
 });
 
 
-// Search api that returns matches on name, recipe, or category
+// Search api that returns matches on name, instructions, or category
 // Takes in search string
-// If search is blank, every recipe is returned
+// If search is blank, every instructions is returned
 app.post('/api/search/', async function(req, res, next) {
 
   const { search } = req.body;
@@ -396,7 +396,7 @@ app.post('/api/search/', async function(req, res, next) {
         "name": {'$regex': search}
       },
       {
-        "recipe": {'$regex': search}
+        "instructions": {'$regex': search}
       }, 
       {
         "category": {'$regex': search}
@@ -420,7 +420,7 @@ app.post('/api/search/', async function(req, res, next) {
 
 });
 
-// Returns saved recipes given a userID
+// Returns saved instructions given a userID
 app.post('/api/showBookmarks', async function(req, res, next) {
 
   const { userID } = req.body;
@@ -442,15 +442,15 @@ app.post('/api/showBookmarks', async function(req, res, next) {
 
 app.post('/api/bookmark', async function(req, res, next) {
 
-  const { userID, recipeID } = req.body;
+  const { userID, instructionsID } = req.body;
 
   // Check on if id is valid
   if(!mongoose.Types.ObjectId.isValid(userID)) {
     var ret = {id: -1, error: "Invalid user"}
     return res.json(ret);
   }
-  if(!mongoose.Types.ObjectId.isValid(recipeID)) {
-    var ret = {id: -1, error: "Invalid recipe"}
+  if(!mongoose.Types.ObjectId.isValid(instructionsID)) {
+    var ret = {id: -1, error: "Invalid instructions"}
     return res.json(ret);
   }
 
@@ -460,36 +460,36 @@ app.post('/api/bookmark', async function(req, res, next) {
     var ret = {id: -1, error: "Invalid user"}
     return res.json(ret);
   }
-  var curRecipe = await imgModel.findOne({_id: recipeID})
-  if (!curRecipe)
+  var curInstructions = await imgModel.findOne({_id: instructionsID})
+  if (!curInstructions)
   {
-    var ret = {id: -1, error: "Invalid recipe"}
+    var ret = {id: -1, error: "Invalid instructions"}
     return res.json(ret);
   }
 
-  if (curRecipe.savedBy.includes(userID))
+  if (curInstructions.savedBy.includes(userID))
   {
-    var ret = {id: -1, error: "Recipe already saved!"}
+    var ret = {id: -1, error: "Instructions already saved!"}
     return res.json(ret);
   }
 
   
-  imgModel.findOneAndUpdate({_id: recipeID}, {$push: { savedBy: userID }}, {upsert: true}, function(){
-    var ret = {id: 1, error: "Recipe saved!"}
+  imgModel.findOneAndUpdate({_id: instructionsID}, {$push: { savedBy: userID }}, {upsert: true}, function(){
+    var ret = {id: 1, error: "Instructions saved!"}
     return res.json(ret);});
 });
 
 app.post('/api/unbookmark', async function(req, res, next) {
 
-  const { userID, recipeID } = req.body;
+  const { userID, instructionsID } = req.body;
 
   // Check on if id is valid
   if(!mongoose.Types.ObjectId.isValid(userID)) {
     var ret = {id: -1, error: "Invalid user"}
     return res.json(ret);
   }
-  if(!mongoose.Types.ObjectId.isValid(recipeID)) {
-    var ret = {id: -1, error: "Invalid recipe"}
+  if(!mongoose.Types.ObjectId.isValid(instructionsID)) {
+    var ret = {id: -1, error: "Invalid instructions"}
     return res.json(ret);
   }
 
@@ -499,55 +499,55 @@ app.post('/api/unbookmark', async function(req, res, next) {
     var ret = {id: -1, error: "Invalid user"}
     return res.json(ret);
   }
-  var curRecipe = await imgModel.findOne({_id: recipeID})
-  if (!curRecipe)
+  var curInstructions = await imgModel.findOne({_id: instructionsID})
+  if (!curInstructions)
   {
-    var ret = {id: -1, error: "Invalid recipe"}
+    var ret = {id: -1, error: "Invalid instructions"}
     return res.json(ret);
   }
 
-  if (!curRecipe.savedBy.includes(userID))
+  if (!curInstructions.savedBy.includes(userID))
   {
-    var ret = {id: -1, error: "Recipe not bookmarked!"}
+    var ret = {id: -1, error: "Instructions not bookmarked!"}
     return res.json(ret);
   }
 
   
-  imgModel.findOneAndUpdate({_id: recipeID}, {$pull: { savedBy: userID }}, {upsert: true}, function(){
-    var ret = {id: 1, error: "Recipe unbookmarked!"}
+  imgModel.findOneAndUpdate({_id: instructionsID}, {$pull: { savedBy: userID }}, {upsert: true}, function(){
+    var ret = {id: 1, error: "Instructions unbookmarked!"}
     return res.json(ret);});
 });
 
-// Search api that returns matches on name, recipe, or category
+// Search api that returns matches on name, instructions, or category
 // Takes in search string
-// If search is blank, every recipe is returned
-app.post('/api/deleteRecipe/', async function(req, res, next) {
+// If search is blank, every instructions is returned
+app.post('/api/deleteInstructions/', async function(req, res, next) {
 
   const { postID, userID } = req.body;
   
   // Checks if id string is valid
   if(!mongoose.Types.ObjectId.isValid(postID)) {
-    var ret = {id: -1, error: "Can't find recipe"}
+    var ret = {id: -1, error: "Can't find instructions"}
     return res.json(ret);
   }
 
   try{
 
-    var recipe = await imgModel.findById(postID);
+    var instructions = await imgModel.findById(postID);
 
-    // Checks if recipe exists
-    if (!recipe)
+    // Checks if instructions exists
+    if (!instructions)
     {
-      var ret = {id: -1, error: "Can't find recipe"}
+      var ret = {id: -1, error: "Can't find instructions"}
       return res.json(ret);
     }
 
     else 
     {
-      console.log(recipe.userId);
+      console.log(instructions.userId);
 
-      // Deletes if recipe's user id matches taken in user id
-      if (recipe.userId == userID)
+      // Deletes if instructions's user id matches taken in user id
+      if (instructions.userId == userID)
       {
         imgModel.findById(postID).deleteOne().exec();
         var ret = {id: 1, error: 'Post deleted!'}
