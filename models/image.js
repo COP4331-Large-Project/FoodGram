@@ -5,7 +5,7 @@ var imageSchema = new mongoose.Schema({
     userId: {type:String, required:true},
     imagePath: {type:String, required:true},
     ingredients: {type:String, required:true},
-    recipe: {type:String, required:true},
+    instructions: {type:String, required:true},
     category: {type:String, required:true},
     savedBy: Array,
     saves: Number
