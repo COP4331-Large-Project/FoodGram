@@ -199,7 +199,7 @@ app.post('/api/login/', async (req, res, next) =>
 
 });
 
-app.post('/api/reset-password', async (req, res, next) => 
+app.post('/api/reset-password', auth, async (req, res, next) => 
 {
   const { new_password,confirm_password } = req.body;
   if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
