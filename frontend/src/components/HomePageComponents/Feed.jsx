@@ -1,6 +1,6 @@
 import React from "react";
 import RecipeCard from "../Cards/RecipeCard.tsx";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Container, Typography, Stack, Button } from "@mui/material";
 
 //For design testing
 const recipeCards = [
@@ -32,16 +32,30 @@ const recipeCards = [
 
 const Feed = () => {
   return (
-    <Box flex={4} p={4}>
-      <Grid container spacing={5}>
+    <Box flex={4} p={{ xs: 0, md: 2 }}>
+      {/* Hero Unit */}
+      <Container maxWidth="sm">
+        <Typography component="h1" variant="h4" align="center" gutterBottom>
+          My Recipes
+        </Typography>
+        <Typography variant="h5" align="center" color="text.secondary" paragraph>
+          Something short and leading about the collection below—its contents, the creator, etc.
+          Make it short and sweet, but not too short so folks don&apos;t simply skip over it
+          entirely.
+        </Typography>
+      </Container>
+      {/* End hero unit */}
+      <Container sx={{ py: 6 }}>
+        <Grid container spacing={5}>
           {recipeCards.map((recipeCard, i) => {
             return (
               <Grid key={i} item>
                 <RecipeCard {...recipeCard} />
               </Grid>
-            );              
+            );
           })}
-      </Grid>
+        </Grid>
+      </Container>
     </Box>
   );
 };
