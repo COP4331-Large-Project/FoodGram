@@ -23,14 +23,13 @@ export default function RecipeCard({ image, title, description }: Props) {
   return (
     <Card sx={{ maxWidth: 300 }}>
       <CardActionArea>
-        <CardMedia component="img" height="140" image="/Assets/paella.jpg" />
+        <CardMedia component="img" height="140" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
-            Paella
+            {title}
           </Typography>
           <Typography variant="body2" color="text.secondary" component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
