@@ -2,11 +2,11 @@ import React from "react";
 import LoggedInName from "../components/LoggedInName";
 import TopNavbar from "../components/Nav/TopNavbar_dashboard";
 // D' imports
-import Sidebar from "../components/TestComponents/Sidebar";
-import Feed from "../components/TestComponents/Feed";
-import RightBar from "../components/TestComponents/Rightbar";
-import Navbar from "../components/TestComponents/Navbar";
-import Footer from "../components/TestComponents/Footer";
+import Sidebar from "../components/HomePageComponents/Sidebar";
+import Feed from "../components/HomePageComponents/Feed";
+import RightBar from "../components/HomePageComponents/Rightbar";
+import Navbar from "../components/HomePageComponents/Navbar";
+import Footer from "../components/HomePageComponents/Footer";
 import { Box, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
