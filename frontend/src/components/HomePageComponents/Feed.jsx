@@ -1,6 +1,6 @@
-import { Box } from "@mui/material";
 import React from "react";
 import RecipeCard from "../Cards/RecipeCard.tsx";
+import { Grid, Box } from "@mui/material";
 
 //For design testing
 const recipeCards = [
@@ -32,14 +32,16 @@ const recipeCards = [
 
 const Feed = () => {
   return (
-    <Box flex={4} p={2}>
-      <>
-      {recipeCards.map((recipeCard, i) => {
-        return (
-          <RecipeCard key={i} {...recipeCard}/>
-        );
-      })}
-      </>
+    <Box flex={4} p={4}>
+      <Grid container spacing={5}>
+          {recipeCards.map((recipeCard, i) => {
+            return (
+              <Grid key={i} item>
+                <RecipeCard {...recipeCard} />
+              </Grid>
+            );              
+          })}
+      </Grid>
     </Box>
   );
 };
