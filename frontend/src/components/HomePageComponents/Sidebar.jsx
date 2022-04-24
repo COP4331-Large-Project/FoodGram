@@ -28,7 +28,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#home">
               <ListItemIcon>
-                <Home />
+                <Home sx={{ color: "#FF203A" }} />
               </ListItemIcon>
               <ListItemText primary="My Recipes" />
             </ListItemButton>
@@ -36,7 +36,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <Article />
+                <Article sx={{ color: "#FF203A" }} />
               </ListItemIcon>
               <ListItemText primary="Explore" />
             </ListItemButton>
@@ -44,7 +44,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <AccountBox />
+                <AccountBox sx={{ color: "#FF203A" }} />
               </ListItemIcon>
               <ListItemText primary="Profile" />
             </ListItemButton>
@@ -52,7 +52,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <Info />
+                <Info sx={{ color: "#FF203A" }} />
               </ListItemIcon>
               <ListItemText primary="About Us" />
             </ListItemButton>
@@ -60,7 +60,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <ModeNight />
+                <ModeNight sx={{ color: "#FF203A" }} />
               </ListItemIcon>
               <Switch onChange={(e) => setMode(mode === "light" ? "dark" : "light")} />
             </ListItemButton>
