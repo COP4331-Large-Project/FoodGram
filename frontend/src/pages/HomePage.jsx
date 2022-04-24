@@ -1,5 +1,4 @@
 import React from "react";
-import LoggedInName from "../components/LoggedInName";
 import TopNavbar from "../components/Nav/TopNavbar_dashboard";
 // D' imports
 import Sidebar from "../components/HomePageComponents/Sidebar";
