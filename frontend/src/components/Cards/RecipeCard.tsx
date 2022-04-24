@@ -1,13 +1,17 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import CardActionArea from "@mui/material/CardActionArea";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
+import { Favorite, FavoriteBorder, MoreVert, Share } from "@mui/icons-material";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Checkbox,
+  Typography,
+} from "@mui/material";
 
 interface Props {
   image: string;
@@ -31,9 +35,7 @@ export default function RecipeCard({ image, title, description }: Props) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon color="primary" />
-        </IconButton>
+        <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
         <Button size="small" color="primary">
           View
         </Button>
