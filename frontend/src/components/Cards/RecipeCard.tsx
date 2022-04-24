@@ -21,7 +21,7 @@ interface Props {
 
 export default function RecipeCard({ image, title, description }: Props) {
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <CardActionArea>
         <CardMedia component="img" height="140" image={image} />
         <CardContent>
