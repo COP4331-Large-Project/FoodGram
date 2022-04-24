@@ -1,6 +1,4 @@
 import React from "react";
-import TopNavbar from "../components/Nav/TopNavbar_dashboard";
-// D' imports
 import Sidebar from "../components/HomePageComponents/Sidebar";
 import Feed from "../components/HomePageComponents/Feed";
 import RightBar from "../components/HomePageComponents/Rightbar";
@@ -15,7 +13,15 @@ const theme = createTheme({
   typography: {
     allVariants: {
       fontFamily: font,
-      color: '#3F3D56',
+      color: "#3F3D56",
+    },
+  },
+  palette: {
+    primary: {
+      main: "#FF203A",
+    },
+    secondary: {
+      main: "#3F3D56",
     },
   },
 });

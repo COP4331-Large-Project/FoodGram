@@ -13,11 +13,7 @@ export default function RecipeCard() {
   return (
     <Card sx={{ maxWidth: 300 }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image='/Assets/paella.jpg'
-        />
+        <CardMedia component="img" height="140" image="/Assets/paella.jpg" />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             Paella
@@ -30,7 +26,7 @@ export default function RecipeCard() {
       </CardActionArea>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon color="primary" />
         </IconButton>
         <Button size="small" color="primary">
           View
