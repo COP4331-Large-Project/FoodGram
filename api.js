@@ -29,7 +29,7 @@ passport.use(new LocalStrategy({
 
 exports.setApp = function (app ) {
 
-app.post('/api/register/', auth, async (req, res, next) =>
+app.post('/api/register/', async (req, res, next) =>
 {
   // incoming: firstName, lastName, login, password
   // outgoing: error
