@@ -99,7 +99,7 @@ app.post('/api/register/', auth, async (req, res, next) =>
 });
 
 
-app.post('/api/forgotpassword/', auth, async (req, res, next) =>
+app.post('/api/forgotpassword/', async (req, res, next) =>
 {
   var id = -1;
   const { Email } = req.body;
