@@ -29,7 +29,7 @@ passport.use(new LocalStrategy({
 
 exports.setApp = function (app ) {
 
-app.post('/api/register/', async (req, res, next) =>
+app.post('/api/register/', auth, async (req, res, next) =>
 {
   // incoming: firstName, lastName, login, password
   // outgoing: error
@@ -99,7 +99,7 @@ app.post('/api/register/', async (req, res, next) =>
 });
 
 
-app.post('/api/forgotpassword/', async (req, res, next) =>
+app.post('/api/forgotpassword/', auth, async (req, res, next) =>
 {
   var id = -1;
   const { Email } = req.body;
@@ -199,7 +199,7 @@ app.post('/api/login/', async (req, res, next) =>
 
 });
 
-app.post('/api/reset-password', async (req, res, next) => 
+app.post('/api/reset-password', auth, async (req, res, next) => 
 {
   const { new_password,confirm_password } = req.body;
   if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
