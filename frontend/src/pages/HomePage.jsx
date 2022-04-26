@@ -41,7 +41,7 @@ const HomePage = () => {
             <Feed />
             <RightBar />
           </Stack>
-          <Footer />
+          {/* <Footer /> */}
         </Box>
       </CssBaseline>
     </ThemeProvider>

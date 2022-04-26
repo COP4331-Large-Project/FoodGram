@@ -6,16 +6,16 @@ import { Grid, Box, Container, Typography, Stack, Button } from "@mui/material";
 import { recipeCards } from "../../recipeCardsData";
 //End of design testing
 
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center">
-//       {"Copyright © "}
-//         Group 22 Large Project Spring {' '}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {"Copyright © "}
+        Group 22 Large Project Spring {' '}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 const Feed = () => {
   return (
@@ -39,7 +39,7 @@ const Feed = () => {
         </Grid>
       </Container>
       {/* Footer */}
-      {/* <Box variant="outlined" sx={{ bgcolor: "secondary.light" }} component="footer">
+      <Box variant="outlined" sx={{ bgcolor: "secondary.light" }} component="footer">
         <Typography variant="h6" align="center">
           FoodGram
         </Typography>
@@ -47,7 +47,7 @@ const Feed = () => {
           Let's grab a coffee. Viva las Arepas!
         </Typography>
         <Copyright />
-      </Box> */}
+      </Box>
       {/* End footer */}
     </Box>
   );
