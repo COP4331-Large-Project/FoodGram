@@ -6,18 +6,24 @@ import { Grid, Box, Container, Typography, Stack, Button } from "@mui/material";
 import { recipeCards } from "../../recipeCardsData";
 //End of design testing
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {"Copyright © "}
+        Group 22 Large Project Spring {' '}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
 const Feed = () => {
   return (
-    <Box flex={4} p={{ xs: 0, md: 2 }}>
+    <Box sx={{ bgcolor: "secondary.light" }} flex={6} p={{ xs: 0, md: 2 }}>
       {/* Hero Unit */}
       <Container maxWidth="sm">
         <Typography component="h1" variant="h4" align="center" gutterBottom>
-          My Recipes
-        </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" paragraph>
-          Something short and leading about the collection below—its contents, the creator, etc.
-          Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-          entirely.
+          Explore All Recipes
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -32,6 +38,17 @@ const Feed = () => {
           })}
         </Grid>
       </Container>
+      {/* Footer */}
+      <Box variant="outlined" sx={{ bgcolor: "secondary.light" }} component="footer">
+        <Typography variant="h6" align="center">
+          FoodGram
+        </Typography>
+        <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
+          Let's grab a coffee. Viva las Arepas!
+        </Typography>
+        <Copyright />
+      </Box>
+      {/* End footer */}
     </Box>
   );
 };

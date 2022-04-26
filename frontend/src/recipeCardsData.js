@@ -45,4 +45,10 @@ export const recipeCards = [
     description:
       "This is a wonderful steak dish is quite popular in various restaurants around Buenos Aires. ",
   },
+  {
+    image: "/Assets/paella.jpg",
+    title: "Shrimp Paella",
+    description:
+      "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
+  },
 ];

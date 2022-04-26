@@ -8,6 +8,9 @@ import {
   Settings,
   Storefront,
   Info,
+  Favorite,
+  NoteAlt,
+  ListAlt,
 } from "@mui/icons-material";
 import {
   Box,
@@ -30,23 +33,23 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Home sx={{ color: "#FF203A" }} />
               </ListItemIcon>
+              <ListItemText primary="All Recipes" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component="a" href="#simple-list">
+              <ListItemIcon>
+                <Favorite sx={{ color: "#FF203A" }} />
+              </ListItemIcon>
+              <ListItemText primary="My Favorites" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component="a" href="#simple-list">
+              <ListItemIcon>
+                <NoteAlt sx={{ color: "#FF203A" }} />
+              </ListItemIcon>
               <ListItemText primary="My Recipes" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemIcon>
-                <Article sx={{ color: "#FF203A" }} />
-              </ListItemIcon>
-              <ListItemText primary="Explore" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemIcon>
-                <AccountBox sx={{ color: "#FF203A" }} />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
