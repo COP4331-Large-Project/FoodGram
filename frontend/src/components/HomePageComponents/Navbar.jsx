@@ -26,7 +26,9 @@ if (ud !== null) {
   var firstName = ud.firstName;
   var lastName = ud.lastName;
 
-  myUsrArray = firstName.split("");
+  if(myUsrArray !== undefined){
+    myUsrArray = firstName.split("");
+  }
   console.log(myUsrArray[0]);
 }
 
