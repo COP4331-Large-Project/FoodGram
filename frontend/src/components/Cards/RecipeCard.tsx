@@ -2,7 +2,7 @@ import * as React from "react";
 import CardActionArea from "@mui/material/CardActionArea";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
-import { DeleteOutline, Favorite, FavoriteBorder, } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, MoreVert, Share } from "@mui/icons-material";
 import {
   Card,
   CardActions,
@@ -11,7 +11,6 @@ import {
   CardMedia,
   Checkbox,
   Typography,
-  IconButton,
 } from "@mui/material";
 
 interface Props {
@@ -22,39 +21,23 @@ interface Props {
 
 export default function RecipeCard({ image, title, description }: Props) {
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "20px",
-        borderColor: "seondary.main",
-        // backgroundColor: "primary.light",
-        maxWidth: "100%",
-        transition: "all 0.3s ease", //speed of transition 0.3s acelleration/decelation
-        ":hover": { background: "#fce4ec" },
-      }}
-    >
+    <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <CardActionArea>
         <CardMedia component="img" height="140" image={image} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {title}
           </Typography>
-          {/* <Typography gutterBottom variant="body2" component="p">
+          <Typography variant="body2" color="text.secondary" component="p">
             {description}
-          </Typography> */}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
-        <Button size="small">
+        <Button size="small" color="primary">
           View
         </Button>
-        <IconButton onClick={() => console.log('delete', title)}>
-          <DeleteOutline />
-        </IconButton>
       </CardActions>
     </Card>
   );
