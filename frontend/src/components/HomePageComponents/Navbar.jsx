@@ -19,7 +19,7 @@ import LogoIcon from "../../assets/img/logo_chef_hat_transparent.png";
 var _ud = localStorage.getItem("user_data");
 var ud = JSON.parse(_ud);
 
-let myUsrArray;
+var myUsrArray;
 
 if (ud !== null) {
   var userId = ud.id;
