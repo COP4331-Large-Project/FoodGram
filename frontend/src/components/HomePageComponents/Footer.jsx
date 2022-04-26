@@ -18,7 +18,7 @@ const Footer = () => {
         FoodGram
       </Typography>
       <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
-        Let's grab a coffee. Viva las Arepas!
+        Let's grab a coffee. Vivan las Arepas!
       </Typography>
       <Copyright />
     </Box>
