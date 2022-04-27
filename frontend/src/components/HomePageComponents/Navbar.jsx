@@ -68,7 +68,7 @@ const UserBox = styled(Box)(({ theme }) => ({
   // },
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [open, setOpen] = useState(false);
   return (
     <AppBar position="sticky" style={{ background: "#fce4ec" }}>
@@ -81,7 +81,10 @@ const Navbar = () => {
         </Stack>
 
         <Search sx={{ border: 1, borderColor: "grey.500" }}>
-          <InputBase placeholder="Find a Recipe..." />
+          <InputBase 
+            placeholder="Find a Recipe..." 
+            onChange={e => props.search(e.target.value)}
+            />
         </Search>
         <UserBox onClick={(e) => setOpen(true)}>
           {/* <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myUsrArray[0]}</Avatar> */}

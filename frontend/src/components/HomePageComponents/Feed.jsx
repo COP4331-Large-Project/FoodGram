@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import RecipeCard from "../Cards/RecipeCard.tsx";
 import { Grid, Box, Container, Typography, Stack, Button } from "@mui/material";
 
 //For design testing
-import { recipeCards } from "../../recipeCardsData";
+// import { recipeCards } from "../../recipeCardsData";
 //End of design testing
 
 // function Copyright() {
@@ -17,9 +17,23 @@ import { recipeCards } from "../../recipeCardsData";
 //   );
 // }
 
-const Feed = () => {
+const Feed = (props) => {
+  const [recipeCards, setRecipeCards] = useState([]);
+
+  // function that will run when page is loaded
+  useEffect(() => {
+    // console.log(recipeCards)
+    const updateFeed = setInterval(() => {
+      // console.log(localStorage.getItem("feed"))
+      setRecipeCards(JSON.parse(localStorage.getItem("feed")))
+    }, 100)
+  }, []);
+
   return (
     <Box sx={{ bgcolor: "secondary.light" }} flex={6} p={{ xs: 0, md: 2 }}>
+      
+      {/* <a>{recipeCards[0].category}</a> */}
+      
       {/* Hero Unit */}
       <Container maxWidth="sm">
         <Typography component="h1" variant="h4" align="center" gutterBottom>
@@ -51,6 +65,10 @@ const Feed = () => {
       {/* End footer */}
     </Box>
   );
+};
+
+const Welcome = (props) => {
+  return <h1>{props.text}</h1>;
 };
 
 export default Feed;
