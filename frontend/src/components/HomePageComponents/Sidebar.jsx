@@ -33,7 +33,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Home sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="All Recipes" />
+              <ListItemText primary="All Recipes" sx={{ fontSize: "18px" }} disableTypography />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -41,7 +41,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Favorite sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="My Favorites" />
+              <ListItemText primary="My Favorites" sx={{ fontSize: "18px" }} disableTypography />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -49,7 +49,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <NoteAlt sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="My Recipes" />
+              <ListItemText primary="My Recipes" sx={{ fontSize: "18px" }} disableTypography />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -57,7 +57,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Info sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="About Us" />
+              <ListItemText primary="About Us" sx={{ fontSize: "18px" }} disableTypography />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
