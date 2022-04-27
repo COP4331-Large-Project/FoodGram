@@ -51,6 +51,7 @@ const Add = () => {
           <AddIcon />
         </Fab>
       </Tooltip>
+
       <SytledModal
         open={open}
         onClose={(e) => setOpen(false)}
@@ -68,15 +69,6 @@ const Add = () => {
           <Typography variant="h6" color="secondary.main" textAlign="center">
             Create Recipe
           </Typography>
-          <UserBox>
-            <Avatar
-              src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              sx={{ width: 30, height: 30 }}
-            />
-            <Typography fontWeight={500} variant="span">
-              John Doe
-            </Typography>
-          </UserBox>
           <TextField
             sx={{ width: "100%" }}
             id="standard-multiline-static"
@@ -85,14 +77,8 @@ const Add = () => {
             placeholder="What's on your mind?"
             variant="standard"
           />
-          <Stack direction="row" gap={1} mt={2} mb={3}>
-            <EmojiEmotions color="primary" />
-            <Image color="secondary" />
-            <VideoCameraBack color="success" />
-            <PersonAdd color="error" />
-          </Stack>
           <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
-            <Button>Post</Button>
+            <Button>Save</Button>
             <Button sx={{ width: "100px" }}>
               <DateRange />
             </Button>
