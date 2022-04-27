@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/HomePageComponents/Sidebar";
 import Feed from "../components/HomePageComponents/Feed";
 import RightBar from "../components/HomePageComponents/Rightbar";
@@ -32,14 +32,49 @@ const theme = createTheme({
 });
 
 const HomePage = () => {
+
+  let bp = require("../components/Path.js");
+  const [feed, setFeed] = useState([])
+  let temp = 0
+
+    // function that will run when page is loaded
+    useEffect(() => {
+     loadFeed("")
+    }, []);
+
+  const loadFeed = async (query) => {
+    var obj = {search:query};
+    var js = JSON.stringify(obj);
+    // var js = {"search":query};
+    try
+    {
+      const response = await fetch(bp.buildPath('api/search/'),
+      {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+      var res = JSON.parse(await response.text());
+      
+      // temp=res[0]._id
+      // console.log(res)
+      // setFeed(res);
+
+      localStorage.setItem("feed", JSON.stringify(res))
+
+    }
+    catch(e)
+    {
+      console.log(e.toString());
+    }
+
+    // setFeed(query)
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <Box>
-          <Navbar />
+          <Navbar search={loadFeed}/>
           <Stack direction="row" spacing={2} justifyContent="space-between">
             <Sidebar />
-            <Feed />
+            <Feed feed={feed}/>
             <RightBar />
           </Stack>
           {/* <Add /> */}

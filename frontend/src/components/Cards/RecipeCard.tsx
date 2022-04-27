@@ -20,7 +20,7 @@ interface Props {
   description: string;
 }
 
-export default function RecipeCard({ image, title, description }: Props) {
+export default function RecipeCard(props) {
   return (
     <Card
       variant="outlined"
@@ -37,14 +37,14 @@ export default function RecipeCard({ image, title, description }: Props) {
       }}
     >
       <CardActionArea>
-        <CardMedia component="img" height="140" image={image} />
+        <CardMedia component="img" height="140" image={props.imagePath} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
-            {title}
+            {props.name}
           </Typography>
-          {/* <Typography gutterBottom variant="body2" component="p">
-            {description}
-          </Typography> */}
+          <Typography gutterBottom variant="body2" component="p">
+            {props.recipe}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
@@ -52,9 +52,9 @@ export default function RecipeCard({ image, title, description }: Props) {
         <Button size="small">
           View
         </Button>
-        <IconButton onClick={() => console.log('delete', title)}>
+        {/* <IconButton onClick={() => console.log('delete', title)}>
           <DeleteOutline />
-        </IconButton>
+        </IconButton> */}
       </CardActions>
     </Card>
   );
