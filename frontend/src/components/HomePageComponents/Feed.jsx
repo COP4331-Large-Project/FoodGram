@@ -27,7 +27,7 @@ const Feed = () => {
         </Typography>
       </Container>
       {/* End hero unit */}
-      <Container sx={{ py: 8 }} maxWidth="md">
+      <Container sx={{ py: 8, minHeight: "calc(100vh - 230px)"}} maxWidth="md" >
         <Grid container spacing={4}>
           {recipeCards.map((recipeCard, i) => {
             return (
