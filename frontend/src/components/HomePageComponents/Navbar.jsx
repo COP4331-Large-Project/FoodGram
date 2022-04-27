@@ -19,17 +19,19 @@ import LogoIcon from "../../assets/img/logo_chef_hat_transparent.png";
 var _ud = localStorage.getItem("user_data");
 var ud = JSON.parse(_ud);
 
-var myUsrArray;
+// var myUsrArray;
 
 if (ud !== null) {
   var userId = ud.id;
   var firstName = ud.firstName;
   var lastName = ud.lastName;
 
-  if(myUsrArray !== undefined){
-    myUsrArray = firstName.split("");
-  }
-  console.log(myUsrArray[0]);
+  // const myUsrArray = firstName.split("");
+
+  // if(myUsrArray !== undefined){
+  //   myUsrArray = firstName.split("");
+  // }
+  // console.log(myUsrArray[0]);
 }
 
 const doLogout = (event) => {
@@ -82,7 +84,8 @@ const Navbar = () => {
           <InputBase placeholder="Find a Recipe..." />
         </Search>
         <UserBox onClick={(e) => setOpen(true)}>
-          <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myUsrArray[0]}</Avatar>
+          {/* <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myUsrArray[0]}</Avatar> */}
+          <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}></Avatar>
           <Typography variant="subtitle1">{firstName}</Typography>
         </UserBox>
       </StyledToolbar>

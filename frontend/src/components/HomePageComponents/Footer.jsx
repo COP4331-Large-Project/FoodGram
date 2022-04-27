@@ -1,4 +1,4 @@
-import { Container, Grid, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 
 function Copyright() {
