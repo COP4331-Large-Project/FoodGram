@@ -4,6 +4,7 @@ import Feed from "../components/HomePageComponents/Feed";
 import RightBar from "../components/HomePageComponents/Rightbar";
 import Navbar from "../components/HomePageComponents/Navbar";
 import Footer from "../components/HomePageComponents/Footer";
+// import Add from "../components/HomePageComponents/Add";
 import { Box, CssBaseline, Stack } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -41,6 +42,7 @@ const HomePage = () => {
             <Feed />
             <RightBar />
           </Stack>
+          {/* <Add /> */}
           <Footer />
         </Box>
       </CssBaseline>

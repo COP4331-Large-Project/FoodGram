@@ -22,10 +22,11 @@ import {
   Switch,
 } from "@mui/material";
 import React from "react";
+import Add from "./Add"
 
 const Sidebar = ({ mode, setMode }) => {
   return (
-    <Box bgcolor="lightblue" flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box bgcolor="lightblue" flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
@@ -33,7 +34,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Home sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="All Recipes" sx={{ fontSize: "18px" }} disableTypography />
+              <ListItemText primary="All Recipes" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -41,7 +42,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Favorite sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="My Favorites" sx={{ fontSize: "18px" }} disableTypography />
+              <ListItemText primary="My Favorites" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -49,7 +50,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <NoteAlt sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="My Recipes" sx={{ fontSize: "18px" }} disableTypography />
+              <ListItemText primary="My Recipes" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -57,7 +58,7 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemIcon>
                 <Info sx={{ color: "#FF203A" }} />
               </ListItemIcon>
-              <ListItemText primary="About Us" sx={{ fontSize: "18px" }} disableTypography />
+              <ListItemText primary="About Us" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -69,6 +70,7 @@ const Sidebar = ({ mode, setMode }) => {
             </ListItemButton>
           </ListItem>
         </List>
+        <Add />
       </Box>
     </Box>
   );
