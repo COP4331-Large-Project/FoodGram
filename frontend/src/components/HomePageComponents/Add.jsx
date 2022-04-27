@@ -43,7 +43,7 @@ const Add = () => {
         title="Add Recipe"
         sx={{
           position: "fixed",
-          bottom: 100,
+          bottom: 80,
           left: { xs: "calc(50% - 25px)", md: 30 },
         }}
       >
