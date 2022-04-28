@@ -395,16 +395,16 @@ app.post('/api/search/', async function(req, res, next) {
   imgModel.find({
     $or: [
       {
-        "name": {'$regex': search}
+        "name": {'$regex': search, $options:'i'}
       },
       {
-        "instructions": {'$regex': search}
+        "instructions": {'$regex': search, $options:'i'}
       }, 
       {
-        "category": {'$regex': search}
+        "category": {'$regex': search, $options:'i'}
       }, 
       {
-        "ingredients": {'$regex': search}
+        "ingredients": {'$regex': search, $options:'i'}
       }
     ]
   }
