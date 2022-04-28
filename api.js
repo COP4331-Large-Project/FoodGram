@@ -277,7 +277,7 @@ var multer = require('multer');
 var imgModel = require('./models/image');
 var storage = multer.diskStorage({
 destination: (req, file, cb) => {
-cb(null, './public/images');
+cb(null, './frontend/src/images');
 },
 filename: (req, file, cb) => {
     //console.log(file);
@@ -306,7 +306,7 @@ var upload = multer({ storage: storage });
 app.post('/api/upload/', upload.single('file'), function(req, res, next) {
 
 var name = req.file.filename;
-var path = __dirname + '/public/images/' + name;
+var path = __dirname + '/frontend/src/images/' + name;
 var obj = {
   name: req.body.name,
   userId: req.body.userId,
