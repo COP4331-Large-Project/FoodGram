@@ -22,7 +22,7 @@ import {
   Switch,
 } from "@mui/material";
 import React from "react";
-import Add from "./Add"
+import Add from "./Add.tsx"
 
 const Sidebar = ({ mode, setMode }) => {
   return (
