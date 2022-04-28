@@ -33,8 +33,6 @@ if (process.env.NODE_ENV === 'production')
   });
 }
 
-
-
 app.use((req, res, next) => 
 {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -55,3 +53,5 @@ app.listen(PORT, () =>
 {
   console.log('Server listening on port ' + PORT);
 });
+
+module.exports = app
