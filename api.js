@@ -306,7 +306,7 @@ var upload = multer({ storage: storage });
 app.post('/api/upload/', upload.single('file'), function(req, res, next) {
 
 var name = req.file.filename;
-var path = __dirname + '/public/images' + name;
+var path = __dirname + '/public/images/' + name;
 var obj = {
   name: req.body.name,
   userId: req.body.userId,
