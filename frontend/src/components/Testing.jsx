@@ -9,6 +9,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Box } from '@mui/system';
 import List from "./Testing2";
 
+
 function Testing()
 {
     let url="https://foodgram-demo.herokuapp.com/register";
@@ -100,7 +101,7 @@ function Testing()
       <div className="search">
         <TextField
             className="inputRounded"
-            label="Search"
+            label="Find a recipe..."
             textAlign="centered"
             id="outlined-size-small"
             size="small"

@@ -202,7 +202,7 @@ app.post('/api/login/', async (req, res, next) =>
 app.post('/api/reset-password', async (req, res, next) => 
 {
   const { new_password,confirm_password } = req.body;
-  if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
+  if(new_password!=confirm_password) return res.status(422).json({error: "password: the password you entered does not match"});
 
 
   try{
@@ -481,9 +481,17 @@ app.post('/api/bookmark', async function(req, res, next) {
   }
 
   
-  imgModel.findOneAndUpdate({_id: instructionsID}, {$push: { savedBy: userID }}, {upsert: true}, function(){
+  imgModel.findOneAndUpdate({_id: instructionsID}, {$push: { savedBy: userID }}, {upsert: true}, function(){});
+
+  curInstructions = await imgModel.findOne({_id: instructionsID})
+  var saveCount = curInstructions.savedBy.length;
+  console.log(saveCount);
+
+  imgModel.findOneAndUpdate({_id: instructionsID}, {saves: saveCount}, {upsert: true}, function()
+  {
     var ret = {id: 1, error: "Instructions saved!"}
-    return res.json(ret);});
+    return res.json(ret);
+  });
 });
 
 app.post('/api/unbookmark', async function(req, res, next) {
@@ -519,10 +527,17 @@ app.post('/api/unbookmark', async function(req, res, next) {
     return res.json(ret);
   }
 
-  
-  imgModel.findOneAndUpdate({_id: instructionsID}, {$pull: { savedBy: userID }}, {upsert: true}, function(){
+  imgModel.findOneAndUpdate({_id: instructionsID}, {$pull: { savedBy: userID }}, {upsert: true}, function(){});
+
+  curInstructions = await imgModel.findOne({_id: instructionsID})
+  var saveCount = curInstructions.savedBy.length;
+  console.log(saveCount);
+
+  imgModel.findOneAndUpdate({_id: instructionsID}, {saves: saveCount}, {upsert: true}, function()
+  {
     var ret = {id: 1, error: "Instructions unbookmarked!"}
-    return res.json(ret);});
+    return res.json(ret);
+  });
 });
 
 // Search api that returns matches on name, instructions, or category

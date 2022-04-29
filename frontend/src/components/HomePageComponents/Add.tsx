@@ -205,7 +205,7 @@ const Add = () => {
               </Container>
               <Container disableGutters sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px" }}>
-                  Imagen:
+                  Image:
                 </Typography>
                 <div>
                   <input type="file"/>
@@ -277,7 +277,7 @@ const Add = () => {
               ></TextField>
             </Box>
             {/* END INSTRUCTIONS BOX */}
-
+            <button>Hey!</button>
             <Button
               fullWidth
               id="createSubmit"

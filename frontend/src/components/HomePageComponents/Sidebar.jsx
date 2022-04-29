@@ -26,7 +26,7 @@ import Add from "./Add.tsx"
 
 const Sidebar = ({ mode, setMode }) => {
   return (
-    <Box bgcolor="lightblue" flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box bgcolor="white" flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="fixed">
         <List>
           <ListItem disablePadding>

@@ -30,7 +30,7 @@ const Feed = (props) => {
   }, []);
 
   return (
-    <Box sx={{ bgcolor: "secondary.light" }} flex={6} p={{ xs: 0, md: 2 }}>
+    <Box className="lineInputted" sx={{ bgcolor: "white" }} flex={6} p={{ xs: 0, md: 2 }}>
       
       {/* <a>{recipeCards[0].category}</a> */}
       
@@ -65,10 +65,6 @@ const Feed = (props) => {
       {/* End footer */}
     </Box>
   );
-};
-
-const Welcome = (props) => {
-  return <h1>{props.text}</h1>;
 };
 
 export default Feed;

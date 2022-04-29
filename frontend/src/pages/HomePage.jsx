@@ -73,7 +73,7 @@ const HomePage = () => {
       <CssBaseline>
         <Box>
           <Navbar search={loadFeed}/>
-          <Stack direction="row" spacing={2} justifyContent="space-between">
+          <Stack direction="row" spacing={0} justifyContent="space-between">
             <Sidebar />
             <Feed feed={feed}/>
             <RightBar />

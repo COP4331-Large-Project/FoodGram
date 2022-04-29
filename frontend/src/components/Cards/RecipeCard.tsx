@@ -2,7 +2,7 @@ import * as React from "react";
 import CardActionArea from "@mui/material/CardActionArea";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
-import { DeleteOutline, Favorite, FavoriteBorder, } from "@mui/icons-material";
+import { DeleteOutline, Favorite, FavoriteBorder } from "@mui/icons-material";
 import {
   Card,
   CardActions,
@@ -49,7 +49,7 @@ export default function RecipeCard(props) {
       </CardActionArea>
       <CardActions disableSpacing>
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
-        <Button size="small">
+        <Button sx={{ color: "secondary.main", fontSize:'16px', }}>
           View
         </Button>
         {/* <IconButton onClick={() => console.log('delete', title)}>

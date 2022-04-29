@@ -50,36 +50,85 @@ describe("login tests", () => {
       password: "password123"
     })
     expect(response.statusCode).toBe(200);  
-    expect(response.body.error).toBe("Please verify your email!")
+    expect(response.body.error).toBe("Please verify your email!");
   })
 })
 
-/*
 describe("register tests", () => {
-  test("passwords dont match",async() =>{
-    await request(app).post("/api/register")
+
+  test("user already exists",async() =>{
+    const response = await request('localhost:5000').post('/api/register')
     .send({
-      login: "does not exist",
-      password: "imnotreal"
+      FirstName: "John",
+      LastName: "Doe",
+      Login: "jdoe23",
+      Password: "password",
+      Email: "testtest@gmail.com"
     })
-    expect((res) => {
-      res.body.status = 500;
-      res.body.error = "Login/Password Invalid"
-    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe("User already exists");
   })
+
+  test("email already exists",async() =>{
+    const response = await request('localhost:5000').post('/api/register')
+    .send({
+      FirstName: "John",
+      LastName: "Doe",
+      Login: "testtest123",
+      Password: "password",
+      Email: "jdoe@gmail.com"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe("Email already exists");
+  })
+
 })
 
 describe("reset-password tests", () => {
-  test("passwords dont match",async() =>{
-    await request(api).post("/api/forgot-password")
+
+  test("user not found",async() =>{
+    const response = await request('localhost:5000').post('/api/reset-password')
     .send({
-      login: "does not exist",
-      password: "imnotreal"
+      new_password: "password123",
+      confirm_password:"testsetset"
     })
-    .expect((res) => {
-      res.body.status = 500;
-      res.body.error = "Login/Password Invalid"
-    })
+    expect(response.statusCode).toBe(422);  
+    expect(response.body.error).toBe('password: the password you entered does not match');
   })
 })
-*/
+
+describe("bookmark tests", () => {
+
+  test("valid user and instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/bookmark')
+    .send({
+      userID: "626b2b5ec6bb58c81e1d0ada",
+      recipeID: "626b34f2f7ebffcc2619a17f"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe('Invalid user');
+    expect(response.body.id).toBe(-1);
+  })
+
+  test("invalid user",async() =>{
+    const response = await request('localhost:5000').post('/api/bookmark')
+    .send({
+      userID: "624f9957fc7b933ae3d87e7i",
+      recipeID: "62612ad1b972215dd6b26493"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe('Invalid user');
+    expect(response.body.id).toBe(-1);
+  })
+
+  test("invalid instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/bookmark')
+    .send({
+      userID: "624f9957fc7b933ae3d87e9d",
+      recipeID: "62612ad1b972215dd6b26493"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe('Invalid instructions');
+    expect(response.body.id).toBe(-1);
+  })
+})

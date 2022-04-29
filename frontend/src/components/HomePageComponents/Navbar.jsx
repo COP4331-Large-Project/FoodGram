@@ -14,6 +14,10 @@ import {
 import React, { useState } from "react";
 import { alpha } from "@mui/material/styles";
 import LogoIcon from "../../assets/img/logo_chef_hat_transparent.png";
+import TextField from "@mui/material/TextField";
+import InputAdornment from '@mui/material/InputAdornment';
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //From @gianfrancosg code
 var _ud = localStorage.getItem("user_data");
@@ -71,7 +75,7 @@ const UserBox = styled(Box)(({ theme }) => ({
 const Navbar = (props) => {
   const [open, setOpen] = useState(false);
   return (
-    <AppBar position="sticky" style={{ background: "#fce4ec" }}>
+    <AppBar position="sticky" style={{ background: "white" }}>
       <StyledToolbar>
         <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
           <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
@@ -80,12 +84,29 @@ const Navbar = (props) => {
           </Typography>
         </Stack>
 
-        <Search sx={{ border: 1, borderColor: "grey.500" }}>
+        <span>
+          <TextField
+              className="inputRounded"
+              label="Find a recipe..."
+              textAlign="centered"
+              id="outlined-size-small"
+              size="small"
+              onChange={e => props.search(e.target.value)}
+              // margin="dense"
+              style={{ width: "100%", borderWidth: 2, borderRadius: 20,  marginBottom: 1, borderRadius: 40}}
+              InputProps={{
+                  startAdornment: <InputAdornment position="start"><FontAwesomeIcon icon={faSearch} /></InputAdornment>,
+              }}
+          />
+        </span>
+
+
+        {/* <Search sx={{ border: 1, borderColor: "grey.500" }}>
           <InputBase 
             placeholder="Find a Recipe..." 
             onChange={e => props.search(e.target.value)}
             />
-        </Search>
+        </Search> */}
         <UserBox onClick={(e) => setOpen(true)}>
           {/* <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myUsrArray[0]}</Avatar> */}
           <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}></Avatar>
