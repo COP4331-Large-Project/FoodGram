@@ -507,6 +507,7 @@ app.post('/api/bookmark', async function(req, res, next) {
 
   curInstructions = await imgModel.findOne({_id: instructionsID})
   var saveCount = curInstructions.savedBy.length;
+  console.log(saveCount);
 
   imgModel.findOneAndUpdate({_id: instructionsID}, {saves: saveCount}, {upsert: true}, function()
   {
@@ -552,6 +553,7 @@ app.post('/api/unbookmark', async function(req, res, next) {
 
   curInstructions = await imgModel.findOne({_id: instructionsID})
   var saveCount = curInstructions.savedBy.length;
+  console.log(saveCount);
 
   imgModel.findOneAndUpdate({_id: instructionsID}, {saves: saveCount}, {upsert: true}, function()
   {
