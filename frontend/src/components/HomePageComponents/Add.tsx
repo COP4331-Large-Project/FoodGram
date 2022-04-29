@@ -62,8 +62,9 @@ const Add = () => {
   const doAdd = async (event) => {
     event.preventDefault();
 
-    userID = document.getElementById("lastName")
+    userID = ud.id
 
+    console.log(userID)
     // var obj = {
     //   // file: imagePath.value,
     //   file: selectedFile,
