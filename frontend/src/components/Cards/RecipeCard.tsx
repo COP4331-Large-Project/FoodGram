@@ -16,6 +16,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ModeEditOutlineOutlined from '@mui/icons-material/ModeEditOutlineOutlined';
 
 interface Props {
   image: string;
@@ -80,7 +81,9 @@ export default function RecipeCard(props) {
       </CardActionArea>
       <CardActions disableSpacing>
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
-        <Button sx={{ color: "secondary.main", fontSize: "16px" }}>Edit</Button>
+        <IconButton>
+          <ModeEditOutlineOutlined />
+        </IconButton>
         <IconButton>
           <DeleteOutline />
         </IconButton>
