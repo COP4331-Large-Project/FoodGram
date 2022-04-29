@@ -81,7 +81,6 @@ describe("register tests", () => {
     expect(response.statusCode).toBe(200);  
     expect(response.body.error).toBe("Email already exists");
   })
-
 })
 
 describe("reset-password tests", () => {
@@ -97,24 +96,60 @@ describe("reset-password tests", () => {
   })
 })
 
-describe("bookmark tests", () => {
+describe("unbookmark tests", () => {
 
   test("valid user and instructions",async() =>{
-    const response = await request('localhost:5000').post('/api/bookmark')
+    const response = await request('localhost:5000').post('/api/unbookmark')
     .send({
       userID: "626b2b5ec6bb58c81e1d0ada",
-      recipeID: "626b34f2f7ebffcc2619a17f"
+      instructionsID: "626b34f2f7ebffcc2619a17f"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe('Instructions unbookmarked!');
+    expect(response.body.id).toBe(1);
+  })
+
+  test("invalid user",async() =>{
+    const response = await request('localhost:5000').post('/api/unbookmark')
+    .send({
+      userID: "624f9957fc7b933ae3d87e7i",
+      instructionsID: "62612ad1b972215dd6b26493"
     })
     expect(response.statusCode).toBe(200);  
     expect(response.body.error).toBe('Invalid user');
     expect(response.body.id).toBe(-1);
   })
 
+  test("invalid instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/unbookmark')
+    .send({
+      userID: "624f9957fc7b933ae3d87e9d",
+      instructionsID: "62612ad1b972215dd6b26493"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe('Invalid instructions');
+    expect(response.body.id).toBe(-1);
+  })
+})
+
+describe("bookmark tests", () => {
+
+  test("valid user and instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/bookmark')
+    .send({
+      userID: "626b2b5ec6bb58c81e1d0ada",
+      instructionsID: "626b34f2f7ebffcc2619a17f"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe('Instructions saved!');
+    expect(response.body.id).toBe(1);
+  })
+
   test("invalid user",async() =>{
     const response = await request('localhost:5000').post('/api/bookmark')
     .send({
       userID: "624f9957fc7b933ae3d87e7i",
-      recipeID: "62612ad1b972215dd6b26493"
+      instructionsID: "62612ad1b972215dd6b26493"
     })
     expect(response.statusCode).toBe(200);  
     expect(response.body.error).toBe('Invalid user');
@@ -125,10 +160,23 @@ describe("bookmark tests", () => {
     const response = await request('localhost:5000').post('/api/bookmark')
     .send({
       userID: "624f9957fc7b933ae3d87e9d",
-      recipeID: "62612ad1b972215dd6b26493"
+      instructionsID: "62612ad1b972215dd6b26493"
     })
     expect(response.statusCode).toBe(200);  
     expect(response.body.error).toBe('Invalid instructions');
     expect(response.body.id).toBe(-1);
+  })
+})
+
+describe("valid search", () => {
+
+  test("valid user and instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/search')
+    .send({
+      search: "water"
+    })
+    expect(response.statusCode).toBe(200);  
+    //expect(response.body.error).toBe('Invalid user');
+    //expect(response.body.id).toBe(-1);
   })
 })
