@@ -331,8 +331,8 @@ cloudinary.config({
       var obj = {
         imagePath: result.secure_url,
         // add image's public_id to image object
-        imageID: result.public_id,
-        imageName: name,
+        // imageID: result.public_id,
+        // imageName: name,
         name: req.body.name,
         userId: req.body.userId,
         // actualImagePath: path,
