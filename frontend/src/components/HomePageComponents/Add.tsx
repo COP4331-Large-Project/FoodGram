@@ -75,33 +75,6 @@ const Add = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {/* <Box
-          width={400}
-          height={280}
-          bgcolor={"background.default"}
-          color={"text.primary"}
-          p={3}
-          borderRadius={5}
-        >
-          <Typography variant="h6" color="secondary.main" textAlign="center">
-            Create Recipe
-          </Typography>
-          <TextField
-            sx={{ width: "100%" }}
-            id="standard-multiline-static"
-            multiline
-            rows={3}
-            placeholder="What's on your mind?"
-            variant="standard"
-          />
-          <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
-            <Button>Save</Button>
-            <Button sx={{ width: "100px" }}>
-              <DateRange />
-            </Button>
-          </ButtonGroup>
-        </Box> */}
-
         <Box component="div" sx={{ backgroundColor: "secondary.light", borderRadius: "20px" }}>
           <Container
             id="BACKGROUND"
@@ -208,7 +181,7 @@ const Add = () => {
                   Image:
                 </Typography>
                 <div>
-                  <input type="file"/>
+                  <input type="file" />
                 </div>
                 {/* <TextField
                   id="recipeCookTime"

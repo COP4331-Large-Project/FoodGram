@@ -78,7 +78,6 @@ const HomePage = () => {
             <Feed feed={feed}/>
             <RightBar />
           </Stack>
-          {/* <Add /> */}
           <Footer />
         </Box>
       </CssBaseline>

@@ -11,16 +11,53 @@ import {
   CardMedia,
   Checkbox,
   Typography,
-  IconButton,
 } from "@mui/material";
+import { Expand } from "@mui/icons-material";
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
+import Collapse from "@mui/material/Collapse";
+import Avatar from "@mui/material/Avatar";
+
+import { red } from "@mui/material/colors";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface Props {
   image: string;
   title: string;
+  category: string;
   description: string;
+  ingredients: string;
+  instructions: string;
 }
 
+// Expand more actions
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+// End of expand more actions
+
 export default function RecipeCard(props) {
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+  
   return (
     <Card
       variant="outlined"
@@ -43,19 +80,37 @@ export default function RecipeCard(props) {
             {props.name}
           </Typography>
           <Typography gutterBottom variant="body2" component="p">
-            {props.recipe}
+            Category: {props.category}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
-        <Button sx={{ color: "secondary.main", fontSize:'16px', }}>
-          View
-        </Button>
+        <Button sx={{ color: "secondary.main", fontSize: "16px" }}>Edit</Button>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
         {/* <IconButton onClick={() => console.log('delete', title)}>
           <DeleteOutline />
         </IconButton> */}
       </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>Ingredients:</Typography>
+          <Typography paragraph>
+            {props.ingredients}
+          </Typography>
+          <Typography paragraph>Instructions:</Typography>
+          <Typography paragraph>
+            {props.instructions}
+          </Typography>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 }

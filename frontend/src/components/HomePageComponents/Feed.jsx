@@ -2,20 +2,6 @@ import React, { useState, useEffect } from "react";
 import RecipeCard from "../Cards/RecipeCard.tsx";
 import { Grid, Box, Container, Typography, Stack, Button } from "@mui/material";
 
-//For design testing
-// import { recipeCards } from "../../recipeCardsData";
-//End of design testing
-
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center">
-//       {"Copyright © "}
-//         Group 22 Large Project Spring {' '}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
 
 const Feed = (props) => {
   const [recipeCards, setRecipeCards] = useState([]);
@@ -31,9 +17,7 @@ const Feed = (props) => {
 
   return (
     <Box className="lineInputted" sx={{ bgcolor: "white" }} flex={6} p={{ xs: 0, md: 2 }}>
-      
-      {/* <a>{recipeCards[0].category}</a> */}
-      
+          
       {/* Hero Unit */}
       <Container maxWidth="sm">
         <Typography component="h1" variant="h4" align="center" gutterBottom>
