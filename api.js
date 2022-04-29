@@ -323,7 +323,7 @@ app.post('/api/edit-instructions', async (req, res, next) =>
       imgModel.create(obj, (err, item) => {
         if (err) {
           console.log(err);
-          res.status(500);
+          // res.status(500);
         }
         else {
           res.status(200).json({
