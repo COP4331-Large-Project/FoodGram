@@ -234,11 +234,7 @@ const Add = () => {
                   Image:
                 </Typography>
                 <div>
-<<<<<<< HEAD
-                  <input type="file" />
-=======
                   <input type="file" ref={(c) => (imagePath = c)}/>
->>>>>>> 147e75c685c4c2f74dbe1d7071e0adb79a1af944
                 </div>
                 {/* <TextField
                   id="recipeCookTime"
