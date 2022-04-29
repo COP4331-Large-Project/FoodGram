@@ -50,25 +50,41 @@ describe("login tests", () => {
       password: "password123"
     })
     expect(response.statusCode).toBe(200);  
-    expect(response.body.error).toBe("Please verify your email!")
+    expect(response.body.error).toBe("Please verify your email!");
   })
+})
+
+describe("register tests", () => {
+
+  test("user already exists",async() =>{
+    const response = await request('localhost:5000').post('/api/register')
+    .send({
+      FirstName: "John",
+      LastName: "Doe",
+      Login: "jdoe23",
+      Password: "password",
+      Email: "testtest@gmail.com"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe("User already exists");
+  })
+
+  test("email already exists",async() =>{
+    const response = await request('localhost:5000').post('/api/register')
+    .send({
+      FirstName: "John",
+      LastName: "Doe",
+      Login: "testtest123",
+      Password: "password",
+      Email: "jdoe@gmail.com"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe("Email already exists");
+  })
+
 })
 
 /*
-describe("register tests", () => {
-  test("passwords dont match",async() =>{
-    await request(app).post("/api/register")
-    .send({
-      login: "does not exist",
-      password: "imnotreal"
-    })
-    expect((res) => {
-      res.body.status = 500;
-      res.body.error = "Login/Password Invalid"
-    })
-  })
-})
-
 describe("reset-password tests", () => {
   test("passwords dont match",async() =>{
     await request(api).post("/api/forgot-password")
