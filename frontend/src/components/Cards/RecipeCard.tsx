@@ -3,20 +3,15 @@ import CardActionArea from "@mui/material/CardActionArea";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import { DeleteOutline, Favorite, FavoriteBorder } from "@mui/icons-material";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Checkbox,
-  Typography,
-} from "@mui/material";
+import { Card, CardActions, CardContent, CardMedia, Checkbox, Typography } from "@mui/material";
 import { Expand } from "@mui/icons-material";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ModeEditOutlineOutlined from '@mui/icons-material/ModeEditOutlineOutlined';
+import ModeEditOutlineOutlined from "@mui/icons-material/ModeEditOutlineOutlined";
+import { Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 
 interface Props {
   image: string;
@@ -46,13 +41,12 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 // End of expand more actions
 
 export default function RecipeCard(props) {
-
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
+
   return (
     <Card
       variant="outlined"
@@ -81,12 +75,17 @@ export default function RecipeCard(props) {
       </CardActionArea>
       <CardActions disableSpacing>
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
-        <IconButton>
-          <ModeEditOutlineOutlined />
-        </IconButton>
-        <IconButton>
+        <Checkbox
+          icon={<ModeEditOutlineOutlined />}
+          checkedIcon={<Edit sx={{ color: "primary" }} />}
+        />
+        <Checkbox
+          icon={<DeleteOutline />}
+          checkedIcon={<Delete sx={{ color: "primary" }} />}
+        />
+        {/* <IconButton>
           <DeleteOutline />
-        </IconButton>
+        </IconButton> */}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -102,13 +101,9 @@ export default function RecipeCard(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Ingredients:</Typography>
-          <Typography paragraph>
-            {props.ingredients}
-          </Typography>
+          <Typography paragraph>{props.ingredients}</Typography>
           <Typography paragraph>Instructions:</Typography>
-          <Typography paragraph>
-            {props.instructions}
-          </Typography>
+          <Typography paragraph>{props.instructions}</Typography>
         </CardContent>
       </Collapse>
     </Card>
