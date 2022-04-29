@@ -7,7 +7,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   Checkbox,
   Typography,
@@ -16,12 +15,7 @@ import { Expand } from "@mui/icons-material";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
-
-import { red } from "@mui/material/colors";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface Props {
   image: string;
@@ -87,6 +81,9 @@ export default function RecipeCard(props) {
       <CardActions disableSpacing>
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} />
         <Button sx={{ color: "secondary.main", fontSize: "16px" }}>Edit</Button>
+        <IconButton>
+          <DeleteOutline />
+        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
