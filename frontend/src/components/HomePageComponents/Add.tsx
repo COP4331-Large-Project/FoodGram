@@ -31,15 +31,15 @@ const UserBox = styled(Box)({
 
 const categories = [
   {
-    value: "BREAKFAST",
+    value: "Breakfast",
     label: "Breakfast",
   },
   {
-    value: "LUNCH",
+    value: "Lunch",
     label: "Lunch",
   },
   {
-    value: "DINNER",
+    value: "Dinner",
     label: "Dinner",
   },
 ];
