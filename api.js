@@ -298,8 +298,7 @@ app.post('/api/edit-instructions', async (req, res, next) =>
 
   app.post('/api/upload/', upload.single('file'), function (req, res, next) {
 
-    var name = req.file.filename;
-    // var path = __dirname + '/frontend/src/images/' + name;
+    //var name = req.file.filename;
     cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
       if (err) {
         req.json(err.message);
@@ -312,8 +311,6 @@ app.post('/api/edit-instructions', async (req, res, next) =>
         // imageName: name,
         name: req.body.name,
         userId: req.body.userId,
-        // actualImagePath: path,
-        // imagePath: name,
         ingredients: req.body.ingredients,
         instructions: req.body.instructions,
         category: req.body.category,

@@ -49,11 +49,11 @@ const Add = () => {
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
 
-  var imagePath;
-  var recipeName;
+  // var imagePath;
+  // var recipeName;
   var userID = ud.id;
-  var Ingredients;
-  var Instructions;
+  // var Ingredients;
+  // var Instructions;
   var Category;
   const [message, setMessage] = useState("");
 
@@ -64,25 +64,35 @@ const Add = () => {
 
     userID = document.getElementById("lastName")
 
-    var obj = {
-      file: imagePath.value,
-      name: recipeName.value,
-      userId: userID,
-      ingredients: Ingredients.value,
-      instructions: Instructions.value,
-      category: Category.value,
-    };
+    // var obj = {
+    //   // file: imagePath.value,
+    //   file: selectedFile,
+    //   name: recipeName.value,
+    //   userId: userID,
+    //   ingredients: Ingredients.value,
+    //   instructions: Instructions.value,
+    //   category: Category.value,
+    // };
+
+    var formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
+    formData.append('userId', userID);
+    formData.append('ingredients', ingredients);
+    formData.append('instructions', instructions);
+    formData.append('category', Category.value);
     
-    var js = JSON.stringify(obj);
+    //var js = JSON.stringify(obj);
+    
     try {
-      const response = await fetch(bp.buildPath("api/upload"), {
-        method: "POST",
-        body: js,
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch(bp.buildPath('api/upload'), 
+      { method: 'POST',
+        body: formData,
+       //headers: { "Content-Type": "multipart/form-data" }
       });
 
-      var res = JSON.parse(await response.text());
-      console.log(res.name)
+       var res = JSON.parse(await response.text());
+        // console.log(res.name)
         // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
         // localStorage.setItem("user_data", JSON.stringify(user));
         setMessage("Successfully added the recipe!");
@@ -92,6 +102,25 @@ const Add = () => {
       return;
     }
   };;
+
+  //For file upload
+  const [file, setFile] = useState()
+  const [name, setName] = useState()
+  const [instructions, setInstructions] = useState()
+  const [ingredients, setIngredients] = useState()
+
+  function handleChangeImage(event) {
+    setFile(event.target.files[0])
+  }
+  function handleChangeName(event) {
+    setName(event.target.value)
+  }
+  function handleChangeInstructions(event) {
+    setInstructions(event.target.value)
+  }
+  function handleChangeIngredients(event) {
+    setIngredients(event.target.value)
+  }
 
   //For dropdown category
   const [category, setCategory] = React.useState("");
@@ -177,9 +206,13 @@ const Add = () => {
               </Typography>
               <TextField 
               id="recipeName" 
+              multiline
+              rows={1}
               className="recipeInput" 
               sx={{ flex: 3 }}
-              ref={(c) => (recipeName = c)}
+            //ref={(c) => (recipeName = c)}
+              value={name} 
+              onChange={handleChangeName}
               ></TextField>
             </Box>
             {/* END OF RECIPE NAME BOX */}
@@ -234,11 +267,9 @@ const Add = () => {
                   Image:
                 </Typography>
                 <div>
-<<<<<<< HEAD
-                  <input type="file" />
-=======
-                  <input type="file" ref={(c) => (imagePath = c)}/>
->>>>>>> 147e75c685c4c2f74dbe1d7071e0adb79a1af944
+                  {/* <input type="file" ref={(c) => (imagePath = c)}/> */}
+                  <input type="file" onChange={handleChangeImage} />
+                  {/* <button type="button">Choose Image</button> */}
                 </div>
                 {/* <TextField
                   id="recipeCookTime"
@@ -272,7 +303,16 @@ const Add = () => {
               >
                 Ingredients:
               </Typography>
-              <TextField id="recipeIngredients" className="recipeInput" sx={{ flex: 3 }} ref={(c) => (Ingredients = c)}></TextField>
+              {/* <TextField id="recipeIngredients" className="recipeInput" sx={{ flex: 3 }} ref={(c) => (Ingredients = c)}></TextField> */}
+              <TextField 
+              id="recipeIngredients" 
+              multiline
+              rows={1}
+              className="recipeInput" 
+              sx={{ flex: 3 }} 
+              value = {ingredients} 
+              onChange={handleChangeIngredients}
+              ></TextField>
             </Box>
             {/* END INGREDIENTS BOX */}
 
@@ -304,7 +344,9 @@ const Add = () => {
                 rows={4}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                ref={(c) => (Instructions = c)}
+            //  ref={(c) => (Instructions = c)}
+                value = {instructions} 
+                onChange ={ handleChangeInstructions}
               ></TextField>
             </Box>
             {/* END INSTRUCTIONS BOX */}
