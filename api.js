@@ -276,60 +276,87 @@ app.post('/api/edit-instructions', async (req, res, next) =>
 var multer = require('multer');
 var imgModel = require('./models/image');
 var storage = multer.diskStorage({
-destination: (req, file, cb) => {
-cb(null, './public/images');
-},
+// destination: (req, file, cb) => {
+// cb(null, './frontend/src/images');
+// },
 filename: (req, file, cb) => {
     //console.log(file);
-    var filetype = '';
-    if (file.mimetype === 'image/png') {
-        filetype = 'png';
-    }
-    if (file.mimetype === 'image/jpeg') {
-        filetype = 'jpg';
-    }
-    cb(null, 'image-' + Date.now() + '.' + filetype);
+    // var filetype = '';
+    // if (file.mimetype === 'image/png') {
+    //     filetype = 'png';
+    // }
+    // if (file.mimetype === 'image/jpeg') {
+    //     filetype = 'jpg';
+    // }
+    // cb(null, 'image-' + Date.now() + '.' + filetype);
+    cb(null, Date.now() + file.originalname);
 }
 });
-const multerFilter = (req, file, cb) =>{
-    if(file.mimetype.split('/')[1] === 'png' || 'jpg'){
-        cb(null, true)
-    }
-    else
-    {
-        cb(new Error('Must be a jpg or png'), false)
-    }
-}
-
-var upload = multer({ storage: storage });
-
-app.post('/api/upload/', upload.single('file'), function(req, res, next) {
-
-var name = req.file.filename;
-var path = __dirname + '/public/images' + name;
-var obj = {
-  name: req.body.name,
-  userId: req.body.userId,
-  actualImagePath: path,
-  imagePath: name,
-  ingredients: req.body.ingredients,
-  instructions: req.body.instructions,
-  category: req.body.category,
-  saves: 0
-}
-imgModel.create(obj, (err, item) => {
-  if(err) {
-    res.status(500);
-    console.log(err);
+// const multerFilter = (req, file, cb) =>{
+//     if(file.mimetype.split('/')[1] === 'png' || 'jpg'){
+//         cb(null, true)
+//     }
+//     else
+//     {
+//         cb(new Error('Must be a jpg or png'), false)
+//     }
+// }
+const imageFilter = function(req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+  return cb(new Error('Only image files are accepted!'), false);
   }
-  else {
-    res.status(200).json({
-      status: 'success',
-      message: 'Image uploaded successfully'
-    })
-  }
-})
+  cb(null, true);
+  };
+
+// var upload = multer({ storage: storage });
+var upload = multer({ storage: storage, fileFilter: imageFilter });
+
+const cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'dcptlkke6', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
 });
+
+  app.post('/api/upload/', upload.single('file'), function (req, res, next) {
+
+    var name = req.file.filename;
+    // var path = __dirname + '/frontend/src/images/' + name;
+    cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+      if (err) {
+        req.json(err.message);
+      }
+
+      var obj = {
+        imagePath: result.secure_url,
+        // add image's public_id to image object
+        // imageID: result.public_id,
+        // imageName: name,
+        name: req.body.name,
+        userId: req.body.userId,
+        // actualImagePath: path,
+        // imagePath: name,
+        ingredients: req.body.ingredients,
+        instructions: req.body.instructions,
+        category: req.body.category,
+        saves: 0
+      }
+
+      imgModel.create(obj, (err, item) => {
+        if (err) {
+          res.status(500);
+          console.log(err);
+        }
+        else {
+          res.status(200).json({
+            status: 'success',
+            message: 'Image uploaded successfully'
+          })
+        }
+      });
+    });
+  });
 
 app.post('/api/save', async function(req, res, next) {
 
