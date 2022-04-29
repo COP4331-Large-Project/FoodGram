@@ -45,6 +45,54 @@ const categories = [
 ];
 
 const Add = () => {
+
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+
+  var imagePath;
+  var recipeName;
+  var userID = ud.id;
+  var Ingredients;
+  var Instructions;
+  var Category;
+  const [message, setMessage] = useState("");
+
+  let bp = require("../Path.js");
+
+  const doAdd = async (event) => {
+    event.preventDefault();
+
+    userID = document.getElementById("lastName")
+
+    var obj = {
+      file: imagePath.value,
+      name: recipeName.value,
+      userId: userID,
+      ingredients: Ingredients.value,
+      instructions: Instructions.value,
+      category: Category.value,
+    };
+    
+    var js = JSON.stringify(obj);
+    try {
+      const response = await fetch(bp.buildPath("api/upload"), {
+        method: "POST",
+        body: js,
+        headers: { "Content-Type": "application/json" },
+      });
+
+      var res = JSON.parse(await response.text());
+      console.log(res.name)
+        // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
+        // localStorage.setItem("user_data", JSON.stringify(user));
+        setMessage("Successfully added the recipe!");
+        // window.location.href = "/login";
+    } catch (e) {
+      console.log(e.toString());
+      return;
+    }
+  };;
+
   //For dropdown category
   const [category, setCategory] = React.useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,7 +202,12 @@ const Add = () => {
               >
                 Recipe Name:
               </Typography>
-              <TextField id="recipeName" className="recipeInput" sx={{ flex: 3 }}></TextField>
+              <TextField 
+              id="recipeName" 
+              className="recipeInput" 
+              sx={{ flex: 3 }}
+              ref={(c) => (recipeName = c)}
+              ></TextField>
             </Box>
             {/* END OF RECIPE NAME BOX */}
 
@@ -197,7 +250,7 @@ const Add = () => {
                   }}
                 >
                   {categories.map((option) => (
-                    <option key={option.value} value={option.value}>
+                    <option key={option.value} value={option.value} ref={(c) => (Category = c)}>
                       {option.label}
                     </option>
                   ))}
@@ -208,7 +261,7 @@ const Add = () => {
                   Image:
                 </Typography>
                 <div>
-                  <input type="file"/>
+                  <input type="file" ref={(c) => (imagePath = c)}/>
                 </div>
                 {/* <TextField
                   id="recipeCookTime"
@@ -242,7 +295,7 @@ const Add = () => {
               >
                 Ingredients:
               </Typography>
-              <TextField id="recipeName" className="recipeInput" sx={{ flex: 3 }}></TextField>
+              <TextField id="recipeIngredients" className="recipeInput" sx={{ flex: 3 }} ref={(c) => (Ingredients = c)}></TextField>
             </Box>
             {/* END INGREDIENTS BOX */}
 
@@ -269,15 +322,16 @@ const Add = () => {
                 Instructions:
               </Typography>
               <TextField
-                id="recipeName"
+                id="recipeInstructions"
                 multiline
                 rows={4}
                 className="recipeInput"
                 sx={{ flex: 3 }}
+                ref={(c) => (Instructions = c)}
               ></TextField>
             </Box>
             {/* END INSTRUCTIONS BOX */}
-            <button>Hey!</button>
+            <button onClick={doAdd}>Submit</button>
             <Button
               fullWidth
               id="createSubmit"

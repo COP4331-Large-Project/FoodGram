@@ -88,7 +88,7 @@ const Navbar = (props) => {
           <TextField
               className="inputRounded"
               label="Find a recipe..."
-              textAlign="centered"
+              // textAlign="centered"
               id="outlined-size-small"
               size="small"
               onChange={e => props.search(e.target.value)}
