@@ -84,18 +84,15 @@ describe("register tests", () => {
 
 })
 
-/*
 describe("reset-password tests", () => {
-  test("passwords dont match",async() =>{
-    await request(api).post("/api/forgot-password")
+
+  test("user not found",async() =>{
+    const response = await request('localhost:5000').post('/api/reset-password')
     .send({
-      login: "does not exist",
-      password: "imnotreal"
+      new_password: "password123",
+      confirm_password:"testsetset"
     })
-    .expect((res) => {
-      res.body.status = 500;
-      res.body.error = "Login/Password Invalid"
-    })
+    expect(response.statusCode).toBe(422);  
+    expect(response.body.error).toBe('password: the password you entered does not match');
   })
 })
-*/
