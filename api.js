@@ -273,51 +273,28 @@ app.post('/api/edit-instructions', async (req, res, next) =>
 });  
 
 
-var multer = require('multer');
-var imgModel = require('./models/image');
-var storage = multer.diskStorage({
-// destination: (req, file, cb) => {
-// cb(null, './frontend/src/images');
-// },
-filename: (req, file, cb) => {
-    //console.log(file);
-    // var filetype = '';
-    // if (file.mimetype === 'image/png') {
-    //     filetype = 'png';
-    // }
-    // if (file.mimetype === 'image/jpeg') {
-    //     filetype = 'jpg';
-    // }
-    // cb(null, 'image-' + Date.now() + '.' + filetype);
-    cb(null, Date.now() + file.originalname);
-}
-});
-// const multerFilter = (req, file, cb) =>{
-//     if(file.mimetype.split('/')[1] === 'png' || 'jpg'){
-//         cb(null, true)
-//     }
-//     else
-//     {
-//         cb(new Error('Must be a jpg or png'), false)
-//     }
-// }
-const imageFilter = function(req, file, cb) {
-  // accept image files only
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-  return cb(new Error('Only image files are accepted!'), false);
-  }
-  cb(null, true);
+  var multer = require('multer');
+  var imgModel = require('./models/image');
+  var storage = multer.diskStorage({
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + file.originalname);
+    }
+  });
+  const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      return cb(new Error('Only image files are accepted!'), false);
+    }
+    cb(null, true);
   };
+  var upload = multer({ storage: storage, fileFilter: imageFilter });
 
-// var upload = multer({ storage: storage });
-var upload = multer({ storage: storage, fileFilter: imageFilter });
-
-const cloudinary = require('cloudinary');
-cloudinary.config({ 
-  cloud_name: 'dcptlkke6', 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
-});
+  const cloudinary = require('cloudinary');
+  cloudinary.config({
+    cloud_name: 'dcptlkke6',
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  });
 
   app.post('/api/upload/', upload.single('file'), function (req, res, next) {
 
@@ -345,8 +322,8 @@ cloudinary.config({
 
       imgModel.create(obj, (err, item) => {
         if (err) {
-          res.status(500);
           console.log(err);
+          res.status(500);
         }
         else {
           res.status(200).json({
