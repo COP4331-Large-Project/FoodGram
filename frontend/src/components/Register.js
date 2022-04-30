@@ -96,7 +96,8 @@ function Register() {
       if (res.id <= 0) {
         setMessage(res.error);
       } else {
-        localStorage.setItem("register", "ok");
+        var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
+        localStorage.setItem("user_data", JSON.stringify(user));
         setMessage("Successfully register!");
         window.location.href = "/login";
       }
