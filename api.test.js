@@ -168,16 +168,46 @@ describe("bookmark tests", () => {
   })
 })
 
-describe("delete recipie tests", () => {
+describe("upload recipe tests", () => {
 
-  test("valid user and instructions",async() =>{
-    const response = await request('localhost:5000').post('/api/search')
+  test("valid upload",async() =>{
+    const response = await request('localhost:5000').post('/api/upload')
     .send({
-      search: "water"
+      imagePath: "https://res.cloudinary.com/dcptlkke6/image/upload/v1651345532/qotku5zescjt1h81shia.jpg",
+      name: "test",
+      userId: "626cc22561a1ebb7aad4d409",
+      ingredients: "nothing",
+      instructions: "add nothing",
+      category: "lunch"
     })
-    expect(response.statusCode).toBe(200);  
+    expect(response.statusCode).toBe(500);  
     //expect(response.body.error).toBe('Invalid user');
     //expect(response.body.id).toBe(-1);
+  })
+})
+
+describe("delete recipe tests", () => {
+
+  test("valid user and invalid instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/deleteInstructions')
+    .send({
+      postID: "626cc22561a1ebb7aad4d409",
+      userID: "adasfasd"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe("Can't find instructions");
+    expect(response.body.id).toBe(-1);
+  })
+
+  test("post not tied to user",async() =>{
+    const response = await request('localhost:5000').post('/api/deleteInstructions')
+    .send({
+      postID: "626d887d4d60f69111e8b4a5",
+      userID: "6260ba5b6e8befe04872bsdfs"
+    })
+    expect(response.statusCode).toBe(200);  
+    expect(response.body.error).toBe("You cannot delete this post!");
+    expect(response.body.id).toBe(-1);
   })
 })
 
