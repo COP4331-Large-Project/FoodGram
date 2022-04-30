@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ResetPasswordImage from "../assets/img/chef_resetpassword.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
 
 function ResetPassword(){
 
@@ -26,33 +25,26 @@ function ResetPassword(){
         setConfirmPasswordShown(!confirmPasswordShown);
     };
 
-    const storage_data = localStorage.getItem('user_data');
-    var user_data = JSON.parse(storage_data);
-
     const doResetPassword = async event => {
-      event.preventDefault();
-      if(newPassword.value !== confirmPassword.value) {
-        setMessage("Password Confirm does not match!");
-        return;
-      }
+        event.preventDefault();
+        var obj = { new_password: newPassword.value, confirm_password: confirmPassword.value };
+        var js = JSON.stringify(obj);
+        try
+        {
+          var url = window.location;
+          var access_token = new URLSearchParams(url.search).get('token');
 
-      var obj = { new_password: newPassword.value, confirm_password: confirmPassword.value, user_id: user_data.user._id };
-      try
-      {
-        // var url = window.location;
-        // var access_token = new URLSearchParams(url.search).get('token');
-        const response = await axios.post(bp.buildPath('api/reset-password'),obj ,{headers: { "Authorization": user_data.token }});
-        // const response = await fetch(bp.buildPath('api/reset-password?token=' + access_token),
-        console.log("pwd_reset", response.data);
-        setMessage(response.data.error);
-        window.location.href = '/home';
-      }
-      catch(e)
-      {
-          console.log(e.toString());
-          return;
-      }
-  };
+          const response = await fetch(bp.buildPath('api/reset-password?token=' + access_token),
+          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var res = JSON.parse(await response.text());
+            setMessage(res.error);
+        }
+        catch(e)
+        {
+            console.log(e.toString());
+            return;
+        }
+    };
 
       return(
         <div id="forgotPasswordDiv">
