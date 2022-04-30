@@ -26,13 +26,13 @@ import Add from "./Add.tsx"
 
 const Sidebar = ({ mode, setMode }) => {
   return (
-    <Box bgcolor="white" flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
             <ListItemButton component="a" href="#home">
               <ListItemIcon>
-                <Home sx={{ color: "#FF203A" }} />
+                <Home sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <ListItemText primary="All Recipes" />
             </ListItemButton>
@@ -40,7 +40,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <Favorite sx={{ color: "#FF203A" }} />
+                <Favorite sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <ListItemText primary="My Favorites" />
             </ListItemButton>
@@ -48,7 +48,7 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <NoteAlt sx={{ color: "#FF203A" }} />
+                <NoteAlt sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <ListItemText primary="My Recipes" />
             </ListItemButton>
@@ -56,23 +56,15 @@ const Sidebar = ({ mode, setMode }) => {
           <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <Info sx={{ color: "#FF203A" }} />
+                <Info sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <ListItemText primary="About Us" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/reset-password">
-              <ListItemIcon>
-                <Settings sx={{ color: "#FF203A" }} />
-              </ListItemIcon>
-              <ListItemText primary="Reset Password" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
-                <ModeNight sx={{ color: "#FF203A" }} />
+                <ModeNight sx={{ color: "primary.main" }} />
               </ListItemIcon>
               <Switch onChange={(e) => setMode(mode === "light" ? "dark" : "light")} />
             </ListItemButton>
@@ -85,4 +77,3 @@ const Sidebar = ({ mode, setMode }) => {
 };
 
 export default Sidebar;
-
