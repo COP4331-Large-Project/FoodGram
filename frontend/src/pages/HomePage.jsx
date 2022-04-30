@@ -10,72 +10,94 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const font = "'Prompt', sans-serif";
 
-const theme = createTheme({
-  typography: {
-    allVariants: {
-      fontFamily: font,
-      color: "#3F3D56",
-    },
-  },
-  palette: {
-    primary: {
-      main: "#FF203A",
-      light: "#ff6465",
-      dark: "#c30013",
-    },
-    secondary: {
-      main: "#575a89",
-      light: "#8587b9",
-      dark: "#2b315c",
-    },
-  },
-});
-
+// const darkTheme = createTheme({
+//   typography: {
+//     allVariants: {
+//       fontFamily: font,
+//       color: "#3F3D56",
+//     },
+//   },
+//   palette: {
+//     primary: {
+//       main: "#FF203A",
+//       light: "#ff6465",
+//       dark: "#c30013",
+//     },
+//     secondary: {
+//       main: "#575a89",
+//       light: "#8587b9",
+//       dark: "#2b315c",
+//     },
+//     mode: { mode },
+//   },
+// });
 
 const HomePage = () => {
-
   let bp = require("../components/Path.js");
-  const [feed, setFeed] = useState([])
-  let temp = 0
+  const [feed, setFeed] = useState([]);
+  let temp = 0;
 
-    // function that will run when page is loaded
-    useEffect(() => {
-     loadFeed("")
-    }, []);
+  // function that will run when page is loaded
+  useEffect(() => {
+    loadFeed("");
+  }, []);
 
   const loadFeed = async (query) => {
-    var obj = {search:query};
+    var obj = { search: query };
     var js = JSON.stringify(obj);
     // var js = {"search":query};
-    try
-    {
-      const response = await fetch(bp.buildPath('api/search/'),
-      {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+    try {
+      const response = await fetch(bp.buildPath("api/search/"), {
+        method: "POST",
+        body: js,
+        headers: { "Content-Type": "application/json" },
+      });
       var res = JSON.parse(await response.text());
-      
+
       // temp=res[0]._id
       // console.log(res)
       // setFeed(res);
-
-      localStorage.setItem("feed", JSON.stringify(res))
-
-    }
-    catch(e)
-    {
+      localStorage.setItem("feed", JSON.stringify(res));
+    } catch (e) {
       console.log(e.toString());
     }
 
     // setFeed(query)
-  }
+  };
+
+  // For Dark/Light Theme
+  const [mode, setMode] = useState("light");
+
+  const darkTheme = createTheme({
+    typography: {
+      allVariants: {
+        fontFamily: font,
+        // color: "#3F3D56",
+      },
+    },
+    palette: {
+      primary: {
+        main: "#FF203A",
+        light: "#ff6465",
+        dark: "#c30013",
+      },
+      secondary: {
+        main: "#575a89",
+        light: "#8587b9",
+        dark: "#2b315c",
+      },
+      mode: mode ,
+    },
+  });
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline>
-        <Box>
-          <Navbar search={loadFeed}/>
+        <Box bgcolor={"background.default"} color={"text.primary"} >
+          <Navbar search={loadFeed} />
           <Stack direction="row" spacing={0} justifyContent="space-between">
-            <Sidebar />
-            <Feed feed={feed}/>
+            <Sidebar setMode={setMode} mode={mode} />
+            <Feed feed={feed} />
             <RightBar />
           </Stack>
           <Footer />

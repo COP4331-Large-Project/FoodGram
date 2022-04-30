@@ -42,7 +42,7 @@ const doLogout = (event) => {
   event.preventDefault();
   localStorage.clear();
   // localStorage.removeItem("user_data");
-  window.location.href = "/login";
+  window.location.href = "/";
 };
 // End
 

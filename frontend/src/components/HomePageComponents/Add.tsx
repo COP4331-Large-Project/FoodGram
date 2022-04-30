@@ -15,6 +15,7 @@ import { Add as AddIcon } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import { MenuItem } from "@mui/material";
+import axios from 'axios';
 
 const SytledModal = styled(Modal)({
   display: "flex",
@@ -48,10 +49,10 @@ const Add = () => {
 
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
-
+  var userID;
   // var imagePath;
   // var recipeName;
-  var userID = ud.id;
+  
   // var Ingredients;
   // var Instructions;
   var Category;
@@ -61,8 +62,8 @@ const Add = () => {
 
   const doAdd = async (event) => {
     event.preventDefault();
-
-    userID = ud.id
+    userID = ud.user._id;
+    // userID = ud.id
 
     console.log(userID)
     // var obj = {
@@ -86,10 +87,11 @@ const Add = () => {
     //var js = JSON.stringify(obj);
     
     try {
+      // const response = await axios.post(bp.buildPath('api/upload'), formData, {headers: { "Authorization": ud.token }} );
       const response = await fetch(bp.buildPath('api/upload'), 
       { method: 'POST',
         body: formData,
-       //headers: { "Content-Type": "multipart/form-data" }
+        headers: {"Authorization": ud.token }
       });
 
        var res = JSON.parse(await response.text());
@@ -370,3 +372,4 @@ const Add = () => {
 };
 
 export default Add;
+

@@ -62,6 +62,14 @@ const Sidebar = ({ mode, setMode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
+            <ListItemButton component="a" href="/reset-password">
+              <ListItemIcon>
+                <Settings sx={{ color: "#FF203A" }} />
+              </ListItemIcon>
+              <ListItemText primary="Reset Password" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
                 <ModeNight sx={{ color: "#FF203A" }} />
@@ -77,3 +85,4 @@ const Sidebar = ({ mode, setMode }) => {
 };
 
 export default Sidebar;
+

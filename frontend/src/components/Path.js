@@ -1,4 +1,5 @@
 const app_name = 'foodgram-demo'
+
 exports.buildPath = 
 function buildPath(route)
 {

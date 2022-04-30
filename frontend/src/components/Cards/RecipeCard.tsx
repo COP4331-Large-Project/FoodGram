@@ -108,16 +108,16 @@ export default function RecipeCard(props) {
         // backgroundColor: "primary.light",
         maxWidth: "100%",
         transition: "all 0.3s ease", //speed of transition 0.3s acelleration/decelation
-        ":hover": { background: "#fce4ec" },
+        ":hover": { background: "#575a89" },
       }}
     >
       <CardActionArea>
         <CardMedia component="img" height="140" image={props.imagePath} />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="h2">
+          <Typography gutterBottom variant="h6" component="p" align="center">
             {props.name}
           </Typography>
-          <Typography gutterBottom variant="body2" component="p">
+          <Typography gutterBottom variant="body2" component="p" align="center">
             Category: {props.category}
           </Typography>
         </CardContent>
@@ -157,6 +157,7 @@ export default function RecipeCard(props) {
             {message}
           </DialogContentText>
       </Dialog>
+        <Checkbox icon={<DeleteOutline />} checkedIcon={<Delete sx={{ color: "primary" }} />} />
         {/* <IconButton>
           <DeleteOutline />
         </IconButton> */}
