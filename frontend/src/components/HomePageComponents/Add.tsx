@@ -15,8 +15,7 @@ import { Add as AddIcon } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import { MenuItem } from "@mui/material";
-import { IconButton } from "@mui/material";
-import { Cancel } from "@mui/icons-material";
+import axios from 'axios';
 
 const SytledModal = styled(Modal)({
   display: "flex",
@@ -46,15 +45,14 @@ const categories = [
   },
 ];
 
-var myBoolean = false;
-
 const Add = () => {
+
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
-
+  var userID;
   // var imagePath;
   // var recipeName;
-  var userID = ud.id;
+  
   // var Ingredients;
   // var Instructions;
   var Category;
@@ -62,14 +60,14 @@ const Add = () => {
 
   let bp = require("../Path.js");
 
-  const saveRecipe = async (event) => {
+  const doAdd = async (event) => {
     event.preventDefault();
+    userID = ud.user._id;
+    // userID = ud.id
 
-    userID = ud.id;
-    console.log(userID);
-
+    console.log(userID)
     // var obj = {
-    //   file: imagePath.value,
+    //   // file: imagePath.value,
     //   file: selectedFile,
     //   name: recipeName.value,
     //   userId: userID,
@@ -79,51 +77,52 @@ const Add = () => {
     // };
 
     var formData = new FormData();
-    formData.append("file", file);
-    formData.append("name", name);
-    formData.append("userId", userID);
-    formData.append("ingredients", ingredients);
-    formData.append("instructions", instructions);
-    formData.append("category", Category.value);
-
+    formData.append('file', file);
+    formData.append('name', name);
+    formData.append('userId', userID);
+    formData.append('ingredients', ingredients);
+    formData.append('instructions', instructions);
+    formData.append('category', Category.value);
+    
     //var js = JSON.stringify(obj);
-
+    
     try {
-      const response = await fetch(bp.buildPath("api/upload"), {
-        method: "POST",
+      // const response = await axios.post(bp.buildPath('api/upload'), formData, {headers: { "Authorization": ud.token }} );
+      const response = await fetch(bp.buildPath('api/upload'), 
+      { method: 'POST',
         body: formData,
-        //headers: { "Content-Type": "multipart/form-data" }
+        headers: {"Authorization": ud.token }
       });
 
-      var res = JSON.parse(await response.text());
-      // console.log(res.name)
-      // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
-      // localStorage.setItem("user_data", JSON.stringify(user));
-      setMessage("Successfully added the recipe!");
-      // window.location.href = "/login";
+       var res = JSON.parse(await response.text());
+        // console.log(res.name)
+        // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
+        // localStorage.setItem("user_data", JSON.stringify(user));
+        setMessage("Successfully added the recipe!");
+        // window.location.href = "/login";
     } catch (e) {
       console.log(e.toString());
       return;
     }
-  };
+  };;
 
   //For file upload
-  const [file, setFile] = useState();
-  const [name, setName] = useState();
-  const [instructions, setInstructions] = useState();
-  const [ingredients, setIngredients] = useState();
+  const [file, setFile] = useState()
+  const [name, setName] = useState()
+  const [instructions, setInstructions] = useState()
+  const [ingredients, setIngredients] = useState()
 
   function handleChangeImage(event) {
-    setFile(event.target.files[0]);
+    setFile(event.target.files[0])
   }
   function handleChangeName(event) {
-    setName(event.target.value);
+    setName(event.target.value)
   }
   function handleChangeInstructions(event) {
-    setInstructions(event.target.value);
+    setInstructions(event.target.value)
   }
   function handleChangeIngredients(event) {
-    setIngredients(event.target.value);
+    setIngredients(event.target.value)
   }
 
   //For dropdown category
@@ -153,8 +152,8 @@ const Add = () => {
       <SytledModal
         open={open}
         onClose={(e) => setOpen(false)}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box component="div" sx={{ backgroundColor: "secondary.light", borderRadius: "20px" }}>
           <Container
@@ -162,7 +161,7 @@ const Add = () => {
             maxWidth="md"
             sx={{
               p: "40px",
-              minHeight: "50vh",
+              minHeight: "60vh",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -170,21 +169,21 @@ const Add = () => {
               width: "auto",
             }}
           >
-            {/* <Typography variant="h5" color="secondary.dark" textAlign="center">
+            <Typography variant="h5" color="secondary.dark" textAlign="center">
               Create/Edit Recipe (Add selector to reuse component)
-            </Typography> */}
-            {!myBoolean ? (
-              <Typography variant="h4" color="secondary.dark" textAlign="center">
-                Add a New Recipe
+            </Typography>
+            {/* {!editing ? (
+              <Typography component="h3" variant="h3">
+                Create a Recipe
               </Typography>
             ) : (
-              <Typography variant="h4" color="secondary.dark" textAlign="center">
-                Edit Recipe
-                {/* <IconButton>
-                  <Cancel />
-                </IconButton> */}
+              <Typography component="h3" variant="h3">
+                Editing a Recipe
+                <IconButton>
+                  <CancelIcon />
+                </IconButton>
               </Typography>
-            )}
+            )} */}
 
             {/* RECIPE NAME BOX */}
             <Box
@@ -208,15 +207,15 @@ const Add = () => {
               >
                 Recipe Name:
               </Typography>
-              <TextField
-                id="recipeName"
-                multiline
-                rows={1}
-                className="recipeInput"
-                sx={{ flex: 3 }}
-                //ref={(c) => (recipeName = c)}
-                value={name}
-                onChange={handleChangeName}
+              <TextField 
+              id="recipeName" 
+              multiline
+              rows={1}
+              className="recipeInput" 
+              sx={{ flex: 3 }}
+            //ref={(c) => (recipeName = c)}
+              value={name} 
+              onChange={handleChangeName}
               ></TextField>
             </Box>
             {/* END OF RECIPE NAME BOX */}
@@ -308,14 +307,14 @@ const Add = () => {
                 Ingredients:
               </Typography>
               {/* <TextField id="recipeIngredients" className="recipeInput" sx={{ flex: 3 }} ref={(c) => (Ingredients = c)}></TextField> */}
-              <TextField
-                id="recipeIngredients"
-                multiline
-                rows={1}
-                className="recipeInput"
-                sx={{ flex: 3 }}
-                value={ingredients}
-                onChange={handleChangeIngredients}
+              <TextField 
+              id="recipeIngredients" 
+              multiline
+              rows={1}
+              className="recipeInput" 
+              sx={{ flex: 3 }} 
+              value = {ingredients} 
+              onChange={handleChangeIngredients}
               ></TextField>
             </Box>
             {/* END INGREDIENTS BOX */}
@@ -348,43 +347,23 @@ const Add = () => {
                 rows={4}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                //  ref={(c) => (Instructions = c)}
-                value={instructions}
-                onChange={handleChangeInstructions}
+            //  ref={(c) => (Instructions = c)}
+                value = {instructions} 
+                onChange ={ handleChangeInstructions}
               ></TextField>
             </Box>
             {/* END INSTRUCTIONS BOX */}
-            {/* <button onClick={saveRecipe}>Submit</button> */}
-            <Box 
-              component="div"
-              sx={{
-                gap: "20px",
-                m: "10px",
-                display: "flex",
-                width: "100%",
-                justifyContent: "right",
-              }}
+            <button onClick={doAdd}>Submit</button>
+            <Button
+              fullWidth
+              id="createSubmit"
+              type="button"
+              // onClick={saveRecipe}
+              className="Classic"
+              sx={{ mt: "1rem" }}
             >
-              <Button
-                variant="contained"
-                size="large"
-                id="createSubmit"
-                onClick={saveRecipe}
-                sx={{ borderRadius: "20px", fontSize: "18px" }}
-              >
-                {!myBoolean ? "Save" : "Update"}
-              </Button>
-              <Button
-                variant="contained"
-                size="large"
-                id="cancel"
-
-                onClick={(e) => setOpen(false)}
-                sx={{ backgroundColor: "secondary.dark", borderRadius: "20px", fontSize: "18px" }}
-              >
-                Cancel
-              </Button>
-            </Box>
+              {/* {!editing ? "Publish Recipe" : "Update Recipe"} */}
+            </Button>
           </Container>
         </Box>
       </SytledModal>
@@ -393,3 +372,4 @@ const Add = () => {
 };
 
 export default Add;
+
