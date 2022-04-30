@@ -10,6 +10,8 @@ import Testing from './pages/Testing';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
+
+const user_data = localStorage.getItem("user_data");
 function App() {
   return (
     <Router >
@@ -19,27 +21,13 @@ function App() {
         <link href="https://fonts.googleapis.com/css2?family=Khula:wght@400;600;800&display=swap" rel="stylesheet" />
       </Helmet>
       <Switch>
-        <Route path="/" exact>
-          <LandingPage />
-        </Route>
-        <Route path="/login" exact>
-          <LoginPage />
-        </Route>
-        <Route path="/home" exact>
-          <HomePage />
-        </Route>
-        <Route path="/register" exact>
-          <RegisterPage />
-        </Route>
-        <Route path="/testing" exact>
-          <Testing />
-        </Route>
-        <Route path="/forgot-password" exact>
-          <ForgotPasswordPage />
-        </Route>
-        <Route path="/reset-password" exact>
-          <ResetPasswordPage />
-        </Route>
+        <Route path="/" exact render={() => (!user_data ? <LandingPage/> : (<Redirect to='/home'/>))} />    
+        <Route path="/login" render={() => (!user_data ? <LoginPage/> : (<Redirect to='/home'/>))} />       
+        <Route path="/register" render={() => (!user_data ? <RegisterPage/> : (<Redirect to='/home'/>))} />       
+        <Route path="/home" render={() => (user_data ? <HomePage/> : (<Redirect to='/'/>))} />          
+        <Route path="/testing" render={() => (user_data ? <Testing/> : (<Redirect to='/'/>))} />       
+        <Route path="/forgot-password" render={() => (user_data ? <ForgotPasswordPage/> : (<Redirect to='/'/>))} />       
+        <Route path="/reset-password" render={() => (user_data ? <ResetPasswordPage/> : (<Redirect to='/'/>))} />       
         <Redirect to="/" />
       </Switch>
     </Router>
