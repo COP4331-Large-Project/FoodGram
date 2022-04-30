@@ -12,6 +12,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ModeEditOutlineOutlined from "@mui/icons-material/ModeEditOutlineOutlined";
 import { Edit } from "@mui/icons-material";
 import { Delete } from "@mui/icons-material";
+import ButtonDelete from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 interface Props {
   image: string;
@@ -41,11 +47,54 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 // End of expand more actions
 
 export default function RecipeCard(props) {
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+  let bp = require("../Path.js");
+  const [message, setMessage] = React.useState("");
+
+
+  const doDelete = async (event) => {
+    event.preventDefault();
+
+    var obj = { postID: props._id, userID: ud.id };
+
+    var js = JSON.stringify(obj);
+    try {
+      const response = await fetch(bp.buildPath("api/deleteInstructions/"), {
+        method: "POST",
+        body: js,
+        headers: { "Content-Type": "application/json" },
+      });
+      var res = JSON.parse(await response.text());
+
+      setMessage(res.error)
+      
+      if(res.id >= 0)
+        handleClose();
+
+    } catch (e) {
+      console.log(e.toString());
+      return;
+    }
+    
+  };
+
   const [expanded, setExpanded] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+
 
   return (
     <Card
@@ -81,8 +130,33 @@ export default function RecipeCard(props) {
         />
         <Checkbox
           icon={<DeleteOutline />}
-          checkedIcon={<Delete sx={{ color: "primary" }} />}
+          checkedIcon={<Delete sx={{}}/>}
+          onClick={handleClickOpen}
         />
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete Recipe"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Do you really want to delete this recipe?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <ButtonDelete onClick={handleClose}>Disagree</ButtonDelete>
+          <ButtonDelete onClick={doDelete} autoFocus>
+            Agree
+          </ButtonDelete>
+        </DialogActions>
+        <DialogContentText className="textCenter" style={{marginBottom: "20px"}} id="alert-dialog-description">
+            {message}
+          </DialogContentText>
+      </Dialog>
         {/* <IconButton>
           <DeleteOutline />
         </IconButton> */}
