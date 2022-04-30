@@ -42,7 +42,7 @@ const doLogout = (event) => {
   event.preventDefault();
   localStorage.clear();
   // localStorage.removeItem("user_data");
-  window.location.href = "/login";
+  window.location.href = "/";
 };
 // End
 
@@ -75,40 +75,31 @@ const UserBox = styled(Box)(({ theme }) => ({
 const Navbar = (props) => {
   const [open, setOpen] = useState(false);
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "white" }}>
+    <AppBar position="sticky" style={{ background: "white" }}>
       <StyledToolbar>
         <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
           <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
-          <Typography variant="h6" sx={{ color: "secondary.dark", fontWeight: "900", display: { xs: "none", sm: "block" } }}>
+          <Typography variant="h6" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
             FoodGram
           </Typography>
         </Stack>
 
         <span>
           <TextField
-            className="inputRounded"
-            label="Find a recipe..."
-            // textAlign="centered"
-            id="outlined-size-small"
-            size="small"
-            onChange={(e) => props.search(e.target.value)}
-            // margin="dense"
-            style={{
-              width: "100%",
-              borderWidth: 2,
-              borderRadius: 20,
-              marginBottom: 1,
-              borderRadius: 40,
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <FontAwesomeIcon icon={faSearch} />
-                </InputAdornment>
-              ),
-            }}
+              className="inputRounded"
+              label="Find a recipe..."
+              // textAlign="centered"
+              id="outlined-size-small"
+              size="small"
+              onChange={e => props.search(e.target.value)}
+              // margin="dense"
+              style={{ width: "100%", borderWidth: 2, borderRadius: 20,  marginBottom: 1, borderRadius: 40}}
+              InputProps={{
+                  startAdornment: <InputAdornment position="start"><FontAwesomeIcon icon={faSearch} /></InputAdornment>,
+              }}
           />
         </span>
+
 
         {/* <Search sx={{ border: 1, borderColor: "grey.500" }}>
           <InputBase 
@@ -119,7 +110,7 @@ const Navbar = (props) => {
         <UserBox onClick={(e) => setOpen(true)}>
           {/* <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myUsrArray[0]}</Avatar> */}
           <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}></Avatar>
-          <Typography variant="h6" sx={{ color: "secondary.dark", }}>{firstName}</Typography>
+          <Typography variant="subtitle1">{firstName}</Typography>
         </UserBox>
       </StyledToolbar>
       <Menu
