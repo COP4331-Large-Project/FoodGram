@@ -108,7 +108,7 @@ export default function RecipeCard(props) {
         // backgroundColor: "primary.light",
         maxWidth: "100%",
         transition: "all 0.3s ease", //speed of transition 0.3s acelleration/decelation
-        ":hover": { background: "#575a89" },
+        ":hover": { background: "#FFE4E1" },
       }}
     >
       <CardActionArea>
@@ -157,7 +157,6 @@ export default function RecipeCard(props) {
             {message}
           </DialogContentText>
       </Dialog>
-        <Checkbox icon={<DeleteOutline />} checkedIcon={<Delete sx={{ color: "primary" }} />} />
         {/* <IconButton>
           <DeleteOutline />
         </IconButton> */}
