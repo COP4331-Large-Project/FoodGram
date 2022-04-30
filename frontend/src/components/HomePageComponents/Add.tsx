@@ -14,10 +14,7 @@ import React, { useState } from "react";
 import { Add as AddIcon } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { IconButton } from "@mui/material";
-import { Cancel } from "@mui/icons-material";
-import axios from 'axios';
+import axios from "axios";
 
 const SytledModal = styled(Modal)({
   display: "flex",
@@ -52,67 +49,24 @@ var myBoolean = false;
 const Add = () => {
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
-
-  // var imagePath;
-  // var recipeName;
   var userID = ud.id;
-  // var Ingredients;
-  // var Instructions;
   var Category;
-  const [message, setMessage] = useState("");
-
-  let bp = require("../Path.js");
-
-  const saveRecipe = async (event) => {
-    event.preventDefault();
-
-    userID = ud.id;
-    console.log(userID);
-
-    // var obj = {
-    //   file: imagePath.value,
-    //   file: selectedFile,
-    //   name: recipeName.value,
-    //   userId: userID,
-    //   ingredients: Ingredients.value,
-    //   instructions: Instructions.value,
-    //   category: Category.value,
-    // };
-
-    var formData = new FormData();
-    formData.append("file", file);
-    formData.append("name", name);
-    formData.append("userId", userID);
-    formData.append("ingredients", ingredients);
-    formData.append("instructions", instructions);
-    formData.append("category", Category.value);
-
-    //var js = JSON.stringify(obj);
-
-    try {
-      const response = await fetch(bp.buildPath("api/upload"), {
-        method: "POST",
-        body: formData,
-        //headers: { "Content-Type": "multipart/form-data" }
-      });
-
-      var res = JSON.parse(await response.text());
-      // console.log(res.name)
-      // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
-      // localStorage.setItem("user_data", JSON.stringify(user));
-      setMessage("Successfully added the recipe!");
-      // window.location.href = "/login";
-    } catch (e) {
-      console.log(e.toString());
-      return;
-    }
-  };
 
   //For file upload
   const [file, setFile] = useState();
   const [name, setName] = useState();
   const [instructions, setInstructions] = useState();
   const [ingredients, setIngredients] = useState();
+  //For dropdown category
+  const [category, setCategory] = React.useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(event.target.value);
+  };
+  //For errors
+  const [errorValidation, setErrorValidation] = useState("");
+  const [message, setMessage] = useState("");
+
+  const [open, setOpen] = useState(false);
 
   function handleChangeImage(event) {
     setFile(event.target.files[0]);
@@ -127,13 +81,49 @@ const Add = () => {
     setIngredients(event.target.value);
   }
 
-  //For dropdown category
-  const [category, setCategory] = React.useState("");
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCategory(event.target.value);
-  };
+  let bp = require("../Path.js");
 
-  const [open, setOpen] = useState(false);
+  const saveRecipe = async (event) => {
+    event.preventDefault();
+
+    // console.log(userID);
+    console.log("name->", name);
+    console.log("file->", file);
+    console.log("instructions->", instructions);
+    console.log("instructions->", ingredients);
+    console.log("category->", category);
+
+    if(!file || name === "" || instructions === "" || ingredients === "") {
+      setErrorValidation("Please fill all entries to post a recipe");
+      return;
+    }
+
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("name", name);
+    formData.append("userId", userID);
+    formData.append("ingredients", ingredients);
+    formData.append("instructions", instructions);
+    formData.append("category", Category.value);
+
+    try {
+      const response = await fetch(bp.buildPath("api/upload"), {
+        method: "POST",
+        body: formData,
+        //headers: { "Content-Type": "multipart/form-data" }
+      });
+
+      var res = JSON.parse(await response.text());
+      console.log(res.name)
+      // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
+      // localStorage.setItem("user_data", JSON.stringify(user));
+      setMessage("Successfully added the recipe!");
+      // window.location.href = "/login";
+    } catch (e) {
+      console.log("error->", e.toString());
+      return;
+    }
+  };
 
   return (
     <>
@@ -272,16 +262,8 @@ const Add = () => {
                   Image:
                 </Typography>
                 <div>
-                  {/* <input type="file" ref={(c) => (imagePath = c)}/> */}
                   <input type="file" onChange={handleChangeImage} />
-                  {/* <button type="button">Choose Image</button> */}
                 </div>
-                {/* <TextField
-                  id="recipeCookTime"
-                  className="recipeInput"
-                  placeholder="10m"
-                  sx={{ width: "10rem" }}
-                ></TextField> */}
               </Container>
             </Box>
             {/* END OF CATEGORIES BOX */}
@@ -356,7 +338,7 @@ const Add = () => {
             </Box>
             {/* END INSTRUCTIONS BOX */}
             {/* <button onClick={saveRecipe}>Submit</button> */}
-            <Box 
+            <Box
               component="div"
               sx={{
                 gap: "20px",
@@ -366,6 +348,9 @@ const Add = () => {
                 justifyContent: "right",
               }}
             >
+              {/* <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}> */}
+                <Typography color="error">{errorValidation}</Typography>
+              {/* </Box> */}
               <Button
                 variant="contained"
                 size="large"
@@ -379,7 +364,6 @@ const Add = () => {
                 variant="contained"
                 size="large"
                 id="cancel"
-
                 onClick={(e) => setOpen(false)}
                 sx={{ backgroundColor: "secondary.dark", borderRadius: "20px", fontSize: "18px" }}
               >
