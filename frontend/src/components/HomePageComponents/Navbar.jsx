@@ -110,7 +110,7 @@ const Navbar = (props) => {
         <UserBox onClick={(e) => setOpen(true)}>
           {/* <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}>{myUsrArray[0]}</Avatar> */}
           <Avatar sx={{ width: 40, height: 40, bgcolor: "#3F3D56" }}></Avatar>
-          <Typography variant="subtitle1">{firstName}</Typography>
+          <Typography color="secondary.dark" variant="subtitle1">{firstName}</Typography>
         </UserBox>
       </StyledToolbar>
       <Menu
