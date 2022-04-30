@@ -5,8 +5,10 @@ const sgMail = require("@sendgrid/mail");
 const { Console } = require('console');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const loginAuth = require('./config/loginAuth');
+var auth = require("./config/authMiddleware");
 var mongoose = require('mongoose');
-
+// const url = "mongodb://localhost:27017/foodgram";
 const url = process.env.MONGODB_URI;
 mongoose.connect(url);//process.env.MONGODB_URI;
 mongoose.set('debug', true);
@@ -34,8 +36,8 @@ app.post('/api/register/', async (req, res, next) =>
   // incoming: firstName, lastName, login, password
   // outgoing: error
   const { FirstName, LastName , Login , Password , Email} = req.body;
-  console.log(FirstName,LastName);
-  console.log(User.findOne({Login: Login}))
+  // console.log(FirstName,LastName);
+  // console.log(User.findOne({Login: Login}))
   var user = await User.findOne({Login: Login})
   if (user)
   {
@@ -167,70 +169,76 @@ app.get('/api/verify-email', async (req, res, next) =>
    }
 });
 
-app.post('/api/login/', async (req, res, next) => 
-{
-  const { login, password } = req.body;
-  console.log(login,password);
-  if(!login){
-    return res.status(422).json({errors: {Login: "can't be blank"}});
-  }
-
-  if(!password){
-    return res.status(422).json({errors: {password: "can't be blank"}});
-  }
-
-  passport.authenticate('local', {session: false}, function(err, user, info){
-    if(err){ return next(err); }
-    console.log(user);
-    if(user){
-    //  user.token = user.generateJWT();
-   //   return res.json({user: user.toAuthJSON()});
-        var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
-        if (!user.EmailVerified)
-        {
-          var ret = {id: -1, firstName: '', lastName: '', error: 'Please verify your email!'}
-        }
-        return res.status(200).json(ret);
-    } else {
-        var ret = {id: -1, firstName: '', lastName: '', error: 'User/Password combination incorrect'}
-        return res.status(200).json(ret);
-    }
-  })(req, res, next);
-
+app.post('/api/login', (req, res) => {
+  loginAuth
+    .logUserIn(req.body.login, req.body.password)
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.status(400).json(err));
 });
 
-app.post('/api/reset-password', async (req, res, next) => 
-{
-  const { new_password,confirm_password } = req.body;
-  if(new_password!=confirm_password) return res.status(422).json({error: "password: the password you entered does not match"});
+// app.post('/api/login/', async (req, res, next) => 
+// {
+//   const { login, password } = req.body;
+//   console.log(login,password);
+//   if(!login){
+//     return res.status(422).json({errors: {Login: "can't be blank"}});
+//   }
 
+//   if(!password){
+//     return res.status(422).json({errors: {password: "can't be blank"}});
+//   }
+
+//   passport.authenticate('local', {session: false}, function(err, user, info){
+//     if(err){ return next(err); }
+//     console.log(user);
+//     if(user){
+//     //  user.token = user.generateJWT();
+//    //   return res.json({user: user.toAuthJSON()});
+//         var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
+//         if (!user.EmailVerified)
+//         {
+//           var ret = {id: -1, firstName: '', lastName: '', error: 'Please verify your email!'}
+//         }
+//         return res.status(200).json(ret);
+//     } else {
+//         var ret = {id: -1, firstName: '', lastName: '', error: 'User/Password combination incorrect'}
+//         return res.status(200).json(ret);
+//     }
+//   })(req, res, next);
+
+// });
+
+app.post('/api/reset-password', auth, async (req, res, next) => 
+{
+  const { new_password,confirm_password, user_id } = req.body;
+  if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
 
   try{
     // Check on if id is valid
-    if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
-      var ret = {id: -1, error: "User not found"}
-      return res.json(ret);
-    }
+    // if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
+    //   var ret = {id: -1, error: "User not found"}
+    //   return res.json(ret);
+    // }
 
-    var user = await User.findOne({_id: req.query.token})
+    var user = await User.findOne({_id: user_id})
     if (!user)
     {
       var ret = {id: -1, error: "User not found"}
       return res.json(ret);
     }
-    console.log(user.Login);
+    // console.log(user.Login);
 
     // Creates a temp user to set hash and salt for new password
     var tempUser = new User();
-    console.log(confirm_password);
+    // console.log(confirm_password);
     tempUser.setPassword(confirm_password);
 
     // Updates hash and salt from tempUser to the User
-    User.findOneAndUpdate({_id: req.query.token}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
+    User.findOneAndUpdate({_id: user_id}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
       console.log("Updated salt!")});
-    User.findOneAndUpdate({_id: req.query.token}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
+    User.findOneAndUpdate({_id: user_id}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
       console.log("Updated hash!")
-      var ret = {id: 1, error: "pass is updated"};
+      var ret = {id: 1, error: "pass is updated to new password!"};
       return res.status(200).json(ret);
    });
  }
@@ -296,41 +304,41 @@ app.post('/api/edit-instructions', async (req, res, next) =>
     api_secret: process.env.CLOUDINARY_API_SECRET
   });
 
-  app.post('/api/upload/', upload.single('file'), function (req, res, next) {
+app.post('/api/upload/',  auth, upload.single('file'), function (req, res, next) {
+console.log("file_upload_data", req.body);
+  //var name = req.file.filename;
+  cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+    if (err) {
+      res.json(err.message);
+    }
+  console.log("file", req.file);
+    var obj = {
+      imagePath: result.secure_url,
+      // add image's public_id to image object
+      // imageID: result.public_id,
+      // imageName: name,
+      name: req.body.name,
+      userId: req.body.userId,
+      ingredients: req.body.ingredients,
+      instructions: req.body.instructions,
+      category: req.body.category,
+      saves: 0
+    }
 
-    //var name = req.file.filename;
-    cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+    imgModel.create(obj, (err, item) => {
       if (err) {
-        req.json(err.message);
+        console.log(err);
+        // res.status(500);
       }
-
-      var obj = {
-        imagePath: result.secure_url,
-        // add image's public_id to image object
-        // imageID: result.public_id,
-        // imageName: name,
-        name: req.body.name,
-        userId: req.body.userId,
-        ingredients: req.body.ingredients,
-        instructions: req.body.instructions,
-        category: req.body.category,
-        saves: 0
+      else {
+        res.status(200).json({
+          status: 'success',
+          message: 'Image uploaded successfully'
+        })
       }
-
-      imgModel.create(obj, (err, item) => {
-        if (err) {
-          console.log(err);
-          // res.status(500);
-        }
-        else {
-          res.status(200).json({
-            status: 'success',
-            message: 'Image uploaded successfully'
-          })
-        }
-      });
     });
   });
+});
 
 app.post('/api/save', async function(req, res, next) {
 
@@ -585,3 +593,4 @@ app.post('/api/deleteInstructions/', async function(req, res, next) {
   }
 });
 }
+
