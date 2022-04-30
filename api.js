@@ -5,10 +5,7 @@ const sgMail = require("@sendgrid/mail");
 const { Console } = require('console');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-
 var mongoose = require('mongoose');
-const loginAuth = require('./config/loginAuth');
-var auth = require("./config/authMiddleware");
 
 const url = process.env.MONGODB_URI;
 mongoose.connect(url);//process.env.MONGODB_URI;
@@ -37,8 +34,8 @@ app.post('/api/register/', async (req, res, next) =>
   // incoming: firstName, lastName, login, password
   // outgoing: error
   const { FirstName, LastName , Login , Password , Email} = req.body;
-  //console.log(FirstName,LastName);
-  //console.log(User.findOne({Login: Login}))
+  console.log(FirstName,LastName);
+  console.log(User.findOne({Login: Login}))
   var user = await User.findOne({Login: Login})
   if (user)
   {
@@ -63,7 +60,7 @@ app.post('/api/register/', async (req, res, next) =>
   user.Login=Login;
   user.Email=Email;
   user.EmailVerified=false;
- // console.log("lll",user);
+  console.log("lll",user);
   user.setPassword(Password);
   user.save().then(function(){
    // return res.json({user: user.toAuthJSON()});
@@ -170,83 +167,77 @@ app.get('/api/verify-email', async (req, res, next) =>
    }
 });
 
-app.post('/api/login', (req, res) => {
-    loginAuth
-      .logUserIn(req.body.login, req.body.password)
-      .then(dbUser => res.json(dbUser))
-      .catch(err => res.status(400).json(err));
-  });
-  
-  // app.post('/api/login/', async (req, res, next) => 
-  // {
-  //   const { login, password } = req.body;
-  //   console.log("loginApi: ", login,password);
-  //   if(!login){
-  //     return res.status(422).json({errors: {Login: "can't be blank"}});
-  //   }
-  
-  //   if(!password){
-  //     return res.status(422).json({errors: {password: "can't be blank"}});
-  //   }
-  
-  //   passport.authenticate('local', {session: false}, function(err, user, info){
-  //     if(err){ return next(err); }
-  //     // console.log(user);
-  //     if(user){
-  //     //  user.token = user.generateJWT();
-  //    //   return res.json({user: user.toAuthJSON()});
-  //         var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
-  //         if (!user.EmailVerified)
-  //         {
-  //           var ret = {id: -1, firstName: '', lastName: '', error: 'Please verify your email!'}
-  //         }
-  //         return res.status(200).json(ret);
-  //     } else {
-  //         var ret = {id: -1, firstName: '', lastName: '', error: 'User/Password combination incorrect'}
-  //         return res.status(200).json(ret);
-  //     }
-  //   })(req, res, next);
-  
-  // });
+app.post('/api/login/', async (req, res, next) => 
+{
+  const { login, password } = req.body;
+  console.log(login,password);
+  if(!login){
+    return res.status(422).json({errors: {Login: "can't be blank"}});
+  }
 
-  app.post('/api/reset-password', auth, async (req, res, next) => 
-  {
-    const { new_password,confirm_password, user_id } = req.body;
-    if(new_password!=confirm_password) return res.status(422).json({error: {password: "the password you entered does not match"}});
-  
-    try{
-      // Check on if id is valid
-      // if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
-      //   var ret = {id: -1, error: "User not found"}
-      //   return res.json(ret);
-      // }
-  
-      var user = await User.findOne({_id: user_id})
-      if (!user)
-      {
-        var ret = {id: -1, error: "User not found"}
-        return res.json(ret);
-      }
-      // console.log(user.Login);
-  
-      // Creates a temp user to set hash and salt for new password
-      var tempUser = new User();
-      // console.log(confirm_password);
-      tempUser.setPassword(confirm_password);
-  
-      // Updates hash and salt from tempUser to the User
-      User.findOneAndUpdate({_id: user_id}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
-        console.log("Updated salt!")});
-      User.findOneAndUpdate({_id: user_id}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
-        console.log("Updated hash!")
-        var ret = {id: 1, error: "pass is updated to new password!"};
+  if(!password){
+    return res.status(422).json({errors: {password: "can't be blank"}});
+  }
+
+  passport.authenticate('local', {session: false}, function(err, user, info){
+    if(err){ return next(err); }
+    console.log(user);
+    if(user){
+    //  user.token = user.generateJWT();
+   //   return res.json({user: user.toAuthJSON()});
+        var ret = {id: user.id, firstName: user.Firstname, lastName: user.Lastname, error: ''}
+        if (!user.EmailVerified)
+        {
+          var ret = {id: -1, firstName: '', lastName: '', error: 'Please verify your email!'}
+        }
         return res.status(200).json(ret);
-     });
-   }
-   catch(error){
-       console.log(error);
-   }
-  });  
+    } else {
+        var ret = {id: -1, firstName: '', lastName: '', error: 'User/Password combination incorrect'}
+        return res.status(200).json(ret);
+    }
+  })(req, res, next);
+
+});
+
+app.post('/api/reset-password', async (req, res, next) => 
+{
+  const { new_password,confirm_password } = req.body;
+  if(new_password!=confirm_password) return res.status(422).json({error: "password: the password you entered does not match"});
+
+
+  try{
+    // Check on if id is valid
+    if(!mongoose.Types.ObjectId.isValid(req.query.token)) {
+      var ret = {id: -1, error: "User not found"}
+      return res.json(ret);
+    }
+
+    var user = await User.findOne({_id: req.query.token})
+    if (!user)
+    {
+      var ret = {id: -1, error: "User not found"}
+      return res.json(ret);
+    }
+    console.log(user.Login);
+
+    // Creates a temp user to set hash and salt for new password
+    var tempUser = new User();
+    console.log(confirm_password);
+    tempUser.setPassword(confirm_password);
+
+    // Updates hash and salt from tempUser to the User
+    User.findOneAndUpdate({_id: req.query.token}, {salt: tempUser.salt}, {upsert: true}, function(err, doc){
+      console.log("Updated salt!")});
+    User.findOneAndUpdate({_id: req.query.token}, {hash: tempUser.hash}, {upsert: true}, function(err, doc){
+      console.log("Updated hash!")
+      var ret = {id: 1, error: "pass is updated"};
+      return res.status(200).json(ret);
+   });
+ }
+ catch(error){
+     console.log(error);
+ }
+});  
 
 app.post('/api/edit-instructions', async (req, res, next) => 
 {
@@ -594,4 +585,3 @@ app.post('/api/deleteInstructions/', async function(req, res, next) {
   }
 });
 }
-
