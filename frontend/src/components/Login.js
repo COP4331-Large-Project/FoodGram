@@ -3,8 +3,6 @@ import styled from "styled-components";
 import LoginImage from "../assets/img/chef_image.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
-import setAuthToken from './../utils/setAuthToken';
 
 function Login() {
   var loginName;
@@ -37,19 +35,20 @@ function Login() {
       return;
     }
 
-    // var js = JSON.stringify(obj);
+    var js = JSON.stringify(obj);
     try {
-      const response = await axios.post(bp.buildPath("api/login"), obj);
-      var res = response.data;
-      console.log("login_info", res);
-      if (!res.success) {
-        setMessage(res.message);
+      const response = await fetch(bp.buildPath("api/login"), {
+        method: "POST",
+        body: js,
+        headers: { "Content-Type": "application/json" },
+      });
+      var res = JSON.parse(await response.text());
+      if (res.id <= 0) {
+        setMessage(res.error);
       } else {
-        // var user = { firstName: res.user.firstName, lastName: res.user.LastName, id: res.user.id , accessToken: res.token};
-        localStorage.setItem("user_data", JSON.stringify(res));
-        setAuthToken(res.token);
-        setMessage(res.message);
-        // console.log("3333333", res.message);
+        var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
+        localStorage.setItem("user_data", JSON.stringify(user));
+        setMessage("");
         window.location.href = "/home";
       }
     } catch (e) {
@@ -115,4 +114,3 @@ function Login() {
   );
 }
 export default Login;
-
