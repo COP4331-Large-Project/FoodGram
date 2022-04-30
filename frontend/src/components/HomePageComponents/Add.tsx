@@ -162,7 +162,7 @@ const Add = () => {
             maxWidth="md"
             sx={{
               p: "40px",
-              minHeight: "60vh",
+              minHeight: "50vh",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
