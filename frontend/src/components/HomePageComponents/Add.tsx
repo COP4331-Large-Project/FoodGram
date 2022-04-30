@@ -81,17 +81,21 @@ const Add = () => {
     setIngredients(event.target.value);
   }
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   let bp = require("../Path.js");
 
   const saveRecipe = async (event) => {
     event.preventDefault();
 
     // console.log(userID);
-    console.log("name->", name);
-    console.log("file->", file);
-    console.log("instructions->", instructions);
-    console.log("instructions->", ingredients);
-    console.log("category->", category);
+    // console.log("name->", name);
+    // console.log("file->", file);
+    // console.log("instructions->", instructions);
+    // console.log("instructions->", ingredients);
+    // console.log("category->", category);
 
     if(!file || name === "" || instructions === "" || ingredients === "") {
       setErrorValidation("Please fill all entries to post a recipe");
@@ -118,6 +122,7 @@ const Add = () => {
       // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
       // localStorage.setItem("user_data", JSON.stringify(user));
       setMessage("Successfully added the recipe!");
+      handleClose()
       // window.location.href = "/login";
     } catch (e) {
       console.log("error->", e.toString());
