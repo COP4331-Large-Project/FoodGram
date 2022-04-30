@@ -168,7 +168,20 @@ describe("bookmark tests", () => {
   })
 })
 
-describe("valid search", () => {
+describe("delete recipie tests", () => {
+
+  test("valid user and instructions",async() =>{
+    const response = await request('localhost:5000').post('/api/search')
+    .send({
+      search: "water"
+    })
+    expect(response.statusCode).toBe(200);  
+    //expect(response.body.error).toBe('Invalid user');
+    //expect(response.body.id).toBe(-1);
+  })
+})
+
+describe("search tests", () => {
 
   test("valid user and instructions",async() =>{
     const response = await request('localhost:5000').post('/api/search')
