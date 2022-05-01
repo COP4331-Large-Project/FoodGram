@@ -3,8 +3,8 @@ import {
   Button,
   ButtonGroup,
   Fab,
-  Modal,
   Stack,
+  Modal,
   styled,
   TextField,
   Tooltip,
@@ -16,7 +16,7 @@ import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import axios from "axios";
 
-const SytledModal = styled(Modal)({
+const StyledModal = styled(Modal)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -46,7 +46,7 @@ const categories = [
 
 var myBoolean = false;
 
-const EditRecipe = () => {
+const EditRecipe = (props) => {
 
   const [state, setState] = useState(false)  
 
@@ -134,30 +134,18 @@ const EditRecipe = () => {
     }
   };
 
+  console.log("PROPS in MODAL", props);
+
   return (
     <>
-      {/* <Tooltip
-        onClick={(e) => setOpen(true)}
-        title="Add Recipe"
-        sx={{
-          position: "fixed",
-          bottom: 80,
-          left: { xs: "calc(50% - 25px)", md: 30 },
-        }}
-      >
-        <Fab color="primary" aria-label="add">
-          <AddIcon />
-        </Fab>
-      </Tooltip> */}
-
-      <SytledModal
-        open={state}
-        onClose={(e) => setState(false)}
-        // aria-labelledby="modal-modal-title"
-        // aria-describedby="modal-modal-description"
-      >
-        <Box component="div" sx={{ backgroundColor: "secondary.light", borderRadius: "20px" }}>
-          <Container
+    <StyledModal
+      open={props.show}
+      onClose={props.close}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box component="div" sx={{ backgroundColor: "secondary.light", borderRadius: "20px" }}>
+      <Container
             id="BACKGROUND"
             maxWidth="md"
             sx={{
@@ -170,19 +158,13 @@ const EditRecipe = () => {
               width: "auto",
             }}
           >
-            {/* <Typography variant="h5" color="secondary.dark" textAlign="center">
-              Create/Edit Recipe (Add selector to reuse component)
-            </Typography> */}
             {!myBoolean ? (
               <Typography variant="h4" color="secondary.dark" textAlign="center">
-                Add a New Recipe
+                Edit your Recipe
               </Typography>
             ) : (
               <Typography variant="h4" color="secondary.dark" textAlign="center">
                 Edit Recipe
-                {/* <IconButton>
-                  <Cancel />
-                </IconButton> */}
               </Typography>
             )}
 
@@ -214,7 +196,6 @@ const EditRecipe = () => {
                 rows={1}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                //ref={(c) => (recipeName = c)}
                 value={name}
                 onChange={handleChangeName}
               ></TextField>
@@ -299,7 +280,6 @@ const EditRecipe = () => {
               >
                 Ingredients:
               </Typography>
-              {/* <TextField id="recipeIngredients" className="recipeInput" sx={{ flex: 3 }} ref={(c) => (Ingredients = c)}></TextField> */}
               <TextField
                 id="recipeIngredients"
                 multiline
@@ -358,7 +338,7 @@ const EditRecipe = () => {
               }}
             >
               {/* <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}> */}
-              <Typography color="error">{errorValidation}</Typography>
+                <Typography color="error">{errorValidation}</Typography>
               {/* </Box> */}
               <Button
                 variant="contained"
@@ -380,8 +360,8 @@ const EditRecipe = () => {
               </Button>
             </Box>
           </Container>
-        </Box>
-      </SytledModal>
+      </Box>
+    </StyledModal>
     </>
   );
 };

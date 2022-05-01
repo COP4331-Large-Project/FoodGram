@@ -16,7 +16,7 @@ import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import axios from "axios";
 
-const SytledModal = styled(Modal)({
+const StyledModal = styled(Modal)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -155,7 +155,7 @@ const Add = () => {
         </Fab>
       </Tooltip>
 
-      <SytledModal
+      <StyledModal
         open={open}
         onClose={(e) => setOpen(false)}
         // aria-labelledby="modal-modal-title"
@@ -378,7 +378,7 @@ const Add = () => {
             </Box>
           </Container>
         </Box>
-      </SytledModal>
+      </StyledModal>
     </>
   );
 };

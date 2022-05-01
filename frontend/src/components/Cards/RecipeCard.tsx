@@ -28,6 +28,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { FavoriteBorder as Unfavorited, Favorite as Favorited } from "@mui/icons-material";
+import EditRecipe from "../HomePageComponents/EditRecipe.tsx";
 
 // interface Props {
 //   image: string;
@@ -88,6 +89,7 @@ export default function RecipeCard(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [isFavorited, setFavorite] = React.useState(false);
+  const [showEdit, setShowEdit] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -143,7 +145,8 @@ export default function RecipeCard(props) {
         {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} /> */}
         <IconButton>
           {/* <ModeEditOutlinedIcon onClick={() => console.log('edit', props.name)}/> */}
-          <ModeEditOutlinedIcon onClick={() => console.log("edit", props.name)} />
+          <ModeEditOutlinedIcon onClick={() => setShowEdit(true)} />
+          <EditRecipe show={showEdit} close={() => setShowEdit(false)} />
         </IconButton>
         <IconButton>
           <DeleteOutline onClick={handleClickOpen} />
