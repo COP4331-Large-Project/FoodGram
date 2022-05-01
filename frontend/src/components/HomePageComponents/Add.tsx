@@ -50,6 +50,8 @@ const Add = () => {
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
   var userID = ud.id;
+  var firstName = ud.firstName;
+  var lastName = ud.lastName;
   var Category;
 
   //For file upload
@@ -106,6 +108,8 @@ const Add = () => {
     formData.append("file", file);
     formData.append("name", name);
     formData.append("userId", userID);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
     formData.append("ingredients", ingredients);
     formData.append("instructions", instructions);
     formData.append("category", Category.value);

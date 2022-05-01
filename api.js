@@ -310,6 +310,8 @@ app.post('/api/edit-instructions', async (req, res, next) =>
         // imageID: result.public_id,
         // imageName: name,
         name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         userId: req.body.userId,
         ingredients: req.body.ingredients,
         instructions: req.body.instructions,
