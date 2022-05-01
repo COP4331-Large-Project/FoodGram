@@ -46,16 +46,14 @@ const categories = [
 
 var myBoolean = false;
 
-const Add = () => {
+const EditRecipe = () => {
+
+  const [state, setState] = useState(false)  
+
+
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
-
   var userID = ud.id;
-  var firstName = ud.firstName;
-  var lastName = ud.lastName;
-  console.log("testing", firstName);
-  console.log("testing", lastName);
-
   var Category;
 
   //For file upload
@@ -63,7 +61,6 @@ const Add = () => {
   const [name, setName] = useState();
   const [instructions, setInstructions] = useState();
   const [ingredients, setIngredients] = useState();
-
   //For dropdown category
   const [category, setCategory] = React.useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,8 +101,8 @@ const Add = () => {
     // console.log("instructions->", ingredients);
     // console.log("category->", category);
 
-    if(!file || name === "" || instructions === "" || ingredients === "") {
-      setErrorValidation("Please fill all entries to post a recipe");
+    if (!file || name === "" || instructions === "" || ingredients === "") {
+      setErrorValidation("Please fill all entries to edit a recipe");
       return;
     }
 
@@ -116,8 +113,6 @@ const Add = () => {
     formData.append("ingredients", ingredients);
     formData.append("instructions", instructions);
     formData.append("category", Category.value);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
 
     try {
       const response = await fetch(bp.buildPath("api/upload"), {
@@ -127,11 +122,11 @@ const Add = () => {
       });
 
       var res = JSON.parse(await response.text());
-      console.log('Parse Form', res.name)
+      console.log(res.name);
       // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
       // localStorage.setItem("user_data", JSON.stringify(user));
       setMessage("Successfully added the recipe!");
-      handleClose()
+      handleClose();
       // window.location.href = "/login";
     } catch (e) {
       console.log("error->", e.toString());
@@ -141,7 +136,7 @@ const Add = () => {
 
   return (
     <>
-      <Tooltip
+      {/* <Tooltip
         onClick={(e) => setOpen(true)}
         title="Add Recipe"
         sx={{
@@ -153,11 +148,11 @@ const Add = () => {
         <Fab color="primary" aria-label="add">
           <AddIcon />
         </Fab>
-      </Tooltip>
+      </Tooltip> */}
 
       <SytledModal
-        open={open}
-        onClose={(e) => setOpen(false)}
+        open={state}
+        onClose={(e) => setState(false)}
         // aria-labelledby="modal-modal-title"
         // aria-describedby="modal-modal-description"
       >
@@ -175,6 +170,9 @@ const Add = () => {
               width: "auto",
             }}
           >
+            {/* <Typography variant="h5" color="secondary.dark" textAlign="center">
+              Create/Edit Recipe (Add selector to reuse component)
+            </Typography> */}
             {!myBoolean ? (
               <Typography variant="h4" color="secondary.dark" textAlign="center">
                 Add a New Recipe
@@ -182,6 +180,9 @@ const Add = () => {
             ) : (
               <Typography variant="h4" color="secondary.dark" textAlign="center">
                 Edit Recipe
+                {/* <IconButton>
+                  <Cancel />
+                </IconButton> */}
               </Typography>
             )}
 
@@ -213,6 +214,7 @@ const Add = () => {
                 rows={1}
                 className="recipeInput"
                 sx={{ flex: 3 }}
+                //ref={(c) => (recipeName = c)}
                 value={name}
                 onChange={handleChangeName}
               ></TextField>
@@ -297,6 +299,7 @@ const Add = () => {
               >
                 Ingredients:
               </Typography>
+              {/* <TextField id="recipeIngredients" className="recipeInput" sx={{ flex: 3 }} ref={(c) => (Ingredients = c)}></TextField> */}
               <TextField
                 id="recipeIngredients"
                 multiline
@@ -355,7 +358,7 @@ const Add = () => {
               }}
             >
               {/* <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}> */}
-                <Typography color="error">{errorValidation}</Typography>
+              <Typography color="error">{errorValidation}</Typography>
               {/* </Box> */}
               <Button
                 variant="contained"
@@ -383,4 +386,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default EditRecipe;
