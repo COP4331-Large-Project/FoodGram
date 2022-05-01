@@ -54,6 +54,7 @@ const EditRecipe = (props, props1) => {
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
   var userID = ud.id;
+  var postID = props._id;
   var Category;
 
   //For file upload
@@ -78,6 +79,7 @@ const EditRecipe = (props, props1) => {
   function handleChangeName(event) {
     setName(event.target.value);
   }
+
   function handleChangeInstructions(event) {
     setInstructions(event.target.value);
   }
@@ -101,13 +103,16 @@ const EditRecipe = (props, props1) => {
     // console.log("instructions->", ingredients);
     // console.log("category->", category);
 
-    if (!file || name === "" || instructions === "" || ingredients === "") {
+    if (name === "" || instructions === "" || ingredients === "") {
       setErrorValidation("Please fill all entries to edit the recipe");
       return;
     }
 
+    
+
     var formData = new FormData();
-    formData.append("file", file);
+    // formData.append("file", file);
+    formData.append("id", postID);
     formData.append("name", name);
     formData.append("userId", userID);
     formData.append("ingredients", ingredients);
@@ -122,12 +127,8 @@ const EditRecipe = (props, props1) => {
       });
 
       var res = JSON.parse(await response.text());
-      console.log(res.name);
-      // var user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
-      // localStorage.setItem("user_data", JSON.stringify(user));
-      setMessage("Successfully added the recipe!");
-      handleClose();
-      // window.location.href = "/login";
+      console.log(res.error);
+
     } catch (e) {
       console.log("error->", e.toString());
       return;
@@ -190,7 +191,7 @@ const EditRecipe = (props, props1) => {
                 rows={1}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                value={name}
+                value={props.name}
                 onChange={handleChangeName}
               ></TextField>
             </Box>
@@ -228,7 +229,7 @@ const EditRecipe = (props, props1) => {
                 <TextField
                   id="categoryDropdown"
                   select
-                  value={category}
+                  value={props.category}
                   onChange={handleChange}
                   SelectProps={{
                     native: true,
@@ -246,7 +247,7 @@ const EditRecipe = (props, props1) => {
                   Image:
                 </Typography>
                 <div>
-                  <input type="file" onChange={handleChangeImage} />
+                  <input type="file" />
                 </div>
               </Container>
             </Box>
@@ -280,7 +281,7 @@ const EditRecipe = (props, props1) => {
                 rows={1}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                value={ingredients}
+                value={props.ingredients}
                 onChange={handleChangeIngredients}
               ></TextField>
             </Box>
@@ -315,7 +316,7 @@ const EditRecipe = (props, props1) => {
                 className="recipeInput"
                 sx={{ flex: 3 }}
                 //  ref={(c) => (Instructions = c)}
-                value={instructions}
+                value={props.instructions}
                 onChange={handleChangeInstructions}
               ></TextField>
             </Box>
@@ -338,7 +339,7 @@ const EditRecipe = (props, props1) => {
                 variant="contained"
                 size="large"
                 id="createSubmit"
-                // onClick={saveRecipe}
+                onClick={editRecipe}
                 sx={{ borderRadius: "20px", fontSize: "18px" }}
               >
                 Update
@@ -347,7 +348,7 @@ const EditRecipe = (props, props1) => {
                 variant="contained"
                 size="large"
                 id="cancel"
-                onClick={(e) => setOpen(false)}
+                onClick={props.close}
                 sx={{ backgroundColor: "secondary.dark", borderRadius: "20px", fontSize: "18px" }}
               >
                 Cancel
