@@ -113,11 +113,11 @@ const Add = () => {
     formData.append("file", file);
     formData.append("name", name);
     formData.append("userId", userID);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
     formData.append("ingredients", ingredients);
     formData.append("instructions", instructions);
     formData.append("category", Category.value);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
 
     try {
       const response = await fetch(bp.buildPath("api/upload"), {
