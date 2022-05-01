@@ -46,7 +46,7 @@ const categories = [
 
 var myBoolean = false;
 
-const EditRecipe = (props) => {
+const EditRecipe = (props, props1) => {
 
   const [state, setState] = useState(false)  
 
@@ -91,7 +91,7 @@ const EditRecipe = (props) => {
 
   let bp = require("../Path.js");
 
-  const saveRecipe = async (event) => {
+  const editRecipe = async (event) => {
     event.preventDefault();
 
     // console.log(userID);
@@ -102,7 +102,7 @@ const EditRecipe = (props) => {
     // console.log("category->", category);
 
     if (!file || name === "" || instructions === "" || ingredients === "") {
-      setErrorValidation("Please fill all entries to edit a recipe");
+      setErrorValidation("Please fill all entries to edit the recipe");
       return;
     }
 
@@ -115,7 +115,7 @@ const EditRecipe = (props) => {
     formData.append("category", Category.value);
 
     try {
-      const response = await fetch(bp.buildPath("api/upload"), {
+      const response = await fetch(bp.buildPath("/api/edit-instructions"), {
         method: "POST",
         body: formData,
         //headers: { "Content-Type": "multipart/form-data" }
@@ -158,15 +158,9 @@ const EditRecipe = (props) => {
               width: "auto",
             }}
           >
-            {!myBoolean ? (
-              <Typography variant="h4" color="secondary.dark" textAlign="center">
-                Edit your Recipe
-              </Typography>
-            ) : (
-              <Typography variant="h4" color="secondary.dark" textAlign="center">
-                Edit Recipe
-              </Typography>
-            )}
+            <Typography variant="h4" color="secondary.dark" textAlign="center">
+              Edit your Recipe
+            </Typography>
 
             {/* RECIPE NAME BOX */}
             <Box
@@ -344,10 +338,10 @@ const EditRecipe = (props) => {
                 variant="contained"
                 size="large"
                 id="createSubmit"
-                onClick={saveRecipe}
+                // onClick={saveRecipe}
                 sx={{ borderRadius: "20px", fontSize: "18px" }}
               >
-                {!myBoolean ? "Save" : "Update"}
+                Update
               </Button>
               <Button
                 variant="contained"

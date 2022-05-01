@@ -146,7 +146,7 @@ export default function RecipeCard(props) {
         <IconButton>
           {/* <ModeEditOutlinedIcon onClick={() => console.log('edit', props.name)}/> */}
           <ModeEditOutlinedIcon onClick={() => setShowEdit(true)} />
-          <EditRecipe show={showEdit} close={() => setShowEdit(false)} />
+          <EditRecipe show={showEdit} {...props} close={() => setShowEdit(false)} />
         </IconButton>
         <IconButton>
           <DeleteOutline onClick={handleClickOpen} />
