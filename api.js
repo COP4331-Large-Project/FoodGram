@@ -445,6 +445,28 @@ app.post('/api/showBookmarks', async function(req, res, next) {
 
 });
 
+// Returns saved instructions given a userID
+app.post('/api/showMyRecipes', async function(req, res, next) {
+
+  const { userID } = req.body;
+
+  console.log(userID);
+
+  imgModel.find({
+    userId: userID
+  }
+  
+  , function(err, result) {
+
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+
+});
+
 app.post('/api/bookmark', async function(req, res, next) {
 
   const { userID, instructionsID } = req.body;
