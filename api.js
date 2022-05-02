@@ -322,7 +322,7 @@ app.post('/api/edit-instructions', async (req, res, next) =>
       imgModel.create(obj, (err, item) => {
         if (err) {
           console.log(err);
-          // res.status(500);
+          res.status(500);
         }
         else {
           res.status(200).json({
@@ -334,58 +334,58 @@ app.post('/api/edit-instructions', async (req, res, next) =>
     });
   });
 
-app.post('/api/save', async function(req, res, next) {
+// app.post('/api/save', async function(req, res, next) {
 
-  const { postId, userId } = req.body;
+//   const { postId, userId } = req.body;
 
-   // Checks if id string is valid
-   if(!mongoose.Types.ObjectId.isValid(postId)) {
-    var ret = {id: -1, error: "Can't find post"}
-    return res.json(ret);
-  }
+//    // Checks if id string is valid
+//    if(!mongoose.Types.ObjectId.isValid(postId)) {
+//     var ret = {id: -1, error: "Can't find post"}
+//     return res.json(ret);
+//   }
 
-  try{
-    var post = await imgModel.findById(postId);
-    // Checks if instructions exists
-    if (!post)
-    {
-      var ret = {id: -1, error: "Can't find instructions"}
-      return res.json(ret);
-    }
-    else
-    {
-      //if it is your own post then nothing is done
-      if (post.userId == userId)
-      {
-        var ret = {id: -1, error: "Own post"}
-        return res.json(ret);
-      }
-      //if it is not your own post, then add to saved by and increase saved count
-      //if it is not your own post, then check if post is being saved or unsaved
-      else
-      {
-        imgModel.findOneAndUpdate(
-          { _id: postId},
-          { $push: { savedBy: userId },
-             $inc: { saves: 1 } },
-          //{ $inc: { saves: 1 } },
-          { new: true },
-          function (error, success) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log(success);
-            }
-        });
-        var ret = { id: 1, error: "Favorite success" }
-        return res.json(ret);
-      }
-    }
-  }
-  catch(err){
-    console.log(err);
-  }
-});
+//   try{
+//     var post = await imgModel.findById(postId);
+//     // Checks if instructions exists
+//     if (!post)
+//     {
+//       var ret = {id: -1, error: "Can't find instructions"}
+//       return res.json(ret);
+//     }
+//     else
+//     {
+//       //if it is your own post then nothing is done
+//       if (post.userId == userId)
+//       {
+//         var ret = {id: -1, error: "Own post"}
+//         return res.json(ret);
+//       }
+//       //if it is not your own post, then add to saved by and increase saved count
+//       //if it is not your own post, then check if post is being saved or unsaved
+//       else
+//       {
+//         imgModel.findOneAndUpdate(
+//           { _id: postId},
+//           { $push: { savedBy: userId },
+//              $inc: { saves: 1 } },
+//           //{ $inc: { saves: 1 } },
+//           { new: true },
+//           function (error, success) {
+//             if (error) {
+//                 console.log(error);
+//             } else {
+//                 console.log(success);
+//             }
+//         });
+//         var ret = { id: 1, error: "Favorite success" }
+//         return res.json(ret);
+//       }
+//     }
+//   }
+//   catch(err){
+//     console.log(err);
+//   }
+// });
 
 
 // Search api that returns matches on name, instructions, or category
