@@ -1,0 +1,203 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+
+package mongoose <<Database>> {
+  class user
+  class post
+}
+
+folder Models{
+
+class UserSchema {
+
+#String Login
+#String Email
+#String Firstname
+#String Lastname
+#boolean EmailVerified
+#String hash
+#String salt
+#boolean timestamps
+
+
+
++ validPassword(String password) : String
++ setPassword (String password) : String
++ setEmailValidation () : Boolean
++ generateJWT() : String
++ toAuthJSON (): String & generateJWT()
+
+}
+
+
+
+class imageSchema {
+
+#String name
+#String userId
+#String imageID
+#String imagePath
+#String imageName
+#String ingredients
+#String instructions
+#String category
+#String firstName
+#String lastName
+savedBy: Array,
+saves: Number
+
+}
+
+}
+class api {
+-var passport
+-var LocalStrategy
+-const sgMail
+-var mongoose
+-const url process.env.MONGODB_URI
+-var User UserSchema
+-var multer multer'
+-var imgModel imageSchema
+-var storage multer.diskStorage
+
++register(req, res, next): json
++forgotpassword(req, res, next): json
++verify-email(req, res, next): json
++login(req, res, next): json
++reset-password(req, res, next): json
++edit-instructions(req, res, next): json
++upload(req, res, next): json
++search(req, res, next): json
++bookmark(req, res, next): json
++unbookmark(req, res, next): json
++deleteInstructions(req, res, next): json
++showMyRecipes(req, res, next): json
+}
+
+
+
+
+folder frontend {
+
+class App {
+}
+
+
+
+
+folder src{
+folder components{
+
+class ForgotPassword {
++ var forgotPasswordEmail;
++ doForgotpassword() : void
+}
+
+class login {
++var loginName;
++var loginPassword;
++ Login() : void
+}
+
+class Path {
++const app_name;
++ buildPath(rout) : String
+}
+
+class Register {
++var registerfName;
++var registerlName;
++var registerLogin;
++var registerPassword;
++var registerConfirmPassword;
++var registerEmail;
++Register(): void
+}
+
+class ResetPassword {
++var newPassword;
++var confirmPassword;
++ResetPassword(): void
+}
+
+
+}
+
+}
+}
+
+folder config{
+
+index.js
+
+passport.js
+
+}
+
+
+
+class mobile{
+
+App.js
+emailValidator.js
+firstNameValidator.js
+lastNameValidator.js
+passwordValidator.js
+passwordVisibility.js
+usernameValidator.js
+stacks.js
+tabs.js
+Dashboard.js
+LikedRecipesScreen.js
+LoginScreen.js
+MyRecipesScreen.js
+PostScreen.js
+RegisterScreen.js
+ResetPasswordScreen.js
+SettingsScreen.js
+StartScreen.js
+index.js
+BackButton.js
+BackGround.js
+Button.js
+Header.js
+List.js
+Logo.js
+Paragraph.js
+RecipeCard.js
+SearchBar.js
+SearchInput.js
+TextInput.js
+
+}
+
+
+
+
+
+Models -- mongoose
+Models -- mongoose_unique_validator
+Models -- crypto
+Models -- jsonwebtoken
+api -- config
+api -- reactrouterdom
+api - mongoose
+api -- sendgrid
+api - UserSchema
+api - imageSchema
+frontend -- api
+ForgotPassword - react
+ResetPassword - Path
+Register -- Path
+ResetPassword -- react
+Register -- react
+App -- react
+mobile -- UserSchema
+mobile - api
+api -- server
+api - mongoose
+mobile -- mongoose
+mobile - react
+@enduml
