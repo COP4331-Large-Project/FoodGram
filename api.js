@@ -445,7 +445,7 @@ app.post('/api/showBookmarks', async function(req, res, next) {
 
 });
 
-// Returns saved instructions given a userID
+// Shows users made recipe
 app.post('/api/showMyRecipes', async function(req, res, next) {
 
   const { userID } = req.body;
