@@ -56,10 +56,6 @@ const EditRecipe = (props, props1) => {
   var userID = ud.id;
   var postID = props._id;
   var Category;
-  var Name;
-  var Instructions;
-  var Ingredients;
-  
 
   //For file upload
   const [file, setFile] = useState();
@@ -96,6 +92,15 @@ const EditRecipe = (props, props1) => {
   };
 
   let bp = require("../Path.js");
+
+  const loadRecipe = async (event) => {
+    event.preventDefault();
+
+    setName(props.name);
+    setInstructions(props.instructions);
+    setIngredients(props.ingredients);
+    setCategory(props.category);
+  }
 
   const editRecipe = async (event) => {
     event.preventDefault();
@@ -338,6 +343,15 @@ const EditRecipe = (props, props1) => {
               {/* <Box sx={{ width: "100%", justifyContent: "center", display: "flex" }}> */}
                 <Typography color="error">{errorValidation}</Typography>
               {/* </Box> */}
+              <Button
+                variant="contained"
+                size="large"
+                id="createSubmit"
+                onClick={loadRecipe}
+                sx={{ backgroundColor: "secondary.dark", borderRadius: "20px", fontSize: "18px" }}
+              >
+                Load Data
+              </Button>
               <Button
                 variant="contained"
                 size="large"
