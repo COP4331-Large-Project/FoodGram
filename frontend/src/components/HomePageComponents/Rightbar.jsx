@@ -11,8 +11,18 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { randomImages } from "../../RandomImageData";
+
+
 
 const Rightbar = () => {
+
+  // console.log("Testing lenght", randomImages.length);
+  const randomImage1 = randomImages[Math.floor(Math.random() * randomImages.length)].image;
+  const randomImage2 = randomImages[Math.floor(Math.random() * randomImages.length)].image;
+  const randomImage3 = randomImages[Math.floor(Math.random() * randomImages.length)].image;
+
+
   return (
     <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="fixed" width={300}>
@@ -21,13 +31,13 @@ const Rightbar = () => {
         </Typography>
         <ImageList cols={3} rowHeight={100} gap={5}>
           <ImageListItem>
-            <img src="https://material-ui.com/static/images/image-list/breakfast.jpg" alt="" />
+            <img src={randomImage1} alt="" />
           </ImageListItem>
           <ImageListItem>
-            <img src="https://material-ui.com/static/images/image-list/burgers.jpg" alt="" />
+            <img src={randomImage2} alt="" />
           </ImageListItem>
           <ImageListItem>
-            <img src="https://material-ui.com/static/images/image-list/camera.jpg" alt="" />
+            <img src={randomImage3} alt="" />
           </ImageListItem>
         </ImageList>
         <Typography variant="h6" fontWeight={100} mt={2}>
@@ -97,7 +107,7 @@ const Rightbar = () => {
                   >
                     Euripides Montagne
                   </Typography>
-                  {" — As I explained in class"}
+                  {" — As explained in class"}
                 </React.Fragment>
               }
             />

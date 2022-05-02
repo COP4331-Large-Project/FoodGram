@@ -7,9 +7,9 @@ const Feed = (props) => {
 
   // function that will run when page is loaded
   useEffect(() => {
-    console.log(recipeCards);
+    // console.log(recipeCards);
     const updateFeed = setInterval(() => {
-      console.log(localStorage.getItem("feed"));
+      // console.log(localStorage.getItem("feed"));
       setRecipeCards(JSON.parse(localStorage.getItem("feed")));
     }, 100);
   }, []);
