@@ -79,7 +79,7 @@ const Navbar = (props) => {
       <StyledToolbar>
         <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
           <Box component="img" sx={{ width: 50, height: 40 }} alt="logo" src={LogoIcon} />
-          <Typography variant="h6" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
+          <Typography variant="h6" color="secondary.dark" sx={{ fontWeight: "900", display: { xs: "none", sm: "block" } }}>
             FoodGram
           </Typography>
         </Stack>
