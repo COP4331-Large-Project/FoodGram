@@ -56,6 +56,10 @@ const EditRecipe = (props, props1) => {
   var userID = ud.id;
   var postID = props._id;
   var Category;
+  var Name;
+  var Instructions;
+  var Ingredients;
+  
 
   //For file upload
   const [file, setFile] = useState();
@@ -108,25 +112,23 @@ const EditRecipe = (props, props1) => {
       return;
     }
 
-    
+    console.log(postID)
 
-    var formData = new FormData();
-    // formData.append("file", file);
-    formData.append("id", postID);
-    formData.append("name", name);
-    formData.append("userId", userID);
-    formData.append("ingredients", ingredients);
-    formData.append("instructions", instructions);
-    formData.append("category", Category.value);
+    var obj = { id: postID, name: name, ingredients: ingredients, instructions: instructions, category: Category.value };
+
+    var js = JSON.stringify(obj);
+
+    console.log(obj)
 
     try {
-      const response = await fetch(bp.buildPath("/api/edit-instructions"), {
+      const response = await fetch(bp.buildPath("api/edit-instructions"), {
         method: "POST",
-        body: formData,
-        //headers: { "Content-Type": "multipart/form-data" }
+        body: js,
+        headers: { "Content-Type": "application/json" },
       });
 
       var res = JSON.parse(await response.text());
+      setMessage(res.error);
       console.log(res.error);
 
     } catch (e) {
@@ -135,7 +137,7 @@ const EditRecipe = (props, props1) => {
     }
   };
 
-  console.log("PROPS in MODAL", props);
+  // console.log("PROPS in MODAL", props);
 
   return (
     <>
@@ -191,7 +193,8 @@ const EditRecipe = (props, props1) => {
                 rows={1}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                value={props.name}
+                value={name}
+                // ref={(c) => (Name = c)}
                 onChange={handleChangeName}
               ></TextField>
             </Box>
@@ -229,7 +232,7 @@ const EditRecipe = (props, props1) => {
                 <TextField
                   id="categoryDropdown"
                   select
-                  value={props.category}
+                  value={category}
                   onChange={handleChange}
                   SelectProps={{
                     native: true,
@@ -281,7 +284,7 @@ const EditRecipe = (props, props1) => {
                 rows={1}
                 className="recipeInput"
                 sx={{ flex: 3 }}
-                value={props.ingredients}
+                value={ingredients}
                 onChange={handleChangeIngredients}
               ></TextField>
             </Box>
@@ -316,7 +319,7 @@ const EditRecipe = (props, props1) => {
                 className="recipeInput"
                 sx={{ flex: 3 }}
                 //  ref={(c) => (Instructions = c)}
-                value={props.instructions}
+                value={instructions}
                 onChange={handleChangeInstructions}
               ></TextField>
             </Box>
@@ -354,6 +357,7 @@ const EditRecipe = (props, props1) => {
                 Cancel
               </Button>
             </Box>
+            <span>{message}</span>
           </Container>
       </Box>
     </StyledModal>
