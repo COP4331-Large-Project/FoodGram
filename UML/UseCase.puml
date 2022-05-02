@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+left to right direction
+skinparam packageStyle rectangle
+
+
+
+actor user1
+actor user2
+actor user3
+database mongoDB
+rectangle FoodGram {
+
+
+  user1 -- (Login)
+  user2 -- (Post)
+  user3-- (Register)
+
+  (Register) -- (verify-email)
+  (Register) ..> (sendgrid) : uses
+  (Login) -- (Reset Password)
+   (Login) -- (Forgot Password)
+    (Login) ..> (UserSchema) : uses
+  (Post) - (Login) : uses
+  (Post) ..> (Upload) : uses
+  (Post) ..> (save) : uses
+  (Post) -- (search)
+(Post) -- (Edit Instructions)
+(Post) -- (Delete Instructions)
+
+(Post) --(show my receipts)
+(Post) -- (Bookmark)
+(Post) -- (Unbookmark)
+(Post) ..> (ImageSchema) : uses
+
+}
+
+skinparam actor {
+BorderColor black
+FontName Courier
+BackgroundColor Pink
+}
+
+skinparam usecase {
+BackgroundColor hotpink
+BorderColor hotpink
+
+
+}
+
+skinparam sequence {
+ArrowColor DeepSkyBlue
+ActorBorderColor DeepSkyBlue
+LifeLineBorderColor blue
+LifeLineBackgroundColor #A9DCDF
+
+ParticipantBorderColor DeepSkyBlue
+ParticipantBackgroundColor DodgerBlue
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor #A9DCDF
+
+
+}
+skinparam databaseBackgroundColor DodgerBlue
+FoodGram --- mongoDB
+
+@enduml
