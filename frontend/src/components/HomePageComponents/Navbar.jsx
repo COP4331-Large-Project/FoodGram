@@ -127,8 +127,8 @@ const Navbar = (props) => {
           horizontal: "right",
         }}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
+        {/* <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem> */}
         <MenuItem onClick={doLogout}>Logout</MenuItem>
       </Menu>
     </AppBar>
