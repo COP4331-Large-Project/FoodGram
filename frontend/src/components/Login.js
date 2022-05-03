@@ -64,7 +64,7 @@ function Login() {
       </div>
       <div class="LoginText">
         <form onSubmit={doLogin}>
-          <h1 id="title">FoodGram - Sign Up Page</h1>
+          <h1 id="title">FoodGram - Sign In Page</h1>
           <div class="form-group">
             <input
               type="text"
