@@ -1,9 +1,12 @@
 import React from "react";
 import LoginImage from "../assets/img/Team_page.png";
+
 function AboutUs() {
   return (
     <div class="section">
       <div class="container">
+        <br></br>
+        <br></br>
         <div class="content-section">
           <div class="title">
             <h1 className="extraBold font60">About Us</h1>
