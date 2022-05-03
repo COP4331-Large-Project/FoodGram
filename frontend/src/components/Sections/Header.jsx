@@ -13,18 +13,23 @@ export default function Header() {
       <LeftSide className="flexCenter">
         <div>
           <h1 className="extraBold font60">Best Recipe Handler In Town</h1>
-          <HeaderP className="font13 semiBold">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-            voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+          <HeaderP className="font20 semiBold">
+            Find and share everyday cooking inspirations on FoodGram. Discorver recipes from all our
+            users and create your own to share with the public.
           </HeaderP>
           <BtnWrapper>
-            <FullButton title="Get Started" action={() => window.location.href = '/login'}/>
+            <FullButton title="Get Started" action={() => (window.location.href = "/login")} />
           </BtnWrapper>
         </div>
       </LeftSide>
-      <RightSide>
+      <RightSide className="flexCenter">
         <ImageWrapper>
-          <Img className="radius8 pictureSize" src={HeaderImage} alt="office" style={{zIndex: 9}} />
+          <Img
+            className="radius8 pictureSize"
+            src={HeaderImage}
+            alt="office"
+            style={{ zIndex: 9 }}
+          />
           {/* <QuoteWrapper className="flexCenter redBg radius8">
             <QuotesWrapper>
               <QuotesIcon />

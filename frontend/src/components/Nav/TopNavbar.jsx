@@ -42,27 +42,26 @@ export default function TopNavbar() {
                 Home
               </Link>
             </li>
-            <li className="semiBold font15 pointer">
+            {/* <li className="semiBold font15 pointer">
               <Link activeClass="active" style={{ padding: "10px 15px" }} to="services" spy={true} smooth={true} offset={-80}>
                 Services
               </Link>
-            </li>
+            </li> */}
             <li className="semiBold font15 pointer">
               <Link activeClass="active" style={{ padding: "10px 15px" }} to="projects" spy={true} smooth={true} offset={-80}>
-                Projects
+                Our Mobile App
               </Link>
             </li>
-            <li className="semiBold font15 pointer">
-              {/* We can add after spy={true}, smooth={true} to change how it interacts scrolling down */}
+            {/* <li className="semiBold font15 pointer">
               <Link activeClass="active" style={{ padding: "10px 15px" }} to="blog" spy={true} smooth={true} offset={-80}> 
                 Blog
               </Link>
-            </li>
-            <li className="semiBold font15 pointer">
+            </li> */}
+            {/* <li className="semiBold font15 pointer">
               <Link activeClass="active" style={{ padding: "10px 15px" }} to="contact" spy={true} smooth={true} offset={-80}>
                 Contact
               </Link>
-            </li>
+            </li> */}
           </UlWrapper>
           <UlWrapperRight className="flexNullCenter">
             <li className="semiBold font15 pointer">
