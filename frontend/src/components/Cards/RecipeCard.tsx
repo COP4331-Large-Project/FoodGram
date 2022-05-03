@@ -89,6 +89,44 @@ export default function RecipeCard(props) {
     }
   };
 
+  const Bookmark = async (event) => {
+    event.preventDefault();
+
+    var obj = { userID: ud.id, instructionsID: props._id };
+    var js = JSON.stringify(obj);
+
+    try{
+      const response = await fetch(bp.buildPath("api/bookmark"), {
+        method: "POST",
+        body: js,
+        headers: { "Content-Type": "application/json" },
+      });
+      var res = JSON.parse(await response.text());
+      console.log({res})
+    } catch (e) {
+      console.log(e.toString());
+    }
+  };
+
+  const unBookmark = async (event) => {
+    event.preventDefault();
+
+    var obj = { userID: ud.id, instructionsID: props._id };
+    var js = JSON.stringify(obj);
+    
+    try{
+      const response = await fetch(bp.buildPath("api/unbookmark"), {
+        method: "POST",
+        body: js,
+        headers: { "Content-Type": "application/json" },
+      });
+      var res = JSON.parse(await response.text());
+      console.log({res})
+    } catch (e) {
+      console.log(e.toString());
+    }
+  };
+
   const [expanded, setExpanded] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [isFavorited, setFavorite] = React.useState(false);
@@ -143,7 +181,7 @@ export default function RecipeCard(props) {
       </CardActionArea>
       <CardActions disableSpacing>
         <IconButton aria-label="favorite" onClick={toggleFav}>
-          {isFavorited ? <Favorited sx={{ color: "primary.main" }} /> : <Unfavorited />}
+          {isFavorited ? <Favorited onClick={unBookmark} sx={{ color: "primary.main" }} /> : <Unfavorited onClick={Bookmark}/>}
         </IconButton>
         {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} /> */}
         {/* <IconButton>

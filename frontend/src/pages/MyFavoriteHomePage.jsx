@@ -37,17 +37,21 @@ const MyFavoriteHomePage = () => {
   const [feed, setFeed] = useState([]);
   let temp = 0;
 
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+  var userID = ud.id;
+
   // function that will run when page is loaded
   useEffect(() => {
-    loadFeed("");
+    loadLiked("");
   }, []);
 
-  const loadFeed = async (query) => {
-    var obj = { search: query };
+  const loadLiked = async (query) => {
+    var obj = { userID: userID };
     var js = JSON.stringify(obj);
     // var js = {"search":query};
     try {
-      const response = await fetch(bp.buildPath("api/search/"), {
+      const response = await fetch(bp.buildPath("api/showBookmarks"), {
         method: "POST",
         body: js,
         headers: { "Content-Type": "application/json" },
@@ -94,7 +98,7 @@ const MyFavoriteHomePage = () => {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
         <Box bgcolor={"background.default"} color={"text.primary"} >
-          <Navbar search={loadFeed} />
+          <Navbar search={loadLiked} />
           <Stack direction="row" spacing={0} justifyContent="space-between">
             <Sidebar setMode={setMode} mode={mode} />
             <FeedAllRecipes feed={feed} />
