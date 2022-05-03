@@ -192,7 +192,7 @@ export default function RecipeCard(props) {
         <IconButton>
           <DeleteOutline onClick={handleClickOpen} />
         </IconButton> */}
-        <Dialog
+        {/* <Dialog
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
@@ -217,7 +217,7 @@ export default function RecipeCard(props) {
           >
             {message}
           </DialogContentText>
-        </Dialog>
+        </Dialog> */}
         {/* <IconButton>
           <DeleteOutline />
         </IconButton> */}
