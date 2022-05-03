@@ -9,6 +9,9 @@ import HomePage from './pages/HomePage';
 import Testing from './pages/Testing';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import MyRecipeHomePage from './pages/MyRecipeHomePage';
+import MyFavoriteHomePage from "./pages/MyFavoriteHomePage";
+import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
@@ -33,6 +36,15 @@ function App() {
         </Route>
         <Route path="/testing" exact>
           <Testing />
+        </Route>
+        <Route path="/about-us" exact>
+          <AboutPage />
+        </Route>
+        <Route path="/MyRecipe" exact>
+          <MyRecipeHomePage />
+        </Route>
+        <Route path="/MyFavorite" exact>
+          <MyFavoriteHomePage />
         </Route>
         <Route path="/forgot-password" exact>
           <ForgotPasswordPage />

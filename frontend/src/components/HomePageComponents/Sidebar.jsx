@@ -30,7 +30,7 @@ const Sidebar = ({ mode, setMode }) => {
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#home">
+            <ListItemButton component="a" href="/home">
               <ListItemIcon>
                 <Home sx={{ color: "#FF203A" }} />
               </ListItemIcon>
@@ -38,7 +38,7 @@ const Sidebar = ({ mode, setMode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
+            <ListItemButton component="a" href="/MyFavorite">
               <ListItemIcon>
                 <Favorite sx={{ color: "#FF203A" }} />
               </ListItemIcon>
@@ -46,7 +46,7 @@ const Sidebar = ({ mode, setMode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
+            <ListItemButton component="a" href="/MyRecipe">
               <ListItemIcon>
                 <NoteAlt sx={{ color: "#FF203A" }} />
               </ListItemIcon>
@@ -54,7 +54,7 @@ const Sidebar = ({ mode, setMode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
+            <ListItemButton component="a" href="/about-us">
               <ListItemIcon>
                 <Info sx={{ color: "#FF203A" }} />
               </ListItemIcon>
@@ -69,14 +69,14 @@ const Sidebar = ({ mode, setMode }) => {
               <ListItemText primary="Reset Password" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
+          {/* <ListItem disablePadding>
             <ListItemButton component="a" href="#simple-list">
               <ListItemIcon>
                 <ModeNight sx={{ color: "#FF203A" }} />
               </ListItemIcon>
               <Switch onChange={(e) => setMode(mode === "light" ? "dark" : "light")} />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
         </List>
         <Add />
       </Box>
