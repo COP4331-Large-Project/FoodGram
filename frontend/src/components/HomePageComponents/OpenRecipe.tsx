@@ -108,26 +108,27 @@ import {
   
     return (
       <>
-      <StyledModal
-        open={props.show}
-        onClose={props.close}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box component="div" sx={{ backgroundColor: "white", borderRadius: "20px" }}>
-        <br></br>
-        <Box display='flex' flexGrow={2}>
-            <IconButton >
+        <StyledModal
+          open={props.show}
+          onClose={props.close}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box component="div" sx={{ backgroundColor: "white", borderRadius: "20px" }}>
+            <br></br>
+            {/* <Box display="flex" flexGrow={2}>
+              <IconButton>
                 <CloseOutlinedIcon onClick={props.close} />
-            </IconButton>
-        </Box>
-        <Container
+              </IconButton>
+            </Box> */}
+            <Container
               id="BACKGROUND"
               maxWidth="md"
               sx={{
+                // backgroundColor: "pink",
                 p: "0px",
                 minHeight: "50vh",
-                minWidth:"125vh",
+                minWidth: "60vh",
                 display: "flex",
                 flexDirection: "column",
                 // alignItems: "center",
@@ -137,32 +138,73 @@ import {
                 overflowY: "auto",
               }}
             >
-            <Typography variant="h4" color="secondary.dark" textAlign="center">
-              {props.name}
-            </Typography>
-            <br></br>
-            <img className="pictureSizeRecipeCard" src={props.imagePath} ></img>
-            <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px", fontWeight: 'bold' }}>
+              <Box
+                component="div"
+                sx={{
+                  // backgroundColor: "blue",
+                  // gap: "10px",
+                  // m: "10px",
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "right",
+                }}
+              >
+                <IconButton>
+                  <CloseOutlinedIcon onClick={props.close} />
+                </IconButton>
+              </Box>
+              <Box
+                component="div"
+                sx={{
+                  // backgroundColor: "yellow",
+                  gap: "10px",
+                  m: "10px",
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography variant="h4" color="secondary.dark" textAlign="center">
+                  {props.name}
+                </Typography>
+              </Box>
+              <img className="pictureSizeRecipeCard" src={props.imagePath}></img>
+              <Typography
+                variant="h6"
+                component="h6"
+                fontWeight={500}
+                sx={{ mr: "5px", fontWeight: "bold" }}
+              >
                 By: {props.firstName} {props.lastName}
-            </Typography>
-            <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "400px", fontWeight: 'bold' }}>
+              </Typography>
+              <Typography
+                variant="h6"
+                component="h6"
+                fontWeight={500}
+                sx={{ mr: "400px", fontWeight: "bold" }}
+              >
                 Ingredients:
-            </Typography>
-            <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px" }}>
+              </Typography>
+              <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px" }}>
                 {props.ingredients}
-            </Typography>
-            <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px", fontWeight: 'bold' }}>
+              </Typography>
+              <Typography
+                variant="h6"
+                component="h6"
+                fontWeight={500}
+                sx={{ mr: "5px", fontWeight: "bold" }}
+              >
                 Recipe:
-            </Typography>
-            <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px" }}>
+              </Typography>
+              <Typography variant="h6" component="h6" fontWeight={500} sx={{ mr: "5px" }}>
                 {props.instructions}
-            </Typography>
-            <br></br>
-            <br></br>
-            <br></br>
-        </Container>
-        </Box>
-      </StyledModal>
+              </Typography>
+              <br></br>
+              <br></br>
+              <br></br>
+            </Container>
+          </Box>
+        </StyledModal>
       </>
     );
   };
