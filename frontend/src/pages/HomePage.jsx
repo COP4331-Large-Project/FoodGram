@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/HomePageComponents/Sidebar";
-import Feed from "../components/HomePageComponents/Feed";
+import Feed from "../components/HomePageComponents/FeedAllRecipes";
 import RightBar from "../components/HomePageComponents/Rightbar";
 import Navbar from "../components/HomePageComponents/Navbar";
 import Footer from "../components/HomePageComponents/Footer";
