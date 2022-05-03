@@ -62,7 +62,7 @@ const Sidebar = ({ mode, setMode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/reset-password">
+            <ListItemButton component="a" href="/forgot-password">
               <ListItemIcon>
                 <Settings sx={{ color: "#FF203A" }} />
               </ListItemIcon>
