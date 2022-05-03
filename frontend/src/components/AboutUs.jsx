@@ -15,7 +15,9 @@ function AboutUs() {
               teamed up and opened a channel on Discord to create a MERN stack application focused
               on Food as a central theme. As avid eaters and late-nighters, Group 22 took
               inspiration from the COT4331 class to create their first MERN stack web and mobile
-              application.
+              application. The idea behind this app sprouted from our love of food and community, we
+              wanted to create a space that encourages connection, and what better way than to do it
+              through food. Here you can explore, engage, and create!
             </p>
             {/* <div class="button">
                <a href="">Read More</a>
