@@ -415,13 +415,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
+  padding: 10px;
 
   position: absolute;
   width: auto;
   max-width: 100%;
   left: 55%;
-  top: 0px;
+  top: 50px;
 }
 .ForgotPasswordText {
   display: flex;
