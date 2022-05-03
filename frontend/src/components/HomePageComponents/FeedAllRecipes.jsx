@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import RecipeCard from "../Cards/RecipeCard.tsx";
 import { Grid, Box, Container, Typography, Stack, Button } from "@mui/material";
 
-const Feed = (props) => {
+const FeedAllRecipes = (props) => {
   const [recipeCards, setRecipeCards] = useState([]);
 
   // function that will run when page is loaded
@@ -49,4 +49,4 @@ const Feed = (props) => {
   );
 };
 
-export default Feed;
+export default FeedAllRecipes;

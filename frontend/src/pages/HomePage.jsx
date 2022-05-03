@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/HomePageComponents/Sidebar";
-import Feed from "../components/HomePageComponents/FeedAllRecipes";
+import FeedAllRecipes from "../components/HomePageComponents/FeedAllRecipes";
 import RightBar from "../components/HomePageComponents/Rightbar";
 import Navbar from "../components/HomePageComponents/Navbar";
 import Footer from "../components/HomePageComponents/Footer";
@@ -97,7 +97,7 @@ const HomePage = () => {
           <Navbar search={loadFeed} />
           <Stack direction="row" spacing={0} justifyContent="space-between">
             <Sidebar setMode={setMode} mode={mode} />
-            <Feed feed={feed} />
+            <FeedAllRecipes feed={feed} />
             <RightBar />
           </Stack>
           <Footer />
