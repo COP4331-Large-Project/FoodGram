@@ -19,7 +19,7 @@ const FeedAllRecipes = (props) => {
       {/* Hero Unit */}
       <Container maxWidth="sm">
         <Typography component="h1" variant="h4" align="center" gutterBottom>
-          Your Recipes
+          My Recipes
         </Typography>
       </Container>
       {/* End hero unit */}
