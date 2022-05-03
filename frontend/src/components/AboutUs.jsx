@@ -19,10 +19,6 @@ function AboutUs() {
               wanted to create a space that encourages connection, and what better way than to do it
               through food.
             </p>
-            <p className="font5">
-              Here you can explore, engage, and create. The next time you visit our website, we hope
-              you find something a little extra to spice up your day.... also sponsored by Elon Musk
-            </p>
             {/* <div class="button">
                <a href="">Read More</a>
              </div> */}
@@ -41,6 +37,12 @@ function AboutUs() {
         </div>
         <div class="image-section">
           <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="Team" />
+          <br></br>
+          <br></br>
+          <p className="Bold font50">
+            Here you can explore, engage, and create. The next time you visit our website, we hope
+            you find something a little extra to spice up your day.... also sponsored by Elon Musk
+          </p>
         </div>
       </div>
     </div>
