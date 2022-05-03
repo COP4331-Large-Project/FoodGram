@@ -37,32 +37,32 @@ const MyRecipeHomePage = () => {
   const [feed, setFeed] = useState([]);
   let temp = 0;
 
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+  var userID = ud.id;
+
   // function that will run when page is loaded
   useEffect(() => {
     loadFeed("");
   }, []);
 
-  const loadFeed = async (query) => {
-    var obj = { search: query };
+  const loadFeed = async () => {
+
+    var obj = { userID: userID };
     var js = JSON.stringify(obj);
-    // var js = {"search":query};
     try {
-      const response = await fetch(bp.buildPath("api/search/"), {
+      const response = await fetch(bp.buildPath("api/showMyRecipes"), {
         method: "POST",
         body: js,
         headers: { "Content-Type": "application/json" },
       });
       var res = JSON.parse(await response.text());
 
-      // temp=res[0]._id
-      // console.log(res)
-      // setFeed(res);
       localStorage.setItem("feed", JSON.stringify(res));
     } catch (e) {
       console.log(e.toString());
     }
 
-    // setFeed(query)
   };
 
   // For Dark/Light Theme
