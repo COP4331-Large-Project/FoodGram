@@ -143,14 +143,13 @@ export default function RecipeCard(props) {
           {isFavorited ? <Favorited sx={{ color: "primary.main" }} /> : <Unfavorited />}
         </IconButton>
         {/* <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: "primary" }} />} /> */}
-        <IconButton>
-          {/* <ModeEditOutlinedIcon onClick={() => console.log('edit', props.name)}/> */}
+        {/* <IconButton>
           <ModeEditOutlinedIcon onClick={() => setShowEdit(true)} />
           <EditRecipe show={showEdit} {...props} close={() => setShowEdit(false)} />
         </IconButton>
         <IconButton>
           <DeleteOutline onClick={handleClickOpen} />
-        </IconButton>
+        </IconButton> */}
         <Dialog
           open={open}
           onClose={handleClose}
