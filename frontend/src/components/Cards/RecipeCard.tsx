@@ -79,7 +79,10 @@ export default function RecipeCard(props) {
 
       setMessage(res.error);
 
-      if (res.id >= 0) handleClose();
+      if (res.id >= 0){
+        handleClose();
+        window.location.reload();
+      }
     } catch (e) {
       console.log(e.toString());
       return;

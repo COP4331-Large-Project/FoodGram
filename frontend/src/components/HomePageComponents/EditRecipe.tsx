@@ -135,7 +135,7 @@ const EditRecipe = (props, props1) => {
       var res = JSON.parse(await response.text());
       setMessage(res.error);
       console.log(res.error);
-
+      window.location.reload();
     } catch (e) {
       console.log("error->", e.toString());
       return;

@@ -53,8 +53,8 @@ const Add = () => {
   var userID = ud.id;
   var firstName = ud.firstName;
   var lastName = ud.lastName;
-  console.log("testing", firstName);
-  console.log("testing", lastName);
+  // console.log("testing", firstName);
+  // console.log("testing", lastName);
 
   var Category;
 
@@ -119,6 +119,8 @@ const Add = () => {
     formData.append("instructions", instructions);
     formData.append("category", Category.value);
 
+    console.log("file: ", file)
+
     try {
       const response = await fetch(bp.buildPath("api/upload"), {
         method: "POST",
@@ -132,6 +134,7 @@ const Add = () => {
       // localStorage.setItem("user_data", JSON.stringify(user));
       setMessage("Successfully added the recipe!");
       handleClose()
+      window.location.reload();
       // window.location.href = "/login";
     } catch (e) {
       console.log("error->", e.toString());
