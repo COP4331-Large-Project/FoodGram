@@ -667,6 +667,13 @@ body {
   align-items: left;
   margin-top: 130px;
 }
+.pictureSizeRecipeCard{
+  max-height: 100%;
+  width: calc(100% - 100px);
+  max-width: 450px;
+  align-items: center;
+  justify-content: center;
+}
 .form-control {
   display: block;
   width: 100%;

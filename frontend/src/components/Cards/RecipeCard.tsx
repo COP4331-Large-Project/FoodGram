@@ -29,6 +29,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import { FavoriteBorder as Unfavorited, Favorite as Favorited } from "@mui/icons-material";
 import EditRecipe from "../HomePageComponents/EditRecipe.tsx";
+import OpenRecipe from "../HomePageComponents/OpenRecipe.tsx";
 
 // interface Props {
 //   image: string;
@@ -153,6 +154,7 @@ export default function RecipeCard(props) {
   return (
     <Card
       variant="outlined"
+      onClick={() => setShowEdit(true)}
       sx={{
         position: "relative",
         display: "flex",
@@ -165,6 +167,7 @@ export default function RecipeCard(props) {
         ":hover": { background: "#FFE4E1" },
       }}
     >
+    <OpenRecipe show={showEdit} {...props} close={() => setShowEdit(false)} />
       <CardActionArea>
         <CardMedia component="img" height="140" image={props.imagePath} />
         <CardContent>
