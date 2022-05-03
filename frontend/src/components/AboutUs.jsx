@@ -9,7 +9,7 @@ function AboutUs() {
             <h1>About Us</h1>
           </div>
           <div class="content">
-            <h3>We are Group 22 for COP4331 </h3>
+            <h3 style={{textAlign:"center"}}>We are Group 22 for COP4331 </h3>
             <p className="extraBold font60">
               Group 22 was founded in March 2022, when eight students of the COP4331-Spring22 class
               teamed up and opened a channel on Discord to create a MERN stack application focused
