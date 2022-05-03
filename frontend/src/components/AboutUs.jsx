@@ -1,17 +1,53 @@
-import React from 'react';
+import React from "react";
 import LoginImage from "../assets/img/Team_page.png";
-function AboutUs()
-{
-   return(
-    <div id="loginDiv">
-        <div class="leftPanel">
-            <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="Team" />
+function AboutUs() {
+  return (
+    <div class="section">
+      <div class="container">
+        <div class="content-section">
+          <div class="title">
+            <h1>About Us</h1>
+          </div>
+          <div class="content">
+            <h3>We are Group 22 for COP4331 </h3>
+            <p>
+              Group 22 was founded in March 2022, when eight students of the COP4331-Spring22 class
+              teamed up and opened a channel on Discord to create a MERN stack application focused
+              on Food as a central theme. As avid eaters and late-nighters, Group 22 took
+              inspiration from the COT4331 class to create their first MERN stack web and mobile
+              application.
+            </p>
+            {/* <div class="button">
+               <a href="">Read More</a>
+             </div> */}
+          </div>
+          <div class="social">
+            <a href="">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
         </div>
-        <div class="LoginText">
-            <h1>ABOUT US!!!!</h1>
+        <div class="image-section">
+          <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="Team" />
         </div>
+      </div>
     </div>
-   );
-};
+
+    // <div id="loginDiv">
+    //     <div class="leftPanel">
+    //         <img className="radius8" class="pictureSizeLogin" src={LoginImage} alt="Team" />
+    //     </div>
+    //     <div class="LoginText">
+    //         <h1>ABOUT US!!!!</h1>
+    //     </div>
+    // </div>
+  );
+}
 
 export default AboutUs;
